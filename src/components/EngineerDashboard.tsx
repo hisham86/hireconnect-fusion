@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -328,31 +329,53 @@ const EngineerDashboard = () => {
         
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Application Status</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div>
-                    <p className="text-2xl font-bold text-gray-800">{summaryData.applications}</p>
-                    <p className="text-sm text-gray-600">Applied</p>
+            {/* First column: Application Status and Timeline */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-medium">Application Status</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div>
+                      <p className="text-2xl font-bold text-gray-800">{summaryData.applications}</p>
+                      <p className="text-sm text-gray-600">Applied</p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-[#0EA5E9]">{summaryData.interviews}</p>
+                      <p className="text-sm text-gray-600">Interviews</p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-[#F97316]">{summaryData.offers}</p>
+                      <p className="text-sm text-gray-600">Offers</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-[#0EA5E9]">{summaryData.interviews}</p>
-                    <p className="text-sm text-gray-600">Interviews</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-medium">Timeline</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex items-center">
+                      <Clock className="w-5 h-5 text-gray-500 mr-2" />
+                      <p className="text-sm">Avg Response: <span className="font-medium">{summaryData.avgResponseTime}</span></p>
+                    </div>
+                    <div className="flex items-center">
+                      <Calendar className="w-5 h-5 text-gray-500 mr-2" />
+                      <p className="text-sm">Next Interview: <span className="font-medium">Tomorrow, 2PM</span></p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-[#F97316]">{summaryData.offers}</p>
-                    <p className="text-sm text-gray-600">Offers</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
             
+            {/* Second column: Salary */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Salary & Location</CardTitle>
+                <CardTitle className="text-lg font-medium">Salary</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -449,55 +472,45 @@ const EngineerDashboard = () => {
                       )}
                     </div>
                   </div>
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-center">
-                      <HomeIcon className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Home Location: <span className="font-medium">{homeLocation}</span></p>
-                    </div>
-                    
-                    <div>
-                      <p className="text-sm mb-2">Preferred Job Nature:</p>
-                      <ToggleGroup 
-                        type="single" 
-                        className="justify-between border rounded-md p-1"
-                        value={jobNaturePreference}
-                        onValueChange={(value) => {
-                          if (value) setJobNaturePreference(value);
-                        }}
-                      >
-                        <ToggleGroupItem value="remote" className="flex-1 text-xs" aria-label="Remote">
-                          <Wifi className="w-4 h-4 mr-1" />
-                          Remote
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="hybrid" className="flex-1 text-xs" aria-label="Hybrid">
-                          <Laptop className="w-4 h-4 mr-1" />
-                          Hybrid
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="onsite" className="flex-1 text-xs" aria-label="On-Premise">
-                          <Building className="w-4 h-4 mr-1" />
-                          On-site
-                        </ToggleGroupItem>
-                      </ToggleGroup>
-                    </div>
-                  </div>
                 </div>
               </CardContent>
             </Card>
             
+            {/* Third column: Location */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Timeline</CardTitle>
+                <CardTitle className="text-lg font-medium">Location</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <div className="flex items-center">
-                    <Clock className="w-5 h-5 text-gray-500 mr-2" />
-                    <p className="text-sm">Avg Response: <span className="font-medium">{summaryData.avgResponseTime}</span></p>
+                    <HomeIcon className="w-5 h-5 text-gray-500 mr-2" />
+                    <p className="text-sm">Home Location: <span className="font-medium">{homeLocation}</span></p>
                   </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-5 h-5 text-gray-500 mr-2" />
-                    <p className="text-sm">Next Interview: <span className="font-medium">Tomorrow, 2PM</span></p>
+                  
+                  <div>
+                    <p className="text-sm mb-2">Preferred Job Nature:</p>
+                    <ToggleGroup 
+                      type="single" 
+                      className="justify-between border rounded-md p-1"
+                      value={jobNaturePreference}
+                      onValueChange={(value) => {
+                        if (value) setJobNaturePreference(value);
+                      }}
+                    >
+                      <ToggleGroupItem value="remote" className="flex-1 text-xs" aria-label="Remote">
+                        <Wifi className="w-4 h-4 mr-1" />
+                        Remote
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="hybrid" className="flex-1 text-xs" aria-label="Hybrid">
+                        <Laptop className="w-4 h-4 mr-1" />
+                        Hybrid
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="onsite" className="flex-1 text-xs" aria-label="On-Premise">
+                        <Building className="w-4 h-4 mr-1" />
+                        On-site
+                      </ToggleGroupItem>
+                    </ToggleGroup>
                   </div>
                 </div>
               </CardContent>
