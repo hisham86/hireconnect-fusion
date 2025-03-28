@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import WaitlistDialog from '@/components/WaitlistDialog';
 
@@ -54,7 +55,7 @@ const Hero = () => {
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm text-white/60">Preferred Location</p>
-                  <p className="font-medium">Remote, US Timezone</p>
+                  <p className="font-medium">Kuala Lumpur, Malaysia Timezone</p>
                 </div>
               </div>
             </div>
