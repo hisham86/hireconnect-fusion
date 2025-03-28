@@ -1,5 +1,5 @@
 
-import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube, BarChart, Phone, Whatsapp } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube, BarChart, Phone, WhatsApp } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -30,7 +30,7 @@ const Footer = () => {
                 <Coffee size={20} />
               </a>
               <a href="https://wa.me/60122803585" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="WhatsApp">
-                <Whatsapp size={20} />
+                <WhatsApp size={20} />
               </a>
               <a href="tel:+60122803585" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Phone">
                 <Phone size={20} />
@@ -73,7 +73,7 @@ const Footer = () => {
                 +6012-280-3585
               </a></li>
               <li><a href="https://wa.me/60122803585" className="text-gray-400 hover:text-white transition-colors flex items-center gap-1">
-                <Whatsapp size={16} />
+                <WhatsApp size={16} />
                 WhatsApp
               </a></li>
             </ul>
