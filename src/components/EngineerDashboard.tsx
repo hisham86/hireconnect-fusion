@@ -2,15 +2,26 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
   const [salaryDisplayMode, setSalaryDisplayMode] = useState<"annual" | "monthly">("monthly");
+  const [currentSalary, setCurrentSalary] = useState("RM120,000");
+  const [expectedSalary, setExpectedSalary] = useState("RM150,000");
+  const [isVerified, setIsVerified] = useState(true);
+  const [isEditingCurrentSalary, setIsEditingCurrentSalary] = useState(false);
+  const [isEditingExpectedSalary, setIsEditingExpectedSalary] = useState(false);
+  const [tempCurrentSalary, setTempCurrentSalary] = useState(currentSalary);
+  const [tempExpectedSalary, setTempExpectedSalary] = useState(expectedSalary);
   
   const summaryData = {
     applications: 14,
@@ -260,6 +271,16 @@ const EngineerDashboard = () => {
     return "bg-gray-100 text-gray-800";
   };
 
+  const handleSaveCurrentSalary = () => {
+    setCurrentSalary(tempCurrentSalary);
+    setIsEditingCurrentSalary(false);
+  };
+
+  const handleSaveExpectedSalary = () => {
+    setExpectedSalary(tempExpectedSalary);
+    setIsEditingExpectedSalary(false);
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -299,11 +320,101 @@ const EngineerDashboard = () => {
                 <CardTitle className="text-lg font-medium">Salary & Location</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  <div className="flex items-center">
-                    <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
-                    <p className="text-sm">Avg Offer: <span className="font-medium">{summaryData.averageSalary}</span></p>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
+                      <p className="text-sm">Avg Offer: <span className="font-medium">{summaryData.averageSalary}</span></p>
+                    </div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                            Above Average
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Your expected salary is above the market average!</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
+                  
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
+                        <p className="text-sm">Current Salary:</p>
+                      </div>
+                      {!isEditingCurrentSalary ? (
+                        <div className="flex items-center">
+                          <span className="font-medium mr-1">{currentSalary}</span>
+                          {isVerified && <BadgeCheck className="h-4 w-4 text-blue-500" />}
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 ml-1"
+                            onClick={() => setIsEditingCurrentSalary(true)}
+                          >
+                            <PencilIcon className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            className="h-7 w-32 text-sm"
+                            value={tempCurrentSalary}
+                            onChange={(e) => setTempCurrentSalary(e.target.value)}
+                          />
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 px-2 py-1 text-xs"
+                            onClick={handleSaveCurrentSalary}
+                          >
+                            Save
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
+                        <p className="text-sm">Expected Salary:</p>
+                      </div>
+                      {!isEditingExpectedSalary ? (
+                        <div className="flex items-center">
+                          <span className="font-medium mr-1">{expectedSalary}</span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 ml-1"
+                            onClick={() => setIsEditingExpectedSalary(true)}
+                          >
+                            <PencilIcon className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            className="h-7 w-32 text-sm"
+                            value={tempExpectedSalary}
+                            onChange={(e) => setTempExpectedSalary(e.target.value)}
+                          />
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 px-2 py-1 text-xs"
+                            onClick={handleSaveExpectedSalary}
+                          >
+                            Save
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
                   <div className="flex items-center">
                     <MapPin className="w-5 h-5 text-gray-500 mr-2" />
                     <p className="text-sm">Top Location: <span className="font-medium">{summaryData.topLocation}</span></p>
