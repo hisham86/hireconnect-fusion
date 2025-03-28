@@ -1,4 +1,3 @@
-
 import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube } from "lucide-react";
 
 const Footer = () => {
@@ -14,7 +13,7 @@ const Footer = () => {
               Bridging the gap between engineers and talent acquisition teams with a unified platform.
             </p>
             <div className="flex space-x-4">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="GitHub">
+              <a href="https://github.com/hisham86" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="GitHub">
                 <Github size={20} />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Twitter">
