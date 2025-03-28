@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="text-2xl font-bold text-brand-primary">
-            HireConnect<span className="text-brand-secondary">Fusion</span>
+            Cato<span className="text-brand-secondary">Hub</span>
           </a>
         </div>
 
