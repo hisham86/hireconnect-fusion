@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -11,6 +11,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
@@ -22,6 +24,26 @@ const EngineerDashboard = () => {
   const [isEditingExpectedSalary, setIsEditingExpectedSalary] = useState(false);
   const [tempCurrentSalary, setTempCurrentSalary] = useState(currentSalary);
   const [tempExpectedSalary, setTempExpectedSalary] = useState(expectedSalary);
+  const [homeLocation, setHomeLocation] = useState("Detecting location...");
+  const [jobNaturePreference, setJobNaturePreference] = useState("remote");
+  
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude.toFixed(4);
+          const longitude = position.coords.longitude.toFixed(4);
+          setHomeLocation(`${latitude}, ${longitude}`);
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          setHomeLocation("Location detection failed");
+        }
+      );
+    } else {
+      setHomeLocation("Geolocation not supported");
+    }
+  }, []);
   
   const summaryData = {
     applications: 14,
@@ -281,6 +303,19 @@ const EngineerDashboard = () => {
     setIsEditingExpectedSalary(false);
   };
 
+  const getJobNatureIcon = (type: string) => {
+    switch (type) {
+      case "remote":
+        return <Wifi className="h-4 w-4" />;
+      case "hybrid":
+        return <Laptop className="h-4 w-4" />;
+      case "onsite":
+        return <Building className="h-4 w-4" />;
+      default:
+        return <Wifi className="h-4 w-4" />;
+    }
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -415,9 +450,36 @@ const EngineerDashboard = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-center">
-                    <MapPin className="w-5 h-5 text-gray-500 mr-2" />
-                    <p className="text-sm">Top Location: <span className="font-medium">{summaryData.topLocation}</span></p>
+                  <div className="space-y-3">
+                    <div className="flex items-center">
+                      <HomeIcon className="w-5 h-5 text-gray-500 mr-2" />
+                      <p className="text-sm">Home Location: <span className="font-medium">{homeLocation}</span></p>
+                    </div>
+                    
+                    <div>
+                      <p className="text-sm mb-2">Preferred Job Nature:</p>
+                      <ToggleGroup 
+                        type="single" 
+                        className="justify-between border rounded-md p-1"
+                        value={jobNaturePreference}
+                        onValueChange={(value) => {
+                          if (value) setJobNaturePreference(value);
+                        }}
+                      >
+                        <ToggleGroupItem value="remote" className="flex-1 text-xs" aria-label="Remote">
+                          <Wifi className="w-4 h-4 mr-1" />
+                          Remote
+                        </ToggleGroupItem>
+                        <ToggleGroupItem value="hybrid" className="flex-1 text-xs" aria-label="Hybrid">
+                          <Laptop className="w-4 h-4 mr-1" />
+                          Hybrid
+                        </ToggleGroupItem>
+                        <ToggleGroupItem value="onsite" className="flex-1 text-xs" aria-label="On-Premise">
+                          <Building className="w-4 h-4 mr-1" />
+                          On-site
+                        </ToggleGroupItem>
+                      </ToggleGroup>
+                    </div>
                   </div>
                 </div>
               </CardContent>
