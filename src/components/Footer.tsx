@@ -1,5 +1,5 @@
 
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -14,17 +14,20 @@ const Footer = () => {
               Bridging the gap between engineers and talent acquisition teams with a unified platform.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-brand-primary transition-colors">
-                <Facebook size={20} />
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="GitHub">
+                <Github size={20} />
               </a>
-              <a href="#" className="hover:text-brand-primary transition-colors">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="hover:text-brand-primary transition-colors">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="hover:text-brand-primary transition-colors">
-                <Instagram size={20} />
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="YouTube">
+                <Youtube size={20} />
+              </a>
+              <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Buy Me a Coffee">
+                <Coffee size={20} />
               </a>
             </div>
           </div>
