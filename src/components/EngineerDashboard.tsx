@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -492,22 +491,23 @@ const EngineerDashboard = () => {
                     <p className="text-sm mb-2">Preferred Job Nature:</p>
                     <ToggleGroup 
                       type="single" 
-                      className="justify-between border rounded-md p-1"
+                      className="border rounded-md p-1"
                       value={jobNaturePreference}
+                      orientation="vertical"
                       onValueChange={(value) => {
                         if (value) setJobNaturePreference(value);
                       }}
                     >
-                      <ToggleGroupItem value="remote" className="flex-1 text-xs" aria-label="Remote">
-                        <Wifi className="w-4 h-4 mr-1" />
+                      <ToggleGroupItem value="remote" className="flex justify-start text-sm py-2" aria-label="Remote">
+                        <Wifi className="w-4 h-4 mr-2" />
                         Remote
                       </ToggleGroupItem>
-                      <ToggleGroupItem value="hybrid" className="flex-1 text-xs" aria-label="Hybrid">
-                        <Laptop className="w-4 h-4 mr-1" />
+                      <ToggleGroupItem value="hybrid" className="flex justify-start text-sm py-2" aria-label="Hybrid">
+                        <Laptop className="w-4 h-4 mr-2" />
                         Hybrid
                       </ToggleGroupItem>
-                      <ToggleGroupItem value="onsite" className="flex-1 text-xs" aria-label="On-Premise">
-                        <Building className="w-4 h-4 mr-1" />
+                      <ToggleGroupItem value="onsite" className="flex justify-start text-sm py-2" aria-label="On-Premise">
+                        <Building className="w-4 h-4 mr-2" />
                         On-site
                       </ToggleGroupItem>
                     </ToggleGroup>
