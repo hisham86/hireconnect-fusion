@@ -16,7 +16,7 @@ const Footer = () => {
               <a href="https://career-spotlight-portfolio.lovable.app/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Portfolio Website">
                 <Github size={20} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Twitter">
+              <a href="https://x.com/Solo_Level_27" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
               <a href="https://www.linkedin.com/in/hisham86" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="LinkedIn">
