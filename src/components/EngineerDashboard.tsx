@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, StarHalf, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, PlusIcon, Mail, Phone } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, StarHalf, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, PlusIcon, Mail, Phone, Github, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -37,6 +37,18 @@ const EngineerDashboard = () => {
   const [allJobsData, setAllJobsData] = useState<any[]>([]);
   const [activeJobsData, setActiveJobsData] = useState<any[]>([]);
   const [suitableJobsData, setSuitableJobsData] = useState<any[]>([]);
+  
+  const [githubUrl, setGithubUrl] = useState("https://github.com/developer123");
+  const [isEditingGithubUrl, setIsEditingGithubUrl] = useState(false);
+  const [tempGithubUrl, setTempGithubUrl] = useState(githubUrl);
+  
+  const programmingLanguages = [
+    { name: "JavaScript", color: "#F7DF1E", icon: "js" },
+    { name: "TypeScript", color: "#3178C6", icon: "ts" },
+    { name: "React", color: "#61DAFB", icon: "react" },
+    { name: "Node.js", color: "#339933", icon: "node" },
+    { name: "Python", color: "#3776AB", icon: "py" }
+  ];
   
   const malaysianLocations = [
     "Kuala Lumpur", "Petaling Jaya", "Shah Alam", "Subang Jaya", "Klang",
@@ -555,6 +567,11 @@ const EngineerDashboard = () => {
     );
   };
 
+  const handleSaveGithubUrl = () => {
+    setGithubUrl(tempGithubUrl);
+    setIsEditingGithubUrl(false);
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -706,6 +723,77 @@ const EngineerDashboard = () => {
                           </Button>
                         </div>
                       )}
+                    </div>
+                  </div>
+                  
+                  <div className="pt-3 border-t border-gray-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center">
+                        <Github className="w-5 h-5 text-gray-800 mr-2" />
+                        <p className="text-sm">GitHub Profile:</p>
+                      </div>
+                      {!isEditingGithubUrl ? (
+                        <div className="flex items-center">
+                          <a 
+                            href={githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-medium text-blue-600 hover:underline flex items-center mr-1"
+                          >
+                            {githubUrl.replace('https://github.com/', '@')}
+                            <ExternalLink className="h-3 w-3 ml-1" />
+                          </a>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 ml-1"
+                            onClick={() => setIsEditingGithubUrl(true)}
+                          >
+                            <PencilIcon className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            className="h-7 w-48 text-sm"
+                            value={tempGithubUrl}
+                            onChange={(e) => setTempGithubUrl(e.target.value)}
+                            placeholder="https://github.com/username"
+                          />
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 px-2 py-1 text-xs"
+                            onClick={handleSaveGithubUrl}
+                          >
+                            Save
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <div className="flex items-center mr-1">
+                        <Code className="w-4 h-4 text-gray-800 mr-1" />
+                        <span className="text-xs text-gray-600">Languages:</span>
+                      </div>
+                      {programmingLanguages.map((lang, index) => (
+                        <TooltipProvider key={index}>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div 
+                                className="w-6 h-6 flex items-center justify-center rounded-full text-white text-xs font-bold"
+                                style={{ backgroundColor: lang.color }}
+                              >
+                                {lang.icon}
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{lang.name}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      ))}
                     </div>
                   </div>
                 </div>
