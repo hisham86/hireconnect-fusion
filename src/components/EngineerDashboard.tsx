@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, Bus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -74,7 +74,12 @@ const EngineerDashboard = () => {
       role: "Senior Frontend Engineer", 
       status: "2. Interview Scheduled", 
       annualSalary: "RM135k-150k", 
-      monthlySalary: "RM11.3k-12.5k", 
+      monthlySalary: "RM11.3k-12.5k",
+      location: "Hybrid (KL)",
+      transportTime: {
+        car: "35-45 min",
+        public: "55-65 min"
+      },
       applied: "2 days ago" 
     },
     { 
@@ -90,7 +95,12 @@ const EngineerDashboard = () => {
       role: "Full Stack Developer", 
       status: "1. Application Submitted", 
       annualSalary: "RM120k-140k", 
-      monthlySalary: "RM10k-11.7k", 
+      monthlySalary: "RM10k-11.7k",
+      location: "Remote (MY)",
+      transportTime: {
+        car: "N/A",
+        public: "N/A"
+      },
       applied: "5 days ago" 
     },
     { 
@@ -106,7 +116,12 @@ const EngineerDashboard = () => {
       role: "React Engineer", 
       status: "3. Technical Test", 
       annualSalary: "RM125k-145k", 
-      monthlySalary: "RM10.4k-12.1k", 
+      monthlySalary: "RM10.4k-12.1k",
+      location: "On-site (Cyberjaya)",
+      transportTime: {
+        car: "25-35 min",
+        public: "45-55 min"
+      },
       applied: "1 week ago" 
     },
   ];
@@ -126,7 +141,11 @@ const EngineerDashboard = () => {
       match: "95%", 
       annualSalary: "RM140k-160k", 
       monthlySalary: "RM11.7k-13.3k", 
-      location: "Hybrid (KL)" 
+      location: "Hybrid (KL)",
+      transportTime: {
+        car: "30-40 min",
+        public: "50-60 min"
+      }
     },
     { 
       id: 5, 
@@ -142,7 +161,11 @@ const EngineerDashboard = () => {
       match: "92%", 
       annualSalary: "RM130k-150k", 
       monthlySalary: "RM10.8k-12.5k", 
-      location: "Hybrid (KL)" 
+      location: "Hybrid (KL)",
+      transportTime: {
+        car: "40-50 min",
+        public: "60-70 min"
+      }
     },
     { 
       id: 6, 
@@ -158,7 +181,11 @@ const EngineerDashboard = () => {
       match: "89%", 
       annualSalary: "RM125k-145k", 
       monthlySalary: "RM10.4k-12.1k", 
-      location: "On-site (Bandar Sunway)" 
+      location: "On-site (Bandar Sunway)",
+      transportTime: {
+        car: "20-30 min",
+        public: "40-50 min"
+      }
     },
   ];
   
@@ -179,7 +206,11 @@ const EngineerDashboard = () => {
       applied: false, 
       annualSalary: "RM115k-135k", 
       monthlySalary: "RM9.6k-11.3k", 
-      location: "On-site (KL)" 
+      location: "On-site (KL)",
+      transportTime: {
+        car: "45-55 min",
+        public: "65-75 min"
+      }
     },
   ];
 
@@ -326,6 +357,25 @@ const EngineerDashboard = () => {
     setHomeLocation(value);
   };
 
+  const renderTransportTime = (job: any) => {
+    if (job.location.includes("Remote")) {
+      return <span className="text-sm text-gray-500">N/A (Remote)</span>;
+    }
+
+    return (
+      <div className="space-y-1">
+        <div className="flex items-center gap-1">
+          <Car className="h-4 w-4 text-blue-500" />
+          <span className="text-sm">{job.transportTime.car}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Bus className="h-4 w-4 text-green-500" />
+          <span className="text-sm">{job.transportTime.public}</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -338,7 +388,6 @@ const EngineerDashboard = () => {
         
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {/* First column: Application Status and Timeline */}
             <div className="space-y-6">
               <Card>
                 <CardHeader className="pb-2">
@@ -381,7 +430,6 @@ const EngineerDashboard = () => {
               </Card>
             </div>
             
-            {/* Second column: Salary */}
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg font-medium">Salary</CardTitle>
@@ -485,7 +533,6 @@ const EngineerDashboard = () => {
               </CardContent>
             </Card>
             
-            {/* Third column: Location */}
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg font-medium">Location</CardTitle>
@@ -566,6 +613,12 @@ const EngineerDashboard = () => {
                       <TableHead>Role</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
+                      <TableHead>
+                        <div className="flex items-center">
+                          <Clock className="mr-1 h-4 w-4 text-primary" />
+                          <span>Transport Time</span>
+                        </div>
+                      </TableHead>
                       <TableHead>Applied</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
@@ -581,6 +634,7 @@ const EngineerDashboard = () => {
                           </span>
                         </TableCell>
                         <TableCell>{getSalaryDisplay(job)}</TableCell>
+                        <TableCell>{renderTransportTime(job)}</TableCell>
                         <TableCell>{job.applied}</TableCell>
                         <TableCell>
                           <Button 
@@ -606,6 +660,12 @@ const EngineerDashboard = () => {
                       <TableHead>Match</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
                       <TableHead>Location</TableHead>
+                      <TableHead>
+                        <div className="flex items-center">
+                          <Clock className="mr-1 h-4 w-4 text-primary" />
+                          <span>Transport Time</span>
+                        </div>
+                      </TableHead>
                       <TableHead></TableHead>
                     </TableRow>
                   </TableHeader>
@@ -621,6 +681,7 @@ const EngineerDashboard = () => {
                         </TableCell>
                         <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>{job.location}</TableCell>
+                        <TableCell>{renderTransportTime(job)}</TableCell>
                         <TableCell>
                           {renderApplyButton(false)}
                         </TableCell>
@@ -637,6 +698,13 @@ const EngineerDashboard = () => {
                       <TableHead>Company</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
+                      <TableHead>Location</TableHead>
+                      <TableHead>
+                        <div className="flex items-center">
+                          <Clock className="mr-1 h-4 w-4 text-primary" />
+                          <span>Transport Time</span>
+                        </div>
+                      </TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
@@ -647,6 +715,8 @@ const EngineerDashboard = () => {
                         <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>{getSalaryDisplay(job)}</TableCell>
+                        <TableCell>{job.location}</TableCell>
+                        <TableCell>{renderTransportTime(job)}</TableCell>
                         <TableCell>
                           {job.applied ? (
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
