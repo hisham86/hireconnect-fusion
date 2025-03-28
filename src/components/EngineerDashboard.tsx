@@ -368,7 +368,13 @@ const EngineerDashboard = () => {
                         <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>{job.applied}</TableCell>
                         <TableCell>
-                          <Button variant="ghost" size="sm">View Details</Button>
+                          <Button 
+                            variant="secondary" 
+                            size="sm" 
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 text-white font-medium transition-all duration-300 hover:shadow-md hover:scale-105"
+                          >
+                            View Details <ArrowUpRightIcon className="ml-1 h-4 w-4" />
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
