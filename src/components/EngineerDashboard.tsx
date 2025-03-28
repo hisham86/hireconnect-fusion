@@ -191,6 +191,25 @@ const EngineerDashboard = () => {
     );
   };
 
+  const renderSalaryHeader = () => {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div onClick={toggleSalaryDisplay} className="flex items-center cursor-pointer hover:bg-gray-100 px-2 py-1 rounded transition-colors">
+              <DollarSign className="mr-1 h-4 w-4 text-primary" />
+              <span>Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}</span>
+              <ArrowUpDown className="ml-2 h-4 w-4 text-gray-500" />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Click to toggle between annual and monthly salary</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -286,12 +305,7 @@ const EngineerDashboard = () => {
                       <TableHead>Company</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>Status</TableHead>
-                      <TableHead onClick={toggleSalaryDisplay} className="cursor-pointer hover:bg-gray-100">
-                        <div className="flex items-center">
-                          Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}
-                          <ArrowUpDown className="ml-2 h-4 w-4" />
-                        </div>
-                      </TableHead>
+                      <TableHead>{renderSalaryHeader()}</TableHead>
                       <TableHead>Applied</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
@@ -327,12 +341,7 @@ const EngineerDashboard = () => {
                       <TableHead>Company</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>Match</TableHead>
-                      <TableHead onClick={toggleSalaryDisplay} className="cursor-pointer hover:bg-gray-100">
-                        <div className="flex items-center">
-                          Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}
-                          <ArrowUpDown className="ml-2 h-4 w-4" />
-                        </div>
-                      </TableHead>
+                      <TableHead>{renderSalaryHeader()}</TableHead>
                       <TableHead>Location</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
@@ -364,12 +373,7 @@ const EngineerDashboard = () => {
                     <TableRow>
                       <TableHead>Company</TableHead>
                       <TableHead>Role</TableHead>
-                      <TableHead onClick={toggleSalaryDisplay} className="cursor-pointer hover:bg-gray-100">
-                        <div className="flex items-center">
-                          Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}
-                          <ArrowUpDown className="ml-2 h-4 w-4" />
-                        </div>
-                      </TableHead>
+                      <TableHead>{renderSalaryHeader()}</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
