@@ -1,4 +1,5 @@
-import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube } from "lucide-react";
+
+import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube, BarChart } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -57,7 +58,10 @@ const Footer = () => {
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Press</a></li>
+              <li><a href="/analytics" className="text-gray-400 hover:text-white transition-colors flex items-center gap-1">
+                <BarChart size={16} />
+                Analytics
+              </a></li>
             </ul>
           </div>
         </div>
