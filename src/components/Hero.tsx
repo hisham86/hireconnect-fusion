@@ -19,7 +19,7 @@ const Hero = () => {
               <Button size="lg" variant="secondary" className="bg-white text-brand-primary hover:bg-gray-100 w-full sm:w-auto">
                 JOIN THE WAITLIST <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <p className="font-medium text-brand-light mt-2">Be the First</p>
+              <p className="font-medium text-brand-light mt-2 text-center sm:text-left sm:pl-4">Be the First</p>
             </div>
           </div>
           <div className="relative animate-float hidden md:block">
