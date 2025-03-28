@@ -15,12 +15,10 @@ const Hero = () => {
               Streamline hiring with a single platform that connects engineers and talent acquisition teams, 
               eliminating back-and-forth and accelerating the hiring process.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" variant="secondary" className="bg-white text-brand-primary hover:bg-gray-100">
-                Get Started <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button size="lg" variant="outline" className="text-white border-white/30 hover:bg-white/10">
-                Book a Demo
+            <div className="flex flex-col gap-2">
+              <p className="font-medium text-brand-light">Be the First</p>
+              <Button size="lg" variant="secondary" className="bg-white text-brand-primary hover:bg-gray-100 w-full sm:w-auto">
+                JOIN THE WAITLIST <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
           </div>
