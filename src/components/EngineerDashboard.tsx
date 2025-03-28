@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -76,31 +75,31 @@ const EngineerDashboard = () => {
   const suitableJobs = [
     { 
       id: 4, 
-      company: "InnovateX", 
-      logoUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=250&h=250&auto=format&fit=crop",
-      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-InnovateX-EI_IE98765.htm",
-      rating: 4.4,
-      reviews: 167,
-      founded: 2017,
-      employees: "50-200",
-      description: "InnovateX builds cutting-edge web applications with a focus on user experience and modern technologies.",
-      role: "Frontend Lead", 
+      company: "Petronas", 
+      logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Petronas_2013_logo.svg/1200px-Petronas_2013_logo.svg.png",
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-PETRONAS-EI_IE14479.htm",
+      rating: 4.1,
+      reviews: 580,
+      founded: 1974,
+      employees: "10,000+",
+      description: "Petroliam Nasional Berhad (PETRONAS) is a Malaysian oil and gas company that was founded on August 17, 1974. Wholly owned by the Government of Malaysia, the corporation is vested with the entire oil and gas resources in Malaysia.",
+      role: "Frontend Engineer", 
       match: "95%", 
       annualSalary: "RM140k-160k", 
       monthlySalary: "RM11.7k-13.3k", 
-      location: "Remote" 
+      location: "Hybrid (KL)" 
     },
     { 
       id: 5, 
-      company: "FutureTech", 
-      logoUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=250&h=250&auto=format&fit=crop",
-      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-FutureTech-EI_IE24680.htm",
+      company: "Maybank", 
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Maybank.svg/2560px-Maybank.svg.png",
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-Maybank-EI_IE10306.htm",
       rating: 4.0,
-      reviews: 205,
-      founded: 2012,
-      employees: "200-500",
-      description: "FutureTech develops technology solutions for the financial sector with a focus on security and performance.",
-      role: "UI Engineer", 
+      reviews: 740,
+      founded: 1960,
+      employees: "20,000+",
+      description: "Malayan Banking Berhad (Maybank) is Malaysia's largest financial services group and the leading banking group in Southeast Asia, with a network of over 2,000 offices in 18 countries including all 10 ASEAN countries.",
+      role: "UI/UX Engineer", 
       match: "92%", 
       annualSalary: "RM130k-150k", 
       monthlySalary: "RM10.8k-12.5k", 
@@ -108,19 +107,19 @@ const EngineerDashboard = () => {
     },
     { 
       id: 6, 
-      company: "WebWizards", 
-      logoUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=250&h=250&auto=format&fit=crop",
-      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-WebWizards-EI_IE13579.htm",
-      rating: 4.3,
-      reviews: 147,
-      founded: 2014,
-      employees: "100-500",
-      description: "WebWizards creates custom web and mobile applications for clients across various industries.",
+      company: "Sunway Group", 
+      logoUrl: "https://www.sunway.com.my/wp-content/uploads/2020/06/cropped-sunway-favicon-512px.png",
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-Sunway-Group-EI_IE459830.htm",
+      rating: 4.2,
+      reviews: 320,
+      founded: 1974,
+      employees: "16,000+",
+      description: "Sunway Group is one of Malaysia's largest conglomerates with core interests in property, construction, education, healthcare, retail, hospitality, and digital technologies. Led by its founder and chairman Tan Sri Dr. Jeffrey Cheah.",
       role: "React Developer", 
       match: "89%", 
       annualSalary: "RM125k-145k", 
       monthlySalary: "RM10.4k-12.1k", 
-      location: "Remote" 
+      location: "On-site (Bandar Sunway)" 
     },
   ];
   
