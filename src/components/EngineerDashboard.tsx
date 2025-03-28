@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +11,6 @@ const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
   const [salaryDisplayMode, setSalaryDisplayMode] = useState<"annual" | "monthly">("annual");
   
-  // Sample data
   const summaryData = {
     applications: 14,
     interviews: 3,
@@ -22,7 +20,6 @@ const EngineerDashboard = () => {
     avgResponseTime: "2 days"
   };
   
-  // Updated job data with Glassdoor information
   const activeJobs = [
     { 
       id: 1, 
@@ -131,6 +128,7 @@ const EngineerDashboard = () => {
       founded: 2013,
       employees: "100-500",
       description: "CodeMasters offers software development services specializing in custom enterprise solutions.",
+      role: "Senior Backend Developer",
       applied: false, 
       annualSalary: "RM115k-135k", 
       monthlySalary: "RM9.6k-11.3k", 
@@ -138,17 +136,14 @@ const EngineerDashboard = () => {
     },
   ];
 
-  // Toggle between annual and monthly salary display
   const toggleSalaryDisplay = () => {
     setSalaryDisplayMode(prev => prev === "annual" ? "monthly" : "annual");
   };
 
-  // Helper function to get the correct salary based on current display mode
   const getSalaryDisplay = (job: any) => {
     return salaryDisplayMode === "annual" ? job.annualSalary : job.monthlySalary;
   };
 
-  // Render company name with Glassdoor link and hover preview
   const renderCompanyCell = (job: any) => {
     return (
       <HoverCard>
@@ -207,7 +202,6 @@ const EngineerDashboard = () => {
         </div>
         
         <div className="max-w-6xl mx-auto">
-          {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card>
               <CardHeader className="pb-2">
@@ -268,7 +262,6 @@ const EngineerDashboard = () => {
             </Card>
           </div>
           
-          {/* Tabs */}
           <Card className="overflow-hidden">
             <Tabs defaultValue="active" className="w-full" onValueChange={setActiveTab}>
               <TabsList className="w-full grid grid-cols-3 rounded-none border-b">
