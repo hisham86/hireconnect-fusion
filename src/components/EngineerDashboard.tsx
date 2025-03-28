@@ -33,7 +33,7 @@ const EngineerDashboard = () => {
       employees: "201-500",
       description: "Setel is Malaysia's first e-payment solution that seamlessly integrates fuel payments with retail offerings and provides a unified experience at PETRONAS stations.",
       role: "Senior Frontend Engineer", 
-      status: "Interview Scheduled", 
+      status: "2. Interview Scheduled", 
       annualSalary: "RM135k-150k", 
       monthlySalary: "RM11.3k-12.5k", 
       applied: "2 days ago" 
@@ -49,7 +49,7 @@ const EngineerDashboard = () => {
       employees: "51-200",
       description: "Pandai is an education technology company that provides personalized learning solutions for K-12 students in Malaysia, focusing on AI-driven educational tools.",
       role: "Full Stack Developer", 
-      status: "Application Submitted", 
+      status: "1. Application Submitted", 
       annualSalary: "RM120k-140k", 
       monthlySalary: "RM10k-11.7k", 
       applied: "5 days ago" 
@@ -65,7 +65,7 @@ const EngineerDashboard = () => {
       employees: "11-50",
       description: "Decube is a Malaysian tech startup specializing in blockchain and decentralized finance (DeFi) solutions for the Southeast Asian market.",
       role: "React Engineer", 
-      status: "Technical Test", 
+      status: "3. Technical Test", 
       annualSalary: "RM125k-145k", 
       monthlySalary: "RM10.4k-12.1k", 
       applied: "1 week ago" 
@@ -252,6 +252,14 @@ const EngineerDashboard = () => {
     );
   };
 
+  const getStatusColor = (status: string) => {
+    if (status.includes("1. Application")) return "bg-gray-100 text-gray-800";
+    if (status.includes("2. Interview")) return "bg-green-100 text-green-800";
+    if (status.includes("3. Technical")) return "bg-blue-100 text-blue-800";
+    if (status.includes("4. Final Offer")) return "bg-purple-100 text-purple-800";
+    return "bg-gray-100 text-gray-800";
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -358,10 +366,7 @@ const EngineerDashboard = () => {
                         <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                            ${job.status === "Interview Scheduled" ? "bg-green-100 text-green-800" : 
-                            job.status === "Technical Test" ? "bg-blue-100 text-blue-800" : 
-                            "bg-gray-100 text-gray-800"}`}>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
                             {job.status}
                           </span>
                         </TableCell>
