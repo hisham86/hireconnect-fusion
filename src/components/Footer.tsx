@@ -1,5 +1,5 @@
-
-import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube, BarChart, Phone, WhatsApp } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube, BarChart, Phone } from "lucide-react";
+import { WhatsApp } from "lucide-react";
 
 const Footer = () => {
   return (
