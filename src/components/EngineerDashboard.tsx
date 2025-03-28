@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,6 +28,8 @@ const EngineerDashboard = () => {
   const [tempExpectedSalary, setTempExpectedSalary] = useState(expectedSalary);
   const [homeLocation, setHomeLocation] = useState("Detecting location...");
   const [jobNaturePreference, setJobNaturePreference] = useState("remote");
+  const [sortColumn, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   
   const malaysianLocations = [
     "Kuala Lumpur", "Petaling Jaya", "Shah Alam", "Subang Jaya", "Klang",
@@ -80,6 +83,7 @@ const EngineerDashboard = () => {
         car: "35-45 min",
         public: "55-65 min"
       },
+      commuteMinutes: 40, // Average commute time in minutes
       applied: "2 days ago" 
     },
     { 
@@ -101,6 +105,7 @@ const EngineerDashboard = () => {
         car: "N/A",
         public: "N/A"
       },
+      commuteMinutes: 0, // Remote job
       applied: "5 days ago" 
     },
     { 
@@ -122,6 +127,7 @@ const EngineerDashboard = () => {
         car: "25-35 min",
         public: "45-55 min"
       },
+      commuteMinutes: 30, // Average commute time in minutes
       applied: "1 week ago" 
     },
   ];
@@ -145,7 +151,8 @@ const EngineerDashboard = () => {
       transportTime: {
         car: "30-40 min",
         public: "50-60 min"
-      }
+      },
+      commuteMinutes: 35, // Average commute time in minutes
     },
     { 
       id: 5, 
@@ -165,7 +172,8 @@ const EngineerDashboard = () => {
       transportTime: {
         car: "40-50 min",
         public: "60-70 min"
-      }
+      },
+      commuteMinutes: 45, // Average commute time in minutes
     },
     { 
       id: 6, 
@@ -185,7 +193,8 @@ const EngineerDashboard = () => {
       transportTime: {
         car: "20-30 min",
         public: "40-50 min"
-      }
+      },
+      commuteMinutes: 25, // Average commute time in minutes
     },
   ];
   
@@ -210,7 +219,8 @@ const EngineerDashboard = () => {
       transportTime: {
         car: "45-55 min",
         public: "65-75 min"
-      }
+      },
+      commuteMinutes: 50, // Average commute time in minutes
     },
   ];
 
@@ -220,6 +230,41 @@ const EngineerDashboard = () => {
 
   const getSalaryDisplay = (job: any) => {
     return salaryDisplayMode === "annual" ? job.annualSalary : job.monthlySalary;
+  };
+
+  const handleSort = (column: string) => {
+    // If clicking on the same column, toggle direction
+    if (sortColumn === column) {
+      setSortDirection(prev => prev === "asc" ? "desc" : "asc");
+    } else {
+      // New column, set it as the sort column with default ascending direction
+      setSortColumn(column);
+      setSortDirection("asc");
+    }
+  };
+
+  const getSortedJobs = (jobs: any[]) => {
+    if (!sortColumn) return jobs;
+
+    return [...jobs].sort((a, b) => {
+      let valueA, valueB;
+
+      if (sortColumn === 'commuteTime') {
+        valueA = a.commuteMinutes || 0;
+        valueB = b.commuteMinutes || 0;
+      } else if (sortColumn === 'salary') {
+        // Extract numeric values from salary strings for sorting
+        valueA = parseFloat(a.monthlySalary?.replace(/[^0-9.]/g, '') || 0);
+        valueB = parseFloat(b.monthlySalary?.replace(/[^0-9.]/g, '') || 0);
+      } else {
+        valueA = a[sortColumn];
+        valueB = b[sortColumn];
+      }
+
+      if (valueA < valueB) return sortDirection === 'asc' ? -1 : 1;
+      if (valueA > valueB) return sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
   };
 
   const renderCompanyCell = (job: any) => {
@@ -284,14 +329,42 @@ const EngineerDashboard = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <div onClick={toggleSalaryDisplay} className="flex items-center cursor-pointer hover:bg-gray-100 px-2 py-1 rounded transition-colors">
+            <div 
+              onClick={() => {
+                toggleSalaryDisplay();
+                handleSort('salary');
+              }} 
+              className="flex items-center cursor-pointer hover:bg-gray-100 px-2 py-1 rounded transition-colors"
+            >
               <DollarSign className="mr-1 h-4 w-4 text-primary" />
               <span>Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}</span>
-              <ArrowUpDown className="ml-2 h-4 w-4 text-gray-500" />
+              <ArrowUpDown className={`ml-2 h-4 w-4 ${sortColumn === 'salary' ? 'text-primary' : 'text-gray-500'}`} />
             </div>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Click to toggle between annual and monthly salary</p>
+            <p>Click to toggle between annual and monthly salary or sort</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  };
+
+  const renderCommuteTimeHeader = () => {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div 
+              onClick={() => handleSort('commuteTime')} 
+              className="flex items-center cursor-pointer hover:bg-gray-100 px-2 py-1 rounded transition-colors"
+            >
+              <Clock className="mr-1 h-4 w-4 text-primary" />
+              <span>Transport Time</span>
+              <ArrowUpDown className={`ml-2 h-4 w-4 ${sortColumn === 'commuteTime' ? 'text-primary' : 'text-gray-500'}`} />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Click to sort by commute time</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -607,18 +680,13 @@ const EngineerDashboard = () => {
                       <TableHead>Role</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
-                      <TableHead>
-                        <div className="flex items-center">
-                          <Clock className="mr-1 h-4 w-4 text-primary" />
-                          <span>Transport Time</span>
-                        </div>
-                      </TableHead>
+                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
                       <TableHead>Applied</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {activeJobs.map((job) => (
+                    {getSortedJobs(activeJobs).map((job) => (
                       <TableRow key={job.id}>
                         <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
@@ -654,17 +722,12 @@ const EngineerDashboard = () => {
                       <TableHead>Match</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
                       <TableHead>Location</TableHead>
-                      <TableHead>
-                        <div className="flex items-center">
-                          <Clock className="mr-1 h-4 w-4 text-primary" />
-                          <span>Transport Time</span>
-                        </div>
-                      </TableHead>
+                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {suitableJobs.map((job) => (
+                    {getSortedJobs(suitableJobs).map((job) => (
                       <TableRow key={job.id}>
                         <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
@@ -693,18 +756,13 @@ const EngineerDashboard = () => {
                       <TableHead>Role</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
                       <TableHead>Location</TableHead>
-                      <TableHead>
-                        <div className="flex items-center">
-                          <Clock className="mr-1 h-4 w-4 text-primary" />
-                          <span>Transport Time</span>
-                        </div>
-                      </TableHead>
+                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {allJobs.map((job) => (
+                    {getSortedJobs(allJobs).map((job) => (
                       <TableRow key={job.id}>
                         <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
