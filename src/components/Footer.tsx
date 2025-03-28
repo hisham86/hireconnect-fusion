@@ -19,7 +19,7 @@ const Footer = () => {
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/hisham86" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="YouTube">
