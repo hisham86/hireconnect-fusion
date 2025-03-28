@@ -19,7 +19,7 @@ const pricingPlans = [
   },
   {
     name: "Recruiter Basic",
-    price: "$99",
+    price: "MYR 99",
     period: "/month",
     description: "Essential tools for talent acquisition teams",
     features: [
