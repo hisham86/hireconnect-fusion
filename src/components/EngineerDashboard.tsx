@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -228,6 +228,24 @@ const EngineerDashboard = () => {
     );
   };
 
+  const renderApplyButton = (isApplied: boolean) => {
+    if (isApplied) {
+      return (
+        <Button variant="ghost" size="sm">View Details</Button>
+      );
+    }
+    
+    return (
+      <Button 
+        variant="default" 
+        size="sm" 
+        className="bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-secondary hover:to-brand-primary text-white font-medium transition-all duration-300 hover:shadow-md hover:scale-105"
+      >
+        Apply Now <ArrowUpRightIcon className="ml-1 h-4 w-4" />
+      </Button>
+    );
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -377,7 +395,7 @@ const EngineerDashboard = () => {
                         <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>{job.location}</TableCell>
                         <TableCell>
-                          <Button variant="ghost" size="sm">Apply Now</Button>
+                          {renderApplyButton(false)}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -414,9 +432,7 @@ const EngineerDashboard = () => {
                           )}
                         </TableCell>
                         <TableCell>
-                          <Button variant="ghost" size="sm">
-                            {job.applied ? "View Details" : "Apply Now"}
-                          </Button>
+                          {renderApplyButton(job.applied)}
                         </TableCell>
                       </TableRow>
                     ))}
