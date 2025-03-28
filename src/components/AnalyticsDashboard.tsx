@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { analyticsService } from "@/services/analyticsService";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import WaitlistTable from "./WaitlistTable";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8", "#82ca9d"];
 
@@ -14,25 +14,21 @@ const AnalyticsDashboard = () => {
   const [referrerData, setReferrerData] = useState<{ name: string; value: number }[]>([]);
   
   useEffect(() => {
-    // Get data from analytics service
     const uniqueCount = analyticsService.getUniqueVisitors();
     const totalViews = analyticsService.getTotalPageViews();
     
-    // Transform device data for the chart
     const deviceCounts = analyticsService.getVisitorsByDevice();
     const formattedDeviceData = Object.entries(deviceCounts).map(([name, value]) => ({
       name,
       value
     }));
     
-    // Transform browser data for the chart
     const browserCounts = analyticsService.getVisitorsByBrowser();
     const formattedBrowserData = Object.entries(browserCounts).map(([name, value]) => ({
       name,
       value
     }));
     
-    // Transform referrer data for the chart
     const referrerCounts = analyticsService.getVisitorsByReferrer();
     const formattedReferrerData = Object.entries(referrerCounts).map(([name, value]) => ({
       name: name === '' ? 'direct' : name,
@@ -46,7 +42,6 @@ const AnalyticsDashboard = () => {
     setReferrerData(formattedReferrerData);
   }, []);
   
-  // Function to refetch analytics data
   const refreshData = () => {
     const uniqueCount = analyticsService.getUniqueVisitors();
     const totalViews = analyticsService.getTotalPageViews();
@@ -212,6 +207,10 @@ const AnalyticsDashboard = () => {
               </ResponsiveContainer>
             </CardContent>
           </Card>
+        </div>
+        
+        <div className="mb-8">
+          <WaitlistTable />
         </div>
       </div>
     </section>

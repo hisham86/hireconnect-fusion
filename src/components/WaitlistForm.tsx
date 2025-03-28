@@ -54,8 +54,21 @@ const WaitlistForm = ({ onSuccess, userType }: WaitlistFormProps) => {
     setIsSubmitting(true);
     
     try {
-      // Here you would normally submit to an API
-      console.log("Submitting to waitlist:", { ...data, userType });
+      // Create a waitlist entry with the form data
+      const waitlistEntry = {
+        ...data,
+        userType,
+        timestamp: new Date().toISOString(),
+      };
+      
+      // Store the waitlist entry in localStorage
+      const storageKey = "catohub_waitlist";
+      const existingData = localStorage.getItem(storageKey);
+      const waitlistData = existingData ? JSON.parse(existingData) : [];
+      waitlistData.push(waitlistEntry);
+      localStorage.setItem(storageKey, JSON.stringify(waitlistData));
+      
+      console.log("Submitting to waitlist:", waitlistEntry);
       
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
