@@ -1,6 +1,5 @@
 
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import WaitlistDialog from '@/components/WaitlistDialog';
 
 const Hero = () => {
   return (
@@ -16,9 +15,7 @@ const Hero = () => {
               eliminating back-and-forth and accelerating the hiring process.
             </p>
             <div className="flex flex-col gap-2">
-              <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">
-                JOIN THE WAITLIST <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <WaitlistDialog />
             </div>
           </div>
           <div className="relative animate-float hidden md:block">

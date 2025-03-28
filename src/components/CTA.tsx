@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Code, Users } from "lucide-react";
+import { Code, Users } from "lucide-react";
+import WaitlistDialog from "./WaitlistDialog";
 
 const CTA = () => {
   return (
