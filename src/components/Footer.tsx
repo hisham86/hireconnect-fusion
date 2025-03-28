@@ -25,7 +25,7 @@ const Footer = () => {
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="YouTube">
                 <Youtube size={20} />
               </a>
-              <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Buy Me a Coffee">
+              <a href="https://buymeacoffee.com/hishamcato" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Buy Me a Coffee">
                 <Coffee size={20} />
               </a>
             </div>
