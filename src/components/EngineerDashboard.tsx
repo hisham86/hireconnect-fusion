@@ -9,7 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
-  const [salaryDisplayMode, setSalaryDisplayMode] = useState<"annual" | "monthly">("annual");
+  const [salaryDisplayMode, setSalaryDisplayMode] = useState<"annual" | "monthly">("monthly");
   
   const summaryData = {
     applications: 14,
