@@ -36,7 +36,7 @@ const Hero = () => {
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm text-white/60">Salary Expectation</p>
-                  <p className="font-medium">$120,000 - $150,000</p>
+                  <p className="font-medium">MYR 10,000 - 12,500 /month</p>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm text-white/60">Notice Period</p>
