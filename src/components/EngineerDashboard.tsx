@@ -15,27 +15,27 @@ const EngineerDashboard = () => {
     applications: 14,
     interviews: 3,
     offers: 1,
-    averageSalary: "$130,000",
-    topLocation: "Remote (US)",
+    averageSalary: "RM130,000",
+    topLocation: "Remote (MY)",
     avgResponseTime: "2 days"
   };
   
   const activeJobs = [
-    { id: 1, company: "TechCorp", role: "Senior Frontend Engineer", status: "Interview Scheduled", annualSalary: "$135k-150k", monthlySalary: "$11.3k-12.5k", applied: "2 days ago" },
-    { id: 2, company: "DataSystems", role: "Full Stack Developer", status: "Application Submitted", annualSalary: "$120k-140k", monthlySalary: "$10k-11.7k", applied: "5 days ago" },
-    { id: 3, company: "CloudNine", role: "React Engineer", status: "Technical Test", annualSalary: "$125k-145k", monthlySalary: "$10.4k-12.1k", applied: "1 week ago" },
+    { id: 1, company: "TechCorp", role: "Senior Frontend Engineer", status: "Interview Scheduled", annualSalary: "RM135k-150k", monthlySalary: "RM11.3k-12.5k", applied: "2 days ago" },
+    { id: 2, company: "DataSystems", role: "Full Stack Developer", status: "Application Submitted", annualSalary: "RM120k-140k", monthlySalary: "RM10k-11.7k", applied: "5 days ago" },
+    { id: 3, company: "CloudNine", role: "React Engineer", status: "Technical Test", annualSalary: "RM125k-145k", monthlySalary: "RM10.4k-12.1k", applied: "1 week ago" },
   ];
   
   const suitableJobs = [
-    { id: 4, company: "InnovateX", role: "Frontend Lead", match: "95%", annualSalary: "$140k-160k", monthlySalary: "$11.7k-13.3k", location: "Remote" },
-    { id: 5, company: "FutureTech", role: "UI Engineer", match: "92%", annualSalary: "$130k-150k", monthlySalary: "$10.8k-12.5k", location: "Hybrid (NY)" },
-    { id: 6, company: "WebWizards", role: "React Developer", match: "89%", annualSalary: "$125k-145k", monthlySalary: "$10.4k-12.1k", location: "Remote" },
+    { id: 4, company: "InnovateX", role: "Frontend Lead", match: "95%", annualSalary: "RM140k-160k", monthlySalary: "RM11.7k-13.3k", location: "Remote" },
+    { id: 5, company: "FutureTech", role: "UI Engineer", match: "92%", annualSalary: "RM130k-150k", monthlySalary: "RM10.8k-12.5k", location: "Hybrid (KL)" },
+    { id: 6, company: "WebWizards", role: "React Developer", match: "89%", annualSalary: "RM125k-145k", monthlySalary: "RM10.4k-12.1k", location: "Remote" },
   ];
   
   const allJobs = [
     ...activeJobs.map(job => ({ ...job, applied: true })),
     ...suitableJobs.map(job => ({ ...job, applied: false })),
-    { id: 7, company: "CodeMasters", role: "Software Engineer", applied: false, annualSalary: "$115k-135k", monthlySalary: "$9.6k-11.3k", location: "On-site (SF)" },
+    { id: 7, company: "CodeMasters", role: "Software Engineer", applied: false, annualSalary: "RM115k-135k", monthlySalary: "RM9.6k-11.3k", location: "On-site (KL)" },
   ];
 
   // Toggle between annual and monthly salary display
@@ -269,3 +269,4 @@ const EngineerDashboard = () => {
 };
 
 export default EngineerDashboard;
+
