@@ -1,7 +1,15 @@
-
+import { useState } from 'react';
 import WaitlistDialog from '@/components/WaitlistDialog';
 
 const Hero = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [userType, setUserType] = useState<"engineer" | "recruiter" | null>(null);
+
+  const openDialog = () => {
+    setUserType(null); // Default to null in hero section
+    setDialogOpen(true);
+  };
+
   return (
     <div className="hero-gradient text-white overflow-hidden">
       <div className="container mx-auto px-4 py-16 md:py-28">
@@ -15,7 +23,15 @@ const Hero = () => {
               eliminating back-and-forth and accelerating the hiring process.
             </p>
             <div className="flex flex-col gap-2">
-              <WaitlistDialog />
+              <button
+                onClick={openDialog}
+                className="bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center"
+              >
+                JOIN THE WAITLIST
+                <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
             </div>
           </div>
           <div className="relative animate-float hidden md:block">
@@ -64,6 +80,11 @@ const Hero = () => {
         </div>
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
+      <WaitlistDialog 
+        open={dialogOpen} 
+        onOpenChange={setDialogOpen}
+        userType={userType}
+      />
     </div>
   );
 };

@@ -15,15 +15,29 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const waitlistSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  role: z.string().optional(),
+  experience: z.string().optional(),
 });
 
 type WaitlistFormValues = z.infer<typeof waitlistSchema>;
 
-const WaitlistForm = ({ onSuccess }: { onSuccess?: () => void }) => {
+interface WaitlistFormProps {
+  onSuccess?: () => void;
+  userType: "engineer" | "recruiter" | null;
+}
+
+const WaitlistForm = ({ onSuccess, userType }: WaitlistFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<WaitlistFormValues>({
@@ -31,6 +45,8 @@ const WaitlistForm = ({ onSuccess }: { onSuccess?: () => void }) => {
     defaultValues: {
       email: "",
       name: "",
+      role: "",
+      experience: "",
     },
   });
 
@@ -39,7 +55,7 @@ const WaitlistForm = ({ onSuccess }: { onSuccess?: () => void }) => {
     
     try {
       // Here you would normally submit to an API
-      console.log("Submitting to waitlist:", data);
+      console.log("Submitting to waitlist:", { ...data, userType });
       
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -97,6 +113,97 @@ const WaitlistForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             </FormItem>
           )}
         />
+
+        {userType === "engineer" && (
+          <>
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Current Role</FormLabel>
+                  <Select 
+                    onValueChange={field.onChange} 
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your current role" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="frontend">Frontend Developer</SelectItem>
+                      <SelectItem value="backend">Backend Developer</SelectItem>
+                      <SelectItem value="fullstack">Full Stack Developer</SelectItem>
+                      <SelectItem value="mobile">Mobile Developer</SelectItem>
+                      <SelectItem value="devops">DevOps Engineer</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="experience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Years of Experience</FormLabel>
+                  <Select 
+                    onValueChange={field.onChange} 
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your experience" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="0-1">0-1 years</SelectItem>
+                      <SelectItem value="1-3">1-3 years</SelectItem>
+                      <SelectItem value="3-5">3-5 years</SelectItem>
+                      <SelectItem value="5-10">5-10 years</SelectItem>
+                      <SelectItem value="10+">10+ years</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </>
+        )}
+
+        {userType === "recruiter" && (
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Company Size</FormLabel>
+                <Select 
+                  onValueChange={field.onChange} 
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your company size" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="1-10">1-10 employees</SelectItem>
+                    <SelectItem value="11-50">11-50 employees</SelectItem>
+                    <SelectItem value="51-200">51-200 employees</SelectItem>
+                    <SelectItem value="201-500">201-500 employees</SelectItem>
+                    <SelectItem value="501+">501+ employees</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         
         <Button 
           type="submit" 

@@ -1,9 +1,18 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Code, Users } from "lucide-react";
 import WaitlistDialog from "./WaitlistDialog";
 
 const CTA = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [userType, setUserType] = useState<"engineer" | "recruiter" | null>(null);
+
+  const openDialog = (type: "engineer" | "recruiter") => {
+    setUserType(type);
+    setDialogOpen(true);
+  };
+
   return (
     <section className="hero-gradient text-white py-20">
       <div className="container mx-auto px-4 text-center">
@@ -19,6 +28,7 @@ const CTA = () => {
               size="lg" 
               variant="secondary" 
               className="bg-[#F97316] text-white hover:bg-[#F97316]/90 font-medium"
+              onClick={() => openDialog("engineer")}
             >
               <Code className="mr-2 h-5 w-5" /> I am Engineer
             </Button>
@@ -26,12 +36,18 @@ const CTA = () => {
               size="lg" 
               variant="secondary" 
               className="bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90 font-medium"
+              onClick={() => openDialog("recruiter")}
             >
               <Users className="mr-2 h-5 w-5" /> I am Recruiter
             </Button>
           </div>
         </div>
       </div>
+      <WaitlistDialog 
+        open={dialogOpen} 
+        onOpenChange={setDialogOpen}
+        userType={userType}
+      />
     </section>
   );
 };

@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import {
   Dialog,
@@ -7,34 +6,48 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import WaitlistForm from "./WaitlistForm";
 
-const WaitlistDialog = () => {
-  const [open, setOpen] = useState(false);
+interface WaitlistDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  userType: "engineer" | "recruiter" | null;
+}
 
+const WaitlistDialog = ({ open, onOpenChange, userType }: WaitlistDialogProps) => {
   const handleSuccess = () => {
     // Close the dialog after successful submission
-    setTimeout(() => setOpen(false), 1000);
+    setTimeout(() => onOpenChange(false), 1000);
+  };
+
+  const getDialogTitle = () => {
+    if (userType === "engineer") return "Join as an Engineer";
+    if (userType === "recruiter") return "Join as a Recruiter";
+    return "Join Our Waitlist";
+  };
+
+  const getDialogDescription = () => {
+    if (userType === "engineer") {
+      return "Get discovered by top companies and receive job offers tailored to your skills and preferences.";
+    }
+    if (userType === "recruiter") {
+      return "Find the perfect candidates for your roles with our advanced matching algorithm.";
+    }
+    return "Be the first to know when we launch. Enter your details below to join our exclusive waitlist.";
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">
-          JOIN THE WAITLIST <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Join Our Waitlist</DialogTitle>
+          <DialogTitle className="text-2xl">{getDialogTitle()}</DialogTitle>
           <DialogDescription>
-            Be the first to know when we launch. Enter your details below to join our exclusive waitlist.
+            {getDialogDescription()}
           </DialogDescription>
         </DialogHeader>
-        <WaitlistForm onSuccess={handleSuccess} />
+        <WaitlistForm onSuccess={handleSuccess} userType={userType} />
       </DialogContent>
     </Dialog>
   );
