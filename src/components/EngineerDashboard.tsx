@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, Bus } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -363,15 +363,9 @@ const EngineerDashboard = () => {
     }
 
     return (
-      <div className="space-y-1">
-        <div className="flex items-center gap-1">
-          <Car className="h-4 w-4 text-blue-500" />
-          <span className="text-sm">{job.transportTime.car}</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <Bus className="h-4 w-4 text-green-500" />
-          <span className="text-sm">{job.transportTime.public}</span>
-        </div>
+      <div className="flex items-center gap-1">
+        <Car className="h-4 w-4 text-blue-500" />
+        <span className="text-sm">{job.transportTime.car}</span>
       </div>
     );
   };
