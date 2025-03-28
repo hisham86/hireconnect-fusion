@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, PlusIcon, Mail, Phone } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, StarHalf, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, PlusIcon, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -287,6 +287,27 @@ const EngineerDashboard = () => {
       if (valueA > valueB) return sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
+  };
+
+  const renderStarRating = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    return (
+      <div className="flex items-center">
+        {[...Array(fullStars)].map((_, i) => (
+          <Star key={`full-${i}`} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+        ))}
+        {hasHalfStar && (
+          <StarHalf key="half" className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+        )}
+        {[...Array(emptyStars)].map((_, i) => (
+          <Star key={`empty-${i}`} className="w-4 h-4 text-gray-300" />
+        ))}
+        <span className="ml-1 text-sm text-gray-600">{rating.toFixed(1)}</span>
+      </div>
+    );
   };
 
   const renderCompanyCell = (job: any) => {
@@ -772,11 +793,12 @@ const EngineerDashboard = () => {
                 </Button>
               </div>
                 
-              <TabsContent value="active" className="p-0 m-0">
+              <TabsContent value="active">
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Company</TableHead>
+                      <TableHead>Glassdoor</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
@@ -790,6 +812,7 @@ const EngineerDashboard = () => {
                     {getSortedJobs(activeJobsData).map((job) => (
                       <TableRow key={job.id}>
                         <TableCell>{renderCompanyCell(job)}</TableCell>
+                        <TableCell>{renderStarRating(job.rating)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
@@ -815,11 +838,12 @@ const EngineerDashboard = () => {
                 </Table>
               </TabsContent>
                 
-              <TabsContent value="suitable" className="p-0 m-0">
+              <TabsContent value="suitable">
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Company</TableHead>
+                      <TableHead>Glassdoor</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>Match</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
@@ -832,6 +856,7 @@ const EngineerDashboard = () => {
                     {getSortedJobs(suitableJobsData).map((job) => (
                       <TableRow key={job.id}>
                         <TableCell>{renderCompanyCell(job)}</TableCell>
+                        <TableCell>{renderStarRating(job.rating)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -850,11 +875,12 @@ const EngineerDashboard = () => {
                 </Table>
               </TabsContent>
                 
-              <TabsContent value="all" className="p-0 m-0">
+              <TabsContent value="all">
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Company</TableHead>
+                      <TableHead>Glassdoor</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>{renderSalaryHeader()}</TableHead>
                       <TableHead>Location</TableHead>
@@ -868,6 +894,7 @@ const EngineerDashboard = () => {
                     {getSortedJobs(allJobsData).map((job) => (
                       <TableRow key={job.id}>
                         <TableCell>{renderCompanyCell(job)}</TableCell>
+                        <TableCell>{renderStarRating(job.rating)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>{job.location}</TableCell>
