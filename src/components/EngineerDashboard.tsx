@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, PlusIcon, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -15,6 +15,8 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import AddJobDialog from "./AddJobDialog";
 
 const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
@@ -30,6 +32,13 @@ const EngineerDashboard = () => {
   const [jobNaturePreference, setJobNaturePreference] = useState("remote");
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [isAddJobDialogOpen, setIsAddJobDialogOpen] = useState(false);
+  const { toast } = useToast();
+  
+  // Add a state to store all job applications (combining predefined and user-added)
+  const [allJobsData, setAllJobsData] = useState<any[]>([]);
+  const [activeJobsData, setActiveJobsData] = useState<any[]>([]);
+  const [suitableJobsData, setSuitableJobsData] = useState<any[]>([]);
   
   const malaysianLocations = [
     "Kuala Lumpur", "Petaling Jaya", "Shah Alam", "Subang Jaya", "Klang",
@@ -84,7 +93,13 @@ const EngineerDashboard = () => {
         public: "55-65 min"
       },
       commuteMinutes: 40, // Average commute time in minutes
-      applied: "2 days ago" 
+      applied: "2 days ago",
+      talentAcquisition: {
+        name: "Sarah Wong",
+        email: "sarah.wong@setel.com",
+        phone: "+60123456789",
+        invited: true
+      }
     },
     { 
       id: 2, 
@@ -106,7 +121,8 @@ const EngineerDashboard = () => {
         public: "N/A"
       },
       commuteMinutes: 0, // Remote job
-      applied: "5 days ago" 
+      applied: "5 days ago",
+      talentAcquisition: null 
     },
     { 
       id: 3, 
@@ -128,7 +144,13 @@ const EngineerDashboard = () => {
         public: "45-55 min"
       },
       commuteMinutes: 30, // Average commute time in minutes
-      applied: "1 week ago" 
+      applied: "1 week ago",
+      talentAcquisition: {
+        name: "Ahmad Rizal",
+        email: "ahmad@decube.io",
+        phone: "+60198765432",
+        invited: true
+      }
     },
   ];
   
@@ -198,31 +220,37 @@ const EngineerDashboard = () => {
     },
   ];
   
-  const allJobs = [
-    ...activeJobs.map(job => ({ ...job, applied: true })),
-    ...suitableJobs.map(job => ({ ...job, applied: false })),
-    { 
-      id: 7, 
-      company: "CodeMasters", 
-      logoUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=250&h=250&auto=format&fit=crop",
-      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-CodeMasters-EI_IE97531.htm",
-      rating: 3.8,
-      reviews: 123,
-      founded: 2013,
-      employees: "100-500",
-      description: "CodeMasters offers software development services specializing in custom enterprise solutions.",
-      role: "Senior Backend Developer",
-      applied: false, 
-      annualSalary: "RM115k-135k", 
-      monthlySalary: "RM9.6k-11.3k", 
-      location: "On-site (KL)",
-      transportTime: {
-        car: "45-55 min",
-        public: "65-75 min"
+  // Initialize the datasets
+  useEffect(() => {
+    setAllJobsData([
+      ...activeJobs.map(job => ({ ...job, applied: true })),
+      ...suitableJobs.map(job => ({ ...job, applied: false })),
+      { 
+        id: 7, 
+        company: "CodeMasters", 
+        logoUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=250&h=250&auto=format&fit=crop",
+        glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-CodeMasters-EI_IE97531.htm",
+        rating: 3.8,
+        reviews: 123,
+        founded: 2013,
+        employees: "100-500",
+        description: "CodeMasters offers software development services specializing in custom enterprise solutions.",
+        role: "Senior Backend Developer",
+        applied: false, 
+        annualSalary: "RM115k-135k", 
+        monthlySalary: "RM9.6k-11.3k", 
+        location: "On-site (KL)",
+        transportTime: {
+          car: "45-55 min",
+          public: "65-75 min"
+        },
+        commuteMinutes: 50, // Average commute time in minutes
       },
-      commuteMinutes: 50, // Average commute time in minutes
-    },
-  ];
+    ]);
+    
+    setActiveJobsData([...activeJobs]);
+    setSuitableJobsData([...suitableJobs]);
+  }, []);
 
   const toggleSalaryDisplay = () => {
     setSalaryDisplayMode(prev => prev === "annual" ? "monthly" : "annual");
@@ -310,14 +338,21 @@ const EngineerDashboard = () => {
                 <span className="text-gray-500">Size:</span> {job.employees}
               </div>
             </div>
-            <a 
-              href={job.glassdoorUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-sm text-blue-600 hover:underline"
-            >
-              View full profile on Glassdoor
-            </a>
+            {job.manuallyAdded && job.sourcePlatform && (
+              <div className="text-sm text-gray-500">
+                <span className="font-medium">Source:</span> {job.sourcePlatform}
+              </div>
+            )}
+            {!job.manuallyAdded && (
+              <a 
+                href={job.glassdoorUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-blue-600 hover:underline"
+              >
+                View full profile on Glassdoor
+              </a>
+            )}
           </div>
         </HoverCardContent>
       </HoverCard>
@@ -439,6 +474,75 @@ const EngineerDashboard = () => {
       <div className="flex items-center gap-1">
         <Car className="h-4 w-4 text-blue-500" />
         <span className="text-sm">{job.transportTime.car}</span>
+      </div>
+    );
+  };
+  
+  const handleAddJob = (newJob: any) => {
+    // Update all jobs data
+    setAllJobsData(prev => [newJob, ...prev]);
+    
+    // Update active jobs as the new job is considered applied
+    setActiveJobsData(prev => [newJob, ...prev]);
+    
+    // Update summary data
+    summaryData.applications += 1;
+    
+    // Show success notification
+    toast({
+      title: "New application added",
+      description: `You've added ${newJob.company} - ${newJob.role} to your applications`,
+    });
+  };
+  
+  const renderTalentAcquisitionInfo = (job: any) => {
+    if (!job.talentAcquisition || (!job.talentAcquisition.name && !job.talentAcquisition.email && !job.talentAcquisition.phone)) {
+      return (
+        <Button
+          variant="outline"
+          size="sm"
+          className="text-xs"
+        >
+          Add Contact
+        </Button>
+      );
+    }
+    
+    return (
+      <div className="space-y-1">
+        {job.talentAcquisition.name && (
+          <p className="text-sm font-medium">{job.talentAcquisition.name}</p>
+        )}
+        <div className="flex flex-col gap-1">
+          {job.talentAcquisition.email && (
+            <a 
+              href={`mailto:${job.talentAcquisition.email}`}
+              className="text-xs flex items-center text-blue-600 hover:underline"
+            >
+              <Mail className="h-3 w-3 mr-1" />
+              {job.talentAcquisition.email}
+            </a>
+          )}
+          {job.talentAcquisition.phone && (
+            <a 
+              href={`tel:${job.talentAcquisition.phone}`}
+              className="text-xs flex items-center text-blue-600 hover:underline"
+            >
+              <Phone className="h-3 w-3 mr-1" />
+              {job.talentAcquisition.phone}
+            </a>
+          )}
+        </div>
+        {job.talentAcquisition.email && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-xs mt-1"
+            disabled={job.talentAcquisition.invited}
+          >
+            {job.talentAcquisition.invited ? "Invited" : "Send Invite"}
+          </Button>
+        )}
       </div>
     );
   };
@@ -656,142 +760,165 @@ const EngineerDashboard = () => {
           </div>
           
           <Card className="overflow-hidden">
-            <Tabs defaultValue="active" className="w-full" onValueChange={setActiveTab}>
-              <TabsList className="w-full grid grid-cols-3 rounded-none border-b">
-                <TabsTrigger value="active" className="py-3">
-                  <Briefcase className="w-4 h-4 mr-2" />
-                  Active Jobs
-                </TabsTrigger>
-                <TabsTrigger value="suitable" className="py-3">
-                  <Star className="w-4 h-4 mr-2" />
-                  Suitable Jobs
-                </TabsTrigger>
-                <TabsTrigger value="all" className="py-3">
-                  <Check className="w-4 h-4 mr-2" />
-                  All Jobs
-                </TabsTrigger>
-              </TabsList>
+            <div className="flex justify-between items-center px-4 py-2 border-b">
+              <Tabs defaultValue="active" className="w-full" onValueChange={setActiveTab}>
+                <TabsList className="grid grid-cols-3 rounded-none">
+                  <TabsTrigger value="active" className="py-3">
+                    <Briefcase className="w-4 h-4 mr-2" />
+                    Active Jobs
+                  </TabsTrigger>
+                  <TabsTrigger value="suitable" className="py-3">
+                    <Star className="w-4 h-4 mr-2" />
+                    Suitable Jobs
+                  </TabsTrigger>
+                  <TabsTrigger value="all" className="py-3">
+                    <Check className="w-4 h-4 mr-2" />
+                    All Jobs
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+              <Button 
+                onClick={() => setIsAddJobDialogOpen(true)}
+                className="flex items-center gap-1"
+              >
+                <PlusIcon className="h-4 w-4" />
+                Add Job
+              </Button>
+            </div>
               
-              <TabsContent value="active" className="p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>{renderSalaryHeader()}</TableHead>
-                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
-                      <TableHead>Applied</TableHead>
-                      <TableHead></TableHead>
+            <TabsContent value="active" className="p-0 m-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Company</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>{renderSalaryHeader()}</TableHead>
+                    <TableHead>{renderCommuteTimeHeader()}</TableHead>
+                    <TableHead>Applied</TableHead>
+                    <TableHead>TA Contact</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {getSortedJobs(activeJobsData).map((job) => (
+                    <TableRow key={job.id}>
+                      <TableCell>{renderCompanyCell(job)}</TableCell>
+                      <TableCell>{job.role}</TableCell>
+                      <TableCell>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
+                          {job.status}
+                        </span>
+                      </TableCell>
+                      <TableCell>{getSalaryDisplay(job)}</TableCell>
+                      <TableCell>{renderTransportTime(job)}</TableCell>
+                      <TableCell>{job.applied}</TableCell>
+                      <TableCell>{renderTalentAcquisitionInfo(job)}</TableCell>
+                      <TableCell>
+                        <Button 
+                          variant="secondary" 
+                          size="sm" 
+                          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 text-white font-medium transition-all duration-300 hover:shadow-md hover:scale-105"
+                        >
+                          View Details <ArrowUpRightIcon className="ml-1 h-4 w-4" />
+                        </Button>
+                      </TableCell>
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {getSortedJobs(activeJobs).map((job) => (
-                      <TableRow key={job.id}>
-                        <TableCell>{renderCompanyCell(job)}</TableCell>
-                        <TableCell>{job.role}</TableCell>
-                        <TableCell>
+                  ))}
+                </TableBody>
+              </Table>
+            </TabsContent>
+              
+            <TabsContent value="suitable" className="p-0 m-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Company</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Match</TableHead>
+                    <TableHead>{renderSalaryHeader()}</TableHead>
+                    <TableHead>Location</TableHead>
+                    <TableHead>{renderCommuteTimeHeader()}</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {getSortedJobs(suitableJobsData).map((job) => (
+                    <TableRow key={job.id}>
+                      <TableCell>{renderCompanyCell(job)}</TableCell>
+                      <TableCell>{job.role}</TableCell>
+                      <TableCell>
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          {job.match}
+                        </span>
+                      </TableCell>
+                      <TableCell>{getSalaryDisplay(job)}</TableCell>
+                      <TableCell>{job.location}</TableCell>
+                      <TableCell>{renderTransportTime(job)}</TableCell>
+                      <TableCell>
+                        {renderApplyButton(false)}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TabsContent>
+              
+            <TabsContent value="all" className="p-0 m-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Company</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>{renderSalaryHeader()}</TableHead>
+                    <TableHead>Location</TableHead>
+                    <TableHead>{renderCommuteTimeHeader()}</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>TA Contact</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {getSortedJobs(allJobsData).map((job) => (
+                    <TableRow key={job.id}>
+                      <TableCell>{renderCompanyCell(job)}</TableCell>
+                      <TableCell>{job.role}</TableCell>
+                      <TableCell>{getSalaryDisplay(job)}</TableCell>
+                      <TableCell>{job.location}</TableCell>
+                      <TableCell>{renderTransportTime(job)}</TableCell>
+                      <TableCell>
+                        {job.status ? (
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
                             {job.status}
                           </span>
-                        </TableCell>
-                        <TableCell>{getSalaryDisplay(job)}</TableCell>
-                        <TableCell>{renderTransportTime(job)}</TableCell>
-                        <TableCell>{job.applied}</TableCell>
-                        <TableCell>
-                          <Button 
-                            variant="secondary" 
-                            size="sm" 
-                            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 text-white font-medium transition-all duration-300 hover:shadow-md hover:scale-105"
-                          >
-                            View Details <ArrowUpRightIcon className="ml-1 h-4 w-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TabsContent>
-              
-              <TabsContent value="suitable" className="p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>Match</TableHead>
-                      <TableHead>{renderSalaryHeader()}</TableHead>
-                      <TableHead>Location</TableHead>
-                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
-                      <TableHead></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {getSortedJobs(suitableJobs).map((job) => (
-                      <TableRow key={job.id}>
-                        <TableCell>{renderCompanyCell(job)}</TableCell>
-                        <TableCell>{job.role}</TableCell>
-                        <TableCell>
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            {job.match}
+                        ) : job.applied ? (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            Applied
                           </span>
-                        </TableCell>
-                        <TableCell>{getSalaryDisplay(job)}</TableCell>
-                        <TableCell>{job.location}</TableCell>
-                        <TableCell>{renderTransportTime(job)}</TableCell>
-                        <TableCell>
-                          {renderApplyButton(false)}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TabsContent>
-              
-              <TabsContent value="all" className="p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>{renderSalaryHeader()}</TableHead>
-                      <TableHead>Location</TableHead>
-                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead></TableHead>
+                        ) : (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                            Not Applied
+                          </span>
+                        )}
+                      </TableCell>
+                      <TableCell>{renderTalentAcquisitionInfo(job)}</TableCell>
+                      <TableCell>
+                        {renderApplyButton(job.applied)}
+                      </TableCell>
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {getSortedJobs(allJobs).map((job) => (
-                      <TableRow key={job.id}>
-                        <TableCell>{renderCompanyCell(job)}</TableCell>
-                        <TableCell>{job.role}</TableCell>
-                        <TableCell>{getSalaryDisplay(job)}</TableCell>
-                        <TableCell>{job.location}</TableCell>
-                        <TableCell>{renderTransportTime(job)}</TableCell>
-                        <TableCell>
-                          {job.applied ? (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                              Applied
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                              Not Applied
-                            </span>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          {renderApplyButton(job.applied)}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TabsContent>
-            </Tabs>
+                  ))}
+                </TableBody>
+              </Table>
+            </TabsContent>
           </Card>
         </div>
       </div>
+      
+      <AddJobDialog 
+        open={isAddJobDialogOpen} 
+        onOpenChange={setIsAddJobDialogOpen}
+        onAddJob={handleAddJob}
+      />
     </section>
   );
 };
