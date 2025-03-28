@@ -3,8 +3,10 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
@@ -20,22 +22,120 @@ const EngineerDashboard = () => {
     avgResponseTime: "2 days"
   };
   
+  // Updated job data with Glassdoor information
   const activeJobs = [
-    { id: 1, company: "TechCorp", role: "Senior Frontend Engineer", status: "Interview Scheduled", annualSalary: "RM135k-150k", monthlySalary: "RM11.3k-12.5k", applied: "2 days ago" },
-    { id: 2, company: "DataSystems", role: "Full Stack Developer", status: "Application Submitted", annualSalary: "RM120k-140k", monthlySalary: "RM10k-11.7k", applied: "5 days ago" },
-    { id: 3, company: "CloudNine", role: "React Engineer", status: "Technical Test", annualSalary: "RM125k-145k", monthlySalary: "RM10.4k-12.1k", applied: "1 week ago" },
+    { 
+      id: 1, 
+      company: "TechCorp", 
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-TechCorp-EI_IE12345.htm",
+      rating: 4.2,
+      reviews: 234,
+      founded: 2008,
+      employees: "500-1000",
+      description: "TechCorp is a leading software development company focused on creating innovative solutions for enterprise clients.",
+      role: "Senior Frontend Engineer", 
+      status: "Interview Scheduled", 
+      annualSalary: "RM135k-150k", 
+      monthlySalary: "RM11.3k-12.5k", 
+      applied: "2 days ago" 
+    },
+    { 
+      id: 2, 
+      company: "DataSystems", 
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-DataSystems-EI_IE67890.htm",
+      rating: 3.9,
+      reviews: 186,
+      founded: 2011,
+      employees: "1000-5000",
+      description: "DataSystems specializes in big data solutions, analytics platforms, and enterprise data management.",
+      role: "Full Stack Developer", 
+      status: "Application Submitted", 
+      annualSalary: "RM120k-140k", 
+      monthlySalary: "RM10k-11.7k", 
+      applied: "5 days ago" 
+    },
+    { 
+      id: 3, 
+      company: "CloudNine", 
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-CloudNine-EI_IE54321.htm",
+      rating: 4.5,
+      reviews: 312,
+      founded: 2015,
+      employees: "100-500",
+      description: "CloudNine is a cloud infrastructure provider focusing on scalable solutions for startups and SMEs.",
+      role: "React Engineer", 
+      status: "Technical Test", 
+      annualSalary: "RM125k-145k", 
+      monthlySalary: "RM10.4k-12.1k", 
+      applied: "1 week ago" 
+    },
   ];
   
   const suitableJobs = [
-    { id: 4, company: "InnovateX", role: "Frontend Lead", match: "95%", annualSalary: "RM140k-160k", monthlySalary: "RM11.7k-13.3k", location: "Remote" },
-    { id: 5, company: "FutureTech", role: "UI Engineer", match: "92%", annualSalary: "RM130k-150k", monthlySalary: "RM10.8k-12.5k", location: "Hybrid (KL)" },
-    { id: 6, company: "WebWizards", role: "React Developer", match: "89%", annualSalary: "RM125k-145k", monthlySalary: "RM10.4k-12.1k", location: "Remote" },
+    { 
+      id: 4, 
+      company: "InnovateX", 
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-InnovateX-EI_IE98765.htm",
+      rating: 4.4,
+      reviews: 167,
+      founded: 2017,
+      employees: "50-200",
+      description: "InnovateX builds cutting-edge web applications with a focus on user experience and modern technologies.",
+      role: "Frontend Lead", 
+      match: "95%", 
+      annualSalary: "RM140k-160k", 
+      monthlySalary: "RM11.7k-13.3k", 
+      location: "Remote" 
+    },
+    { 
+      id: 5, 
+      company: "FutureTech", 
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-FutureTech-EI_IE24680.htm",
+      rating: 4.0,
+      reviews: 205,
+      founded: 2012,
+      employees: "200-500",
+      description: "FutureTech develops technology solutions for the financial sector with a focus on security and performance.",
+      role: "UI Engineer", 
+      match: "92%", 
+      annualSalary: "RM130k-150k", 
+      monthlySalary: "RM10.8k-12.5k", 
+      location: "Hybrid (KL)" 
+    },
+    { 
+      id: 6, 
+      company: "WebWizards", 
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-WebWizards-EI_IE13579.htm",
+      rating: 4.3,
+      reviews: 147,
+      founded: 2014,
+      employees: "100-500",
+      description: "WebWizards creates custom web and mobile applications for clients across various industries.",
+      role: "React Developer", 
+      match: "89%", 
+      annualSalary: "RM125k-145k", 
+      monthlySalary: "RM10.4k-12.1k", 
+      location: "Remote" 
+    },
   ];
   
   const allJobs = [
     ...activeJobs.map(job => ({ ...job, applied: true })),
     ...suitableJobs.map(job => ({ ...job, applied: false })),
-    { id: 7, company: "CodeMasters", role: "Software Engineer", applied: false, annualSalary: "RM115k-135k", monthlySalary: "RM9.6k-11.3k", location: "On-site (KL)" },
+    { 
+      id: 7, 
+      company: "CodeMasters", 
+      glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-CodeMasters-EI_IE97531.htm",
+      rating: 3.8,
+      reviews: 123,
+      founded: 2013,
+      employees: "100-500",
+      description: "CodeMasters offers software development services specializing in custom enterprise solutions.",
+      applied: false, 
+      annualSalary: "RM115k-135k", 
+      monthlySalary: "RM9.6k-11.3k", 
+      location: "On-site (KL)" 
+    },
   ];
 
   // Toggle between annual and monthly salary display
@@ -46,6 +146,54 @@ const EngineerDashboard = () => {
   // Helper function to get the correct salary based on current display mode
   const getSalaryDisplay = (job: any) => {
     return salaryDisplayMode === "annual" ? job.annualSalary : job.monthlySalary;
+  };
+
+  // Render company name with Glassdoor link and hover preview
+  const renderCompanyCell = (job: any) => {
+    return (
+      <HoverCard>
+        <HoverCardTrigger asChild>
+          <a 
+            href={job.glassdoorUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="font-medium flex items-center hover:text-blue-600 transition-colors"
+          >
+            {job.company}
+            <ExternalLink className="ml-1 h-3 w-3" />
+          </a>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-80">
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <h4 className="font-semibold text-lg">{job.company}</h4>
+              <div className="flex items-center bg-yellow-100 px-2 py-0.5 rounded-full">
+                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 mr-1" />
+                <span className="font-medium">{job.rating}</span>
+                <span className="text-xs ml-1 text-gray-600">({job.reviews} reviews)</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600">{job.description}</p>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span className="text-gray-500">Founded:</span> {job.founded}
+              </div>
+              <div>
+                <span className="text-gray-500">Size:</span> {job.employees}
+              </div>
+            </div>
+            <a 
+              href={job.glassdoorUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              View full profile on Glassdoor
+            </a>
+          </div>
+        </HoverCardContent>
+      </HoverCard>
+    );
   };
 
   return (
@@ -158,7 +306,7 @@ const EngineerDashboard = () => {
                   <TableBody>
                     {activeJobs.map((job) => (
                       <TableRow key={job.id}>
-                        <TableCell className="font-medium">{job.company}</TableCell>
+                        <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
@@ -199,7 +347,7 @@ const EngineerDashboard = () => {
                   <TableBody>
                     {suitableJobs.map((job) => (
                       <TableRow key={job.id}>
-                        <TableCell className="font-medium">{job.company}</TableCell>
+                        <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -236,7 +384,7 @@ const EngineerDashboard = () => {
                   <TableBody>
                     {allJobs.map((job) => (
                       <TableRow key={job.id}>
-                        <TableCell className="font-medium">{job.company}</TableCell>
+                        <TableCell>{renderCompanyCell(job)}</TableCell>
                         <TableCell>{job.role}</TableCell>
                         <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>
@@ -269,4 +417,3 @@ const EngineerDashboard = () => {
 };
 
 export default EngineerDashboard;
-
