@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Code, Users } from "lucide-react";
 
 const CTA = () => {
   return (
@@ -14,11 +14,19 @@ const CTA = () => {
             Join thousands of engineers and companies already streamlining their recruitment experience.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" variant="secondary" className="bg-white text-brand-primary hover:bg-gray-100">
-              Get Started <ArrowRight className="ml-2 h-5 w-5" />
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="bg-[#F97316] text-white hover:bg-[#F97316]/90 font-medium"
+            >
+              <Code className="mr-2 h-5 w-5" /> I am Engineer
             </Button>
-            <Button size="lg" variant="outline" className="text-white border-white/30 hover:bg-white/10">
-              Schedule a Demo
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90 font-medium"
+            >
+              <Users className="mr-2 h-5 w-5" /> I am Recruiter
             </Button>
           </div>
         </div>
