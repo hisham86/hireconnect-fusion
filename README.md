@@ -1,69 +1,78 @@
-# Welcome to your Lovable project
 
-## Project info
+# CatoHub
 
-**URL**: https://lovable.dev/projects/43e33e20-448c-407e-acf1-98fe6891cbac
+CatoHub is a unified platform designed to bridge the gap between engineers and talent acquisition teams, streamlining the hiring process for tech roles.
 
-## How can I edit this code?
+## Overview
 
-There are several ways of editing your application.
+This project is a modern web application built with React, TypeScript, and Tailwind CSS using the Vite build tool. It features a responsive design, interactive UI components from shadcn/ui, and a clean, professional aesthetic.
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/43e33e20-448c-407e-acf1-98fe6891cbac) and start prompting.
+- **Engineer Profile Creation**: Tech professionals can create detailed profiles showcasing their skills and experience
+- **Recruiter Dashboard**: Talent acquisition teams can efficiently browse qualified candidates
+- **Unified Communication**: Streamlined interaction between engineers and recruiters
+- **Analytics**: Track engagement and hiring metrics
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech Stack
 
-**Use your preferred IDE**
+- [React](https://reactjs.org/) - UI library
+- [TypeScript](https://www.typescriptlang.org/) - Static typing
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) - UI component library
+- [Vite](https://vitejs.dev/) - Build tool and development server
+- [React Router](https://reactrouter.com/) - Client-side routing
+- [React Query](https://tanstack.com/query/latest) - Data fetching and state management
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
 
-Follow these steps:
+- Node.js (v16 or newer)
+- npm or yarn
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/catohub.git
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Navigate to project directory
+cd catohub
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Install dependencies
+npm install
+# or
+yarn install
+
+# Start the development server
 npm run dev
+# or
+yarn dev
 ```
 
-**Edit a file directly in GitHub**
+## Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The project can be built for production using:
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+# or
+yarn build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Contributing
 
-## What technologies are used for this project?
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-This project is built with .
+## License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## How can I deploy this project?
+## Contact
 
-Simply open [Lovable](https://lovable.dev/projects/43e33e20-448c-407e-acf1-98fe6891cbac) and click on Share -> Publish.
+- Website: [catohub.com](https://catohub.com)
+- Email: contact@catohub.com
+- Twitter: [@CatoHub](https://twitter.com/CatoHub)
+- LinkedIn: [CatoHub](https://www.linkedin.com/company/catohub)
 
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)

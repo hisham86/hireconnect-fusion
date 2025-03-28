@@ -1,5 +1,6 @@
+
 import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube, BarChart, Phone } from "lucide-react";
-import { WhatsApp } from "lucide-react";
+import WhatsApp from "lucide-react/dist/esm/icons/whatsapp";
 
 const Footer = () => {
   return (
