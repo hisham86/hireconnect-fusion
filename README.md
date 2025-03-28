@@ -35,7 +35,7 @@ This project is a modern web application built with React, TypeScript, and Tailw
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/catohub.git
+git clone https://github.com/hishamcse/catohub.git
 
 # Navigate to project directory
 cd catohub
@@ -61,9 +61,26 @@ npm run build
 yarn build
 ```
 
+## GitHub Repository
+
+Visit our [GitHub repository](https://github.com/hishamcse/catohub) to:
+- View the source code
+- Report issues
+- Submit pull requests
+- Track project milestones
+- Star the project if you find it useful!
+
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions from the community! Here's how you can contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please ensure your code follows the project's coding standards and includes appropriate tests.
 
 ## License
 
@@ -75,4 +92,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Email: contact@catohub.com
 - Twitter: [@CatoHub](https://twitter.com/CatoHub)
 - LinkedIn: [CatoHub](https://www.linkedin.com/company/catohub)
-
+- GitHub: [hishamcse/catohub](https://github.com/hishamcse/catohub)
