@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
+  const [salaryDisplayMode, setSalaryDisplayMode] = useState<"annual" | "monthly">("annual");
   
   // Sample data
   const summaryData = {
@@ -20,22 +21,32 @@ const EngineerDashboard = () => {
   };
   
   const activeJobs = [
-    { id: 1, company: "TechCorp", role: "Senior Frontend Engineer", status: "Interview Scheduled", salary: "$135k-150k", applied: "2 days ago" },
-    { id: 2, company: "DataSystems", role: "Full Stack Developer", status: "Application Submitted", salary: "$120k-140k", applied: "5 days ago" },
-    { id: 3, company: "CloudNine", role: "React Engineer", status: "Technical Test", salary: "$125k-145k", applied: "1 week ago" },
+    { id: 1, company: "TechCorp", role: "Senior Frontend Engineer", status: "Interview Scheduled", annualSalary: "$135k-150k", monthlySalary: "$11.3k-12.5k", applied: "2 days ago" },
+    { id: 2, company: "DataSystems", role: "Full Stack Developer", status: "Application Submitted", annualSalary: "$120k-140k", monthlySalary: "$10k-11.7k", applied: "5 days ago" },
+    { id: 3, company: "CloudNine", role: "React Engineer", status: "Technical Test", annualSalary: "$125k-145k", monthlySalary: "$10.4k-12.1k", applied: "1 week ago" },
   ];
   
   const suitableJobs = [
-    { id: 4, company: "InnovateX", role: "Frontend Lead", match: "95%", salary: "$140k-160k", location: "Remote" },
-    { id: 5, company: "FutureTech", role: "UI Engineer", match: "92%", salary: "$130k-150k", location: "Hybrid (NY)" },
-    { id: 6, company: "WebWizards", role: "React Developer", match: "89%", salary: "$125k-145k", location: "Remote" },
+    { id: 4, company: "InnovateX", role: "Frontend Lead", match: "95%", annualSalary: "$140k-160k", monthlySalary: "$11.7k-13.3k", location: "Remote" },
+    { id: 5, company: "FutureTech", role: "UI Engineer", match: "92%", annualSalary: "$130k-150k", monthlySalary: "$10.8k-12.5k", location: "Hybrid (NY)" },
+    { id: 6, company: "WebWizards", role: "React Developer", match: "89%", annualSalary: "$125k-145k", monthlySalary: "$10.4k-12.1k", location: "Remote" },
   ];
   
   const allJobs = [
     ...activeJobs.map(job => ({ ...job, applied: true })),
     ...suitableJobs.map(job => ({ ...job, applied: false })),
-    { id: 7, company: "CodeMasters", role: "Software Engineer", applied: false, salary: "$115k-135k", location: "On-site (SF)" },
+    { id: 7, company: "CodeMasters", role: "Software Engineer", applied: false, annualSalary: "$115k-135k", monthlySalary: "$9.6k-11.3k", location: "On-site (SF)" },
   ];
+
+  // Toggle between annual and monthly salary display
+  const toggleSalaryDisplay = () => {
+    setSalaryDisplayMode(prev => prev === "annual" ? "monthly" : "annual");
+  };
+
+  // Helper function to get the correct salary based on current display mode
+  const getSalaryDisplay = (job: any) => {
+    return salaryDisplayMode === "annual" ? job.annualSalary : job.monthlySalary;
+  };
 
   return (
     <section className="py-16 bg-gray-50">
@@ -134,7 +145,12 @@ const EngineerDashboard = () => {
                       <TableHead>Company</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>Status</TableHead>
-                      <TableHead>Salary</TableHead>
+                      <TableHead onClick={toggleSalaryDisplay} className="cursor-pointer hover:bg-gray-100">
+                        <div className="flex items-center">
+                          Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}
+                          <ArrowUpDown className="ml-2 h-4 w-4" />
+                        </div>
+                      </TableHead>
                       <TableHead>Applied</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
@@ -152,7 +168,7 @@ const EngineerDashboard = () => {
                             {job.status}
                           </span>
                         </TableCell>
-                        <TableCell>{job.salary}</TableCell>
+                        <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>{job.applied}</TableCell>
                         <TableCell>
                           <Button variant="ghost" size="sm">View Details</Button>
@@ -170,7 +186,12 @@ const EngineerDashboard = () => {
                       <TableHead>Company</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>Match</TableHead>
-                      <TableHead>Salary</TableHead>
+                      <TableHead onClick={toggleSalaryDisplay} className="cursor-pointer hover:bg-gray-100">
+                        <div className="flex items-center">
+                          Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}
+                          <ArrowUpDown className="ml-2 h-4 w-4" />
+                        </div>
+                      </TableHead>
                       <TableHead>Location</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
@@ -185,7 +206,7 @@ const EngineerDashboard = () => {
                             {job.match}
                           </span>
                         </TableCell>
-                        <TableCell>{job.salary}</TableCell>
+                        <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>{job.location}</TableCell>
                         <TableCell>
                           <Button variant="ghost" size="sm">Apply Now</Button>
@@ -202,7 +223,12 @@ const EngineerDashboard = () => {
                     <TableRow>
                       <TableHead>Company</TableHead>
                       <TableHead>Role</TableHead>
-                      <TableHead>Salary</TableHead>
+                      <TableHead onClick={toggleSalaryDisplay} className="cursor-pointer hover:bg-gray-100">
+                        <div className="flex items-center">
+                          Salary {salaryDisplayMode === "annual" ? "(Annual)" : "(Monthly)"}
+                          <ArrowUpDown className="ml-2 h-4 w-4" />
+                        </div>
+                      </TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead></TableHead>
                     </TableRow>
@@ -212,7 +238,7 @@ const EngineerDashboard = () => {
                       <TableRow key={job.id}>
                         <TableCell className="font-medium">{job.company}</TableCell>
                         <TableCell>{job.role}</TableCell>
-                        <TableCell>{job.salary}</TableCell>
+                        <TableCell>{getSalaryDisplay(job)}</TableCell>
                         <TableCell>
                           {job.applied ? (
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
