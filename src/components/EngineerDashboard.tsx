@@ -7,6 +7,7 @@ import { Check, Briefcase, Clock, DollarSign, MapPin, Star, Calendar, ArrowUpDow
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const EngineerDashboard = () => {
   const [activeTab, setActiveTab] = useState("active");
@@ -25,6 +26,7 @@ const EngineerDashboard = () => {
     { 
       id: 1, 
       company: "Setel", 
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Setel_logo.svg/800px-Setel_logo.svg.png",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-Setel-EI_IE2782236.htm",
       rating: 4.2,
       reviews: 42,
@@ -40,6 +42,7 @@ const EngineerDashboard = () => {
     { 
       id: 2, 
       company: "Pandai", 
+      logoUrl: "https://play-lh.googleusercontent.com/5MlUibAu2Bn-d8FzRXZGyiy1yOm8HZjbPA0owEwPDu2xVoDmczI_VfB40LI6i-8CTCY",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-Pandai-EI_IE3991548.htm",
       rating: 4.3,
       reviews: 25,
@@ -55,6 +58,7 @@ const EngineerDashboard = () => {
     { 
       id: 3, 
       company: "Decube", 
+      logoUrl: "https://assets.website-files.com/60b9220d74f790b03e6b82d3/60b94a988a78d7216991ab4d_Group%2011.svg",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-Decube-EI_IE4570807.htm",
       rating: 4.5,
       reviews: 18,
@@ -73,6 +77,7 @@ const EngineerDashboard = () => {
     { 
       id: 4, 
       company: "InnovateX", 
+      logoUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=250&h=250&auto=format&fit=crop",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-InnovateX-EI_IE98765.htm",
       rating: 4.4,
       reviews: 167,
@@ -88,6 +93,7 @@ const EngineerDashboard = () => {
     { 
       id: 5, 
       company: "FutureTech", 
+      logoUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=250&h=250&auto=format&fit=crop",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-FutureTech-EI_IE24680.htm",
       rating: 4.0,
       reviews: 205,
@@ -103,6 +109,7 @@ const EngineerDashboard = () => {
     { 
       id: 6, 
       company: "WebWizards", 
+      logoUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=250&h=250&auto=format&fit=crop",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-WebWizards-EI_IE13579.htm",
       rating: 4.3,
       reviews: 147,
@@ -123,6 +130,7 @@ const EngineerDashboard = () => {
     { 
       id: 7, 
       company: "CodeMasters", 
+      logoUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=250&h=250&auto=format&fit=crop",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-CodeMasters-EI_IE97531.htm",
       rating: 3.8,
       reviews: 123,
@@ -155,6 +163,10 @@ const EngineerDashboard = () => {
             rel="noopener noreferrer"
             className="font-medium flex items-center hover:text-blue-600 transition-colors"
           >
+            <Avatar className="h-8 w-8 mr-2">
+              <AvatarImage src={job.logoUrl} alt={job.company} />
+              <AvatarFallback>{job.company.substring(0, 2)}</AvatarFallback>
+            </Avatar>
             {job.company}
             <ExternalLink className="ml-1 h-3 w-3" />
           </a>
@@ -162,7 +174,13 @@ const EngineerDashboard = () => {
         <HoverCardContent className="w-80">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <h4 className="font-semibold text-lg">{job.company}</h4>
+              <div className="flex items-center gap-2">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={job.logoUrl} alt={job.company} />
+                  <AvatarFallback>{job.company.substring(0, 2)}</AvatarFallback>
+                </Avatar>
+                <h4 className="font-semibold text-lg">{job.company}</h4>
+              </div>
               <div className="flex items-center bg-yellow-100 px-2 py-0.5 rounded-full">
                 <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 mr-1" />
                 <span className="font-medium">{job.rating}</span>
