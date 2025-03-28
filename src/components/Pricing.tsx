@@ -1,6 +1,8 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import WaitlistDialog from "./WaitlistDialog";
 
 const pricingPlans = [
   {
@@ -15,6 +17,7 @@ const pricingPlans = [
       "Privacy controls for sensitive information"
     ],
     cta: "Sign Up Free",
+    userType: "engineer" as const,
     highlighted: false
   },
   {
@@ -30,6 +33,7 @@ const pricingPlans = [
       "Standard support"
     ],
     cta: "Get Started",
+    userType: "recruiter" as const,
     highlighted: true
   },
   {
@@ -44,11 +48,20 @@ const pricingPlans = [
       "Priority support & dedicated manager"
     ],
     cta: "Contact Sales",
+    userType: "recruiter" as const,
     highlighted: false
   }
 ];
 
 const Pricing = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [userType, setUserType] = useState<"engineer" | "recruiter" | null>(null);
+
+  const openDialog = (type: "engineer" | "recruiter") => {
+    setUserType(type);
+    setDialogOpen(true);
+  };
+
   return (
     <section id="pricing" className="section-padding bg-white">
       <div className="container mx-auto px-4">
@@ -98,6 +111,7 @@ const Pricing = () => {
                       : ""
                   }`}
                   variant={plan.highlighted ? "default" : "outline"}
+                  onClick={() => openDialog(plan.userType)}
                 >
                   {plan.cta}
                 </Button>
@@ -106,6 +120,12 @@ const Pricing = () => {
           ))}
         </div>
       </div>
+      
+      <WaitlistDialog 
+        open={dialogOpen} 
+        onOpenChange={setDialogOpen}
+        userType={userType}
+      />
     </section>
   );
 };
