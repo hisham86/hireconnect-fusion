@@ -59,24 +59,6 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute top-1/2 -right-24 transform -translate-y-1/2 bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20 w-80 animate-float" style={{ animationDelay: "1s" }}>
-              <div className="absolute -top-6 -left-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium">
-                Recruiter View
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span>Candidate Info Complete</span>
-                  <span className="text-green-400">✓</span>
-                </div>
-                <div className="w-full bg-white/20 h-2 rounded-full">
-                  <div className="bg-green-400 h-2 rounded-full w-3/4"></div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span>Next Steps</span>
-                  <span className="text-brand-light">Technical Interview</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
