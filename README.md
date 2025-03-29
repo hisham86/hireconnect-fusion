@@ -1,11 +1,11 @@
 
-# CodingCats
+# CatoHub
 
-CodingCats is a unified platform designed to bridge the gap between engineers and talent acquisition teams, streamlining the hiring process for tech roles.
+CatoHub is a unified platform designed to bridge the gap between engineers and talent acquisition teams, streamlining the hiring process for tech roles.
 
 ## Overview
 
-This platform connects talented engineers with recruiters, eliminating the back-and-forth typically associated with the hiring process. With interactive profiles, seamless communication tools, and powerful analytics, CodingCats transforms how tech hiring happens.
+This platform connects talented engineers with recruiters, eliminating the back-and-forth typically associated with the hiring process. With interactive profiles, seamless communication tools, and powerful analytics, CatoHub transforms how tech hiring happens.
 
 ## Features
 
@@ -38,10 +38,10 @@ This platform connects talented engineers with recruiters, eliminating the back-
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/codingcats.git
+git clone https://github.com/yourusername/catohub.git
 
 # Navigate to project directory
-cd codingcats
+cd catohub
 
 # Install dependencies
 npm install
@@ -93,7 +93,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-- Website: [codingcats.com](https://codingcats.com)
-- Email: contact@codingcats.com
-- Twitter: [@CodingCats](https://twitter.com/CodingCats)
-- GitHub: [yourusername/codingcats](https://github.com/yourusername/codingcats)
+- Website: [catohub.com](https://catohub.com)
+- Email: contact@catohub.com
+- Twitter: [@CatoHub](https://twitter.com/CatoHub)
+- GitHub: [yourusername/catohub](https://github.com/yourusername/catohub)
+

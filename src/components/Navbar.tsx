@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "./ui/button";
 import { useAuth } from "@/context/AuthContext";
@@ -15,7 +14,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src="/placeholder.svg" alt="Logo" className="h-8 w-8" />
-            <span className="font-bold text-xl">CodingCats</span>
+            <span className="font-bold text-xl">CatoHub</span>
           </Link>
 
           {/* Navigation for desktop */}
