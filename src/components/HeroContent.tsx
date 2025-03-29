@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Code, Users } from 'lucide-react';
+import { userService } from '@/services/userService';
 
 interface HeroContentProps {
   onOpenDialog: () => void;
@@ -8,28 +9,47 @@ interface HeroContentProps {
 
 const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
   const [count, setCount] = useState(0);
-  const targetCount = 1287; // A starting number that looks realistic
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Start from a smaller number and increment to create a counting animation
-    const startCount = targetCount - 50;
-    setCount(startCount);
-    
-    const timer = setTimeout(() => {
-      let current = startCount;
-      const interval = setInterval(() => {
-        current += 1;
-        setCount(current);
+    const fetchUserCount = async () => {
+      setIsLoading(true);
+      try {
+        // Get the actual count from the database
+        const userCount = await userService.getUserCount();
         
-        if (current >= targetCount) {
-          clearInterval(interval);
-        }
-      }, 30);
-      
-      return () => clearInterval(interval);
-    }, 500);
+        // Set a minimum display count for UI purposes (we don't want to show 0)
+        const displayCount = Math.max(userCount, 50);
+        
+        // Start from a smaller number to animate
+        const startCount = Math.max(1, displayCount - 40);
+        setCount(startCount);
+        
+        // Animate the counter
+        const timer = setTimeout(() => {
+          let current = startCount;
+          const interval = setInterval(() => {
+            current += 1;
+            setCount(current);
+            
+            if (current >= displayCount) {
+              clearInterval(interval);
+              setIsLoading(false);
+            }
+          }, 30);
+          
+          return () => clearInterval(interval);
+        }, 500);
+        
+        return () => clearTimeout(timer);
+      } catch (error) {
+        console.error("Error fetching user count:", error);
+        setCount(123); // Fallback number if there's an error
+        setIsLoading(false);
+      }
+    };
     
-    return () => clearTimeout(timer);
+    fetchUserCount();
   }, []);
 
   return (
@@ -45,7 +65,12 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
         <div className="bg-black/30 backdrop-blur-md p-3 rounded-lg flex items-center mb-4 border border-purple-400/30 shadow-lg">
           <Users className="text-purple-300 mr-3 h-5 w-5" />
           <div className="flex items-center">
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">{count.toLocaleString()}</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
+              {isLoading ? 
+                <span className="inline-block w-12 h-6 bg-purple-300/20 rounded animate-pulse"></span> : 
+                count.toLocaleString()
+              }
+            </span>
             <span className="ml-2 text-purple-200 text-sm">developers have joined our platform</span>
           </div>
         </div>
