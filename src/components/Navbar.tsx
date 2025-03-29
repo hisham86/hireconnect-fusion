@@ -4,12 +4,13 @@ import { Button } from '@/components/ui/button';
 import { LogOut, Menu, User, X } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
@@ -18,6 +19,7 @@ const Navbar = () => {
         title: "Signed out successfully",
         description: "You have been signed out of your account",
       });
+      navigate('/');
     } catch (error) {
       toast({
         title: "Error signing out",
@@ -32,7 +34,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="text-2xl font-bold text-brand-primary">
-            Cato<span className="text-brand-secondary">Hub</span>
+            Coding<span className="text-brand-secondary">Cats</span>
           </a>
         </div>
 
@@ -50,9 +52,10 @@ const Navbar = () => {
           
           {user ? (
             <div className="flex items-center gap-4">
-              <span className="text-gray-800 font-medium">
-                {user.email?.split('@')[0]}
-              </span>
+              <Link to="/dashboard" className="text-gray-800 hover:text-brand-primary transition-colors font-medium flex items-center">
+                <User size={16} className="mr-1" />
+                Dashboard
+              </Link>
               <Button variant="outline" onClick={handleSignOut} className="flex items-center gap-2">
                 <LogOut size={16} />
                 Sign out
@@ -111,9 +114,14 @@ const Navbar = () => {
             
             {user ? (
               <div className="flex flex-col gap-2">
-                <span className="text-gray-800 font-medium">
-                  {user.email?.split('@')[0]}
-                </span>
+                <Link 
+                  to="/dashboard" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-gray-800 hover:text-brand-primary transition-colors font-medium flex items-center"
+                >
+                  <User size={16} className="mr-1" />
+                  Dashboard
+                </Link>
                 <Button variant="outline" onClick={handleSignOut} className="flex items-center gap-2">
                   <LogOut size={16} />
                   Sign out
