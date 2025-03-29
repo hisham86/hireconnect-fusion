@@ -51,6 +51,33 @@ npm run dev
 yarn dev
 ```
 
+### Integrating Hackathon Repository
+
+For additional features and functionality, you can also clone the hackathon repository:
+
+```bash
+# Clone the hackathon repository
+git clone https://github.com/hisham86/hackathon.lovable
+
+# Navigate to the hackathon directory
+cd hackathon.lovable
+
+# Install dependencies
+npm install
+# or
+yarn install
+
+# Run the hackathon project (in a separate terminal)
+npm run dev
+# or
+yarn dev
+```
+
+To use code from the hackathon repository in the main CatoHub project:
+1. Review the components/features you want to incorporate
+2. Copy the relevant files to your CatoHub project
+3. Adjust imports and dependencies as needed
+
 ## Deployment
 
 The project can be built for production using:
