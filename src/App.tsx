@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAnalytics } from "./hooks/useAnalytics";
 import InteractiveBackground from "./components/InteractiveBackground";
 
@@ -15,14 +15,6 @@ import InteractiveBackground from "./components/InteractiveBackground";
 const AppWithAnalytics = () => {
   useAnalytics();
   
-  // Initialize dark mode based on user's preference
-  useEffect(() => {
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
   return (
     <>
       <InteractiveBackground />
