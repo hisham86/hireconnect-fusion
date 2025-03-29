@@ -1,9 +1,9 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import ProfileCard from './ProfileCard';
 import { engineerProfiles } from '@/data/engineerProfiles';
 import { useSound } from '@/hooks/useSound';
-import { MousePointer, Move } from 'lucide-react';
+import { MousePointer, Gravity } from 'lucide-react';
+import { Button } from './ui/button';
 
 interface FloatingProfilesProps {
   mousePosition: { x: number; y: number };
@@ -29,24 +29,20 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
   const animationRef = useRef<number | null>(null);
   const { playSound } = useSound();
 
-  // Handle default mouse-based positioning
   useEffect(() => {
     if (!profilesRef.current || showControls) return;
     
     const profiles = profilesRef.current.querySelectorAll('.floating-profile');
     profiles.forEach((profile, index) => {
       const htmlProfile = profile as HTMLElement;
-      // Calculate different movement for each profile based on index
       const offsetX = (mousePosition.x / window.innerWidth - 0.5) * (10 + index * 5);
       const offsetY = (mousePosition.y / window.innerHeight - 0.5) * (5 + index * 3);
-      // Add scroll effect
       const scrollOffset = scrollY * (0.02 + index * 0.01);
       
       htmlProfile.style.transform = `translate(${offsetX}px, ${offsetY - scrollOffset}px) rotate(${offsetX * 0.2}deg)`;
     });
   }, [mousePosition, scrollY, showControls]);
 
-  // Setup physics animation loop
   useEffect(() => {
     if (!showControls) {
       if (animationRef.current) {
@@ -58,7 +54,7 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
 
     const FRICTION = 0.98;
     const BOUNCE = 0.8;
-    const PROFILE_SIZE = 240; // Approximate card size
+    const PROFILE_SIZE = 240;
     const CONTAINER_WIDTH = 600;
     const CONTAINER_HEIGHT = 500;
 
@@ -66,19 +62,15 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
       setProfilePositions(prevPositions => {
         const newPositions = [...prevPositions];
         
-        // Update each profile position based on velocity
         for (let i = 0; i < newPositions.length; i++) {
           if (newPositions[i].isDragging) continue;
           
-          // Apply velocity
           newPositions[i].x += newPositions[i].vx;
           newPositions[i].y += newPositions[i].vy;
           
-          // Apply friction
           newPositions[i].vx *= FRICTION;
           newPositions[i].vy *= FRICTION;
           
-          // Boundary collision
           if (newPositions[i].x < -CONTAINER_WIDTH/2) {
             newPositions[i].x = -CONTAINER_WIDTH/2;
             newPositions[i].vx *= -BOUNCE;
@@ -100,21 +92,17 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
           }
         }
         
-        // Check for collisions between profiles
         for (let i = 0; i < newPositions.length; i++) {
           for (let j = i + 1; j < newPositions.length; j++) {
             const dx = newPositions[j].x - newPositions[i].x;
             const dy = newPositions[j].y - newPositions[i].y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            // If profiles are colliding
             if (distance < PROFILE_SIZE * 0.8) {
-              // Calculate collision response
               const angle = Math.atan2(dy, dx);
               const targetX = newPositions[i].x + Math.cos(angle) * PROFILE_SIZE * 0.8;
               const targetY = newPositions[i].y + Math.sin(angle) * PROFILE_SIZE * 0.8;
               
-              // Move profiles apart and exchange momentum
               const ax = (targetX - newPositions[j].x) * 0.05;
               const ay = (targetY - newPositions[j].y) * 0.05;
               
@@ -128,7 +116,6 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
                 newPositions[j].vy += ay;
               }
               
-              // Play collision sound
               if (Math.abs(ax) + Math.abs(ay) > 0.5) {
                 playSound('pop');
               }
@@ -151,7 +138,6 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
     };
   }, [showControls, playSound]);
 
-  // Hide the hint after a delay or after any profile is clicked
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowHint(false);
@@ -161,10 +147,9 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
   }, []);
 
   const handleProfileClick = (index: number) => {
-    // Play a cute sound when clicking on a profile
     playSound('pop');
     setFocusedProfile(index === focusedProfile ? null : index);
-    setShowHint(false); // Hide the hint when a profile is clicked
+    setShowHint(false);
   };
 
   const handleMouseDown = (index: number, e: React.MouseEvent) => {
@@ -190,11 +175,9 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
       
       for (let i = 0; i < newPositions.length; i++) {
         if (newPositions[i].isDragging) {
-          // Calculate position relative to container center
           newPositions[i].x = e.clientX - centerX;
           newPositions[i].y = e.clientY - centerY;
           
-          // Reset velocity when dragging
           newPositions[i].vx = 0;
           newPositions[i].vy = 0;
         }
@@ -213,7 +196,6 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
       for (let i = 0; i < newPositions.length; i++) {
         if (newPositions[i].isDragging) {
           newPositions[i].isDragging = false;
-          // Add a small random velocity when released
           newPositions[i].vx = (Math.random() - 0.5) * 6;
           newPositions[i].vy = (Math.random() - 0.5) * 6;
         }
@@ -226,7 +208,6 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
   const toggleControls = () => {
     setShowControls(prev => !prev);
     if (!showControls) {
-      // Initialize random positions when enabling physics mode
       setProfilePositions(engineerProfiles.map(() => ({
         x: (Math.random() - 0.5) * 200,
         y: (Math.random() - 0.5) * 200,
@@ -253,17 +234,14 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
       )}
       
       <div className="absolute bottom-4 right-4 z-50">
-        <button 
+        <Button 
           onClick={toggleControls} 
-          className={`flex items-center gap-2 px-4 py-2 rounded-full shadow-lg transition-colors ${
-            showControls 
-              ? 'bg-brand-primary text-white' 
-              : 'bg-white/80 text-gray-800 hover:bg-white'
-          }`}
+          variant={showControls ? "default" : "outline"}
+          className="flex items-center gap-2"
         >
-          <Move className="h-4 w-4" />
-          {showControls ? 'Disable Physics' : 'Enable Physics'}
-        </button>
+          <Gravity className="h-4 w-4" />
+          Gravity {showControls ? 'Off' : 'On'}
+        </Button>
       </div>
       
       {engineerProfiles.map((profile, index) => (
