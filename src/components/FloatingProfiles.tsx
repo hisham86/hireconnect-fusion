@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ProfileCard from './ProfileCard';
 import { engineerProfiles } from '@/data/engineerProfiles';
 import { useSound } from '@/hooks/useSound';
-import { MousePointer, Wind } from 'lucide-react';
+import { Wind } from 'lucide-react';
 import { Button } from './ui/button';
 
 interface FloatingProfilesProps {
@@ -228,7 +228,6 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
     >
       {showHint && (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 text-white px-4 py-2 rounded-full flex items-center gap-2 z-50 animate-pulse">
-          <MousePointer className="h-4 w-4" />
           <span>Click the profiles to expand</span>
         </div>
       )}
@@ -237,10 +236,10 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
         <Button 
           onClick={toggleControls} 
           variant={showControls ? "default" : "outline"}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-foreground"
         >
           <Wind className="h-4 w-4" />
-          Gravity {showControls ? 'Off' : 'On'}
+          <span>Gravity {showControls ? 'Off' : 'On'}</span>
         </Button>
       </div>
       
