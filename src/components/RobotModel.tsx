@@ -45,63 +45,79 @@ const RobotModel = () => {
       {/* Body */}
       <mesh position={[0, 0.8, 0]}>
         <boxGeometry args={[1.5, 2, 1]} />
-        <meshStandardMaterial attach="material" color={hover ? "#9b87f5" : "#8B5CF6"} />
+        <meshStandardMaterial>
+          <color attach="color" args={[hover ? "#9b87f5" : "#8B5CF6"]} />
+        </meshStandardMaterial>
       </mesh>
       
       {/* Head */}
       <mesh ref={headRef} position={[0, 2.3, 0]}>
         <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" color="#7E69AB" />
+        <meshStandardMaterial>
+          <color attach="color" args={["#7E69AB"]} />
+        </meshStandardMaterial>
         
         {/* Eyes */}
         <mesh position={[0.3, 0.1, 0.51]}>
           <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial attach="material" color="#E5DEFF" />
+          <meshStandardMaterial>
+            <color attach="color" args={["#E5DEFF"]} />
+          </meshStandardMaterial>
         </mesh>
         
         <mesh position={[-0.3, 0.1, 0.51]}>
           <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial attach="material" color="#E5DEFF" />
+          <meshStandardMaterial>
+            <color attach="color" args={["#E5DEFF"]} />
+          </meshStandardMaterial>
         </mesh>
         
         {/* Antenna */}
         <mesh position={[0, 0.6, 0]}>
           <cylinderGeometry args={[0.05, 0.05, 0.4, 16]} />
-          <meshStandardMaterial attach="material" color="#D946EF" />
+          <meshStandardMaterial>
+            <color attach="color" args={["#D946EF"]} />
+          </meshStandardMaterial>
         </mesh>
         
         <mesh position={[0, 0.8, 0]}>
           <sphereGeometry args={[0.08, 16, 16]} />
-          <meshStandardMaterial 
-            attach="material" 
-            color="#F97316" 
-            emissive="#F97316" 
-            emissiveIntensity={0.5} 
-          />
+          <meshStandardMaterial emissiveIntensity={0.5}>
+            <color attach="color" args={["#F97316"]} />
+            <color attach="emissive" args={["#F97316"]} />
+          </meshStandardMaterial>
         </mesh>
       </mesh>
       
       {/* Left Arm */}
       <mesh ref={leftArmRef} position={[-1, 0.8, 0]}>
         <boxGeometry args={[0.4, 1.5, 0.4]} />
-        <meshStandardMaterial attach="material" color="#6E59A5" />
+        <meshStandardMaterial>
+          <color attach="color" args={["#6E59A5"]} />
+        </meshStandardMaterial>
       </mesh>
       
       {/* Right Arm */}
       <mesh ref={rightArmRef} position={[1, 0.8, 0]}>
         <boxGeometry args={[0.4, 1.5, 0.4]} />
-        <meshStandardMaterial attach="material" color="#6E59A5" />
+        <meshStandardMaterial>
+          <color attach="color" args={["#6E59A5"]} />
+        </meshStandardMaterial>
       </mesh>
       
       {/* Legs */}
       <mesh position={[-0.5, -0.8, 0]}>
         <boxGeometry args={[0.5, 1.6, 0.5]} />
-        <meshStandardMaterial attach="material" color="#1A1F2C" />
+        <meshStandardMaterial>
+          <color attach="color" args={["#1A1F2C"]} />
+        </meshStandardMaterial>
       </mesh>
       
       <mesh position={[0.5, -0.8, 0]}>
         <boxGeometry args={[0.5, 1.6, 0.5]} />
-        <meshStandardMaterial attach="material" color="#1A1F2C" />
+        <meshStandardMaterial>
+          <color attach="color" args={["#1A1F2C"]} />
+        </meshStandardMaterial>
       </mesh>
     </group>
   );
