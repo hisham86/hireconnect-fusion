@@ -51,20 +51,20 @@ const Hero = () => {
             </Canvas>
             
             <div className="absolute bottom-0 right-0 bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20 w-80 z-20 animate-float" style={{ animationDelay: "1s" }}>
-              <div className="absolute -top-6 -left-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium">
-                Recruiter View
+              <div className="absolute -top-6 -left-6 bg-[#F97316] text-white rounded-full px-4 py-2 font-medium">
+                Engineer View
               </div>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span>Candidate Info Complete</span>
-                  <span className="text-green-400">✓</span>
+                  <span>Profile Completion</span>
+                  <span className="text-green-400">85%</span>
                 </div>
                 <div className="w-full bg-white/20 h-2 rounded-full">
-                  <div className="bg-green-400 h-2 rounded-full w-3/4"></div>
+                  <div className="bg-green-400 h-2 rounded-full w-[85%]"></div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span>Next Steps</span>
-                  <span className="text-brand-light">Technical Interview</span>
+                  <span>Upcoming</span>
+                  <span className="text-[#8B5CF6]">2 Interviews</span>
                 </div>
               </div>
             </div>
