@@ -7,8 +7,13 @@ import {
   Globe, 
   ServerCog, 
   Layers, 
-  Smartphone 
+  Smartphone,
+  Braces,
+  FileJson,
+  PencilRuler,
+  GanttChart
 } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
 
 const Hero = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -71,7 +76,12 @@ const Hero = () => {
       position: "top-10 -right-4 md:top-16 md:right-24",
       rotation: "rotate-2",
       specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
-      floatClass: "animate-float-1"
+      floatClass: "animate-float-1",
+      languages: ["React", "TypeScript", "Next.js"],
+      languageIcons: [
+        <Braces key="react" className="h-4 w-4 text-blue-400" />,
+        <FileJson key="ts" className="h-4 w-4 text-blue-500" />
+      ]
     },
     {
       role: "Backend Developer",
@@ -82,7 +92,12 @@ const Hero = () => {
       position: "-top-10 right-20 md:top-8 md:right-12",
       rotation: "-rotate-3",
       specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
-      floatClass: "animate-float-2"
+      floatClass: "animate-float-2",
+      languages: ["Node.js", "Python", "Go"],
+      languageIcons: [
+        <ServerCog key="node" className="h-4 w-4 text-green-400" />,
+        <Code key="python" className="h-4 w-4 text-yellow-500" />
+      ]
     },
     {
       role: "Full Stack Engineer",
@@ -93,7 +108,12 @@ const Hero = () => {
       position: "top-24 -right-8 md:top-40 md:right-36",
       rotation: "rotate-6",
       specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
-      floatClass: "animate-float-3"
+      floatClass: "animate-float-3",
+      languages: ["JavaScript", "Ruby", "Vue.js"],
+      languageIcons: [
+        <Braces key="js" className="h-4 w-4 text-yellow-400" />,
+        <Code key="vue" className="h-4 w-4 text-green-500" />
+      ]
     },
     {
       role: "Mobile Developer",
@@ -104,7 +124,12 @@ const Hero = () => {
       position: "top-48 right-4 md:top-20 md:right-2",
       rotation: "-rotate-2",
       specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
-      floatClass: "animate-float-4"
+      floatClass: "animate-float-4",
+      languages: ["React Native", "Swift", "Kotlin"],
+      languageIcons: [
+        <Smartphone key="mobile" className="h-4 w-4 text-purple-400" />,
+        <PencilRuler key="design" className="h-4 w-4 text-pink-500" />
+      ]
     },
     {
       role: "Database Specialist",
@@ -115,7 +140,12 @@ const Hero = () => {
       position: "top-4 -right-14 md:top-52 md:right-28",
       rotation: "rotate-12",
       specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
-      floatClass: "animate-float-5"
+      floatClass: "animate-float-5",
+      languages: ["SQL", "MongoDB", "PostgreSQL"],
+      languageIcons: [
+        <Database key="sql" className="h-4 w-4 text-amber-400" />,
+        <GanttChart key="mongo" className="h-4 w-4 text-green-400" />
+      ]
     }
   ];
 
@@ -177,6 +207,17 @@ const Hero = () => {
                   <div className="space-y-2">
                     <p className="text-sm text-white/60">Preferred Location</p>
                     <p className="font-medium">{profile.location}</p>
+                  </div>
+                  <div className="pt-2">
+                    <p className="text-sm text-white/60 mb-2">Skills</p>
+                    <div className="flex flex-wrap gap-2">
+                      {profile.languages.map((lang, i) => (
+                        <Badge key={i} className="bg-white/15 hover:bg-white/20 text-white flex items-center gap-1.5">
+                          {i < profile.languageIcons.length && profile.languageIcons[i]}
+                          {lang}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
