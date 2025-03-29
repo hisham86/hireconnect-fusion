@@ -31,8 +31,8 @@ const Navbar = () => {
     <nav className="relative w-full bg-white shadow-sm backdrop-blur-sm z-50 py-4 px-4 md:px-8">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <a href="/" className="text-2xl font-bold text-brand-primary">
-            Coding<span className="text-brand-secondary">Cats</span>
+          <a href="/" className="text-2xl font-bold">
+            <span style={{ color: '#A1DDED' }}>Coding</span><span style={{ color: '#FF6720' }}>Cats</span>
           </a>
         </div>
 
