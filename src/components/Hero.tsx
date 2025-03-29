@@ -36,7 +36,7 @@ const Hero = () => {
             </div>
           </div>
           <div className="relative animate-float hidden md:block">
-            <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20">
+            <div className="relative bg-white/10 dark:bg-white/5 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20">
               <div className="absolute -top-6 -right-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium">
                 Engineer Profile
               </div>
@@ -62,7 +62,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="absolute -bottom-8 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute -bottom-8 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent"></div>
       <WaitlistDialog 
         open={dialogOpen} 
         onOpenChange={setDialogOpen}

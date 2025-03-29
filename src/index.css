@@ -93,7 +93,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans dark:bg-black;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -103,7 +103,7 @@
 
 @layer components {
   .hero-gradient {
-    background: linear-gradient(135deg, #8B5CF6 0%, #7E69AB 100%);
+    @apply bg-gradient-to-br from-violet-500 to-indigo-700 dark:from-violet-800 dark:to-indigo-950;
   }
   
   .feature-card {
@@ -113,4 +113,9 @@
   .section-padding {
     @apply py-16 md:py-24;
   }
+
+  .interactive-dots {
+    @apply absolute inset-0 z-0 overflow-hidden pointer-events-none;
+  }
 }
+
