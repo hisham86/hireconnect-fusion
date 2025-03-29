@@ -9,7 +9,6 @@ import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 import { useState } from "react";
 import { useAnalytics } from "./hooks/useAnalytics";
-import InteractiveBackground from "./components/InteractiveBackground";
 
 // Wrap component to enable analytics
 const AppWithAnalytics = () => {
@@ -17,7 +16,7 @@ const AppWithAnalytics = () => {
   
   return (
     <>
-      <InteractiveBackground />
+      <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-purple-50 to-indigo-100 -z-10" />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/analytics" element={<Analytics />} />
