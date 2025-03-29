@@ -96,6 +96,13 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
         eliminating back-and-forth and accelerating the hiring process.
       </p>
       <div className="flex flex-col gap-2 relative z-10">
+        <div className="mb-4">
+          <img 
+            src="/lovable-uploads/5a805dc9-0c39-4d9c-a444-578cb8bdd9d2.png" 
+            alt="CodingCats Logo" 
+            className="h-16 md:h-20 mx-auto md:mx-0 mb-2" 
+          />
+        </div>
         <div 
           ref={counterRef}
           className="bg-black/30 backdrop-blur-md p-3 rounded-lg flex items-center mb-4 border border-purple-400/30 shadow-lg overflow-hidden"
