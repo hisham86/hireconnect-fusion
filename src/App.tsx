@@ -7,7 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth";
 import { useAnalytics } from "./hooks/useAnalytics";
+import AuthProvider from "./context/AuthContext";
 
 // Create a new QueryClient instance outside of the component
 const queryClient = new QueryClient();
@@ -22,6 +24,7 @@ const AppWithAnalytics = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/analytics" element={<Analytics />} />
+        <Route path="/auth" element={<Auth />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -36,7 +39,9 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <AppWithAnalytics />
+          <AuthProvider>
+            <AppWithAnalytics />
+          </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
