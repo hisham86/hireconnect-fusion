@@ -5,14 +5,15 @@ CatoHub is a unified platform designed to bridge the gap between engineers and t
 
 ## Overview
 
-This project is a modern web application built with React, TypeScript, and Tailwind CSS using the Vite build tool. It features a responsive design, interactive UI components from shadcn/ui, and a clean, professional aesthetic.
+This platform connects talented engineers with recruiters, eliminating the back-and-forth typically associated with the hiring process. With interactive profiles, seamless communication tools, and powerful analytics, CatoHub transforms how tech hiring happens.
 
 ## Features
 
-- **Engineer Profile Creation**: Tech professionals can create detailed profiles showcasing their skills and experience
-- **Recruiter Dashboard**: Talent acquisition teams can efficiently browse qualified candidates
-- **Unified Communication**: Streamlined interaction between engineers and recruiters
-- **Analytics**: Track engagement and hiring metrics
+- **Interactive Engineer Profiles**: Browse through floating profile cards with sound effects
+- **Streamlined Waitlist System**: Join as either an engineer or recruiter
+- **Modern UI/UX**: Responsive design with smooth animations
+- **Analytics Dashboard**: Track engagement metrics and hiring pipeline
+- **Unified Communication**: Direct messaging between engineers and recruiters
 
 ## Tech Stack
 
@@ -23,6 +24,8 @@ This project is a modern web application built with React, TypeScript, and Tailw
 - [Vite](https://vitejs.dev/) - Build tool and development server
 - [React Router](https://reactrouter.com/) - Client-side routing
 - [React Query](https://tanstack.com/query/latest) - Data fetching and state management
+- [Sonner](https://sonner.emilkowal.ski/) - Toast notifications
+- [Recharts](https://recharts.org/) - Data visualization
 
 ## Getting Started
 
@@ -35,7 +38,7 @@ This project is a modern web application built with React, TypeScript, and Tailw
 
 ```bash
 # Clone the repository
-git clone https://github.com/hishamcse/catohub.git
+git clone https://github.com/yourusername/catohub.git
 
 # Navigate to project directory
 cd catohub
@@ -51,6 +54,21 @@ npm run dev
 yarn dev
 ```
 
+The application will be available at `http://localhost:8080`.
+
+## Project Structure
+
+```
+src/
+├── components/     # UI components
+├── data/           # Mock data and constants
+├── hooks/          # Custom React hooks
+├── lib/            # Utility functions
+├── pages/          # Page components
+├── services/       # API services
+└── types/          # TypeScript type definitions
+```
+
 ## Deployment
 
 The project can be built for production using:
@@ -61,26 +79,13 @@ npm run build
 yarn build
 ```
 
-## GitHub Repository
-
-Visit our [GitHub repository](https://github.com/hishamcse/catohub) to:
-- View the source code
-- Report issues
-- Submit pull requests
-- Track project milestones
-- Star the project if you find it useful!
-
-## Contributing
-
-We welcome contributions from the community! Here's how you can contribute:
+## How to Contribute
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-Please ensure your code follows the project's coding standards and includes appropriate tests.
 
 ## License
 
@@ -91,5 +96,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Website: [catohub.com](https://catohub.com)
 - Email: contact@catohub.com
 - Twitter: [@CatoHub](https://twitter.com/CatoHub)
-- LinkedIn: [CatoHub](https://www.linkedin.com/company/catohub)
-- GitHub: [hishamcse/catohub](https://github.com/hishamcse/catohub)
+- GitHub: [yourusername/catohub](https://github.com/yourusername/catohub)
+
