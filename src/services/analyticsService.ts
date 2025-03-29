@@ -1,4 +1,6 @@
 
+import { supabase } from '@/integrations/supabase/client';
+
 interface VisitorData {
   sessionId: string;
   userId?: string;
@@ -13,7 +15,6 @@ interface VisitorData {
 }
 
 class AnalyticsService {
-  private storageKey = 'catohub_analytics';
   private sessionStorageKey = 'catohub_session';
   
   constructor() {
@@ -99,7 +100,7 @@ class AnalyticsService {
     return `${window.screen.width}x${window.screen.height}`;
   }
   
-  trackPageView(path: string): void {
+  async trackPageView(path: string): Promise<void> {
     const sessionId = this.initSession();
     const visitorData: VisitorData = {
       sessionId,
@@ -114,57 +115,143 @@ class AnalyticsService {
       path: path
     };
     
-    // Log visitor data to console (in production, you'd send this to your analytics backend)
-    console.log('Analytics:', visitorData);
-    
-    // Store analytics data in localStorage for demo purposes
-    this.storeAnalyticsData(visitorData);
+    // Store analytics data in Supabase
+    try {
+      const { error } = await supabase.from('analytics').insert(visitorData);
+      
+      if (error) {
+        console.error('Error storing analytics data:', error);
+      }
+    } catch (err) {
+      console.error('Failed to store analytics data:', err);
+    }
   }
   
-  private storeAnalyticsData(data: VisitorData): void {
-    const existingData = this.getStoredAnalyticsData();
-    existingData.push(data);
-    localStorage.setItem(this.storageKey, JSON.stringify(existingData));
+  async getUniqueVisitors(): Promise<number> {
+    try {
+      const { data, error } = await supabase
+        .from('analytics')
+        .select('user_id')
+        .is('user_id', 'not.null');
+      
+      if (error) {
+        console.error('Error fetching unique visitors:', error);
+        return 0;
+      }
+      
+      // Count unique user_ids
+      const uniqueUserIds = new Set(data.map(item => item.user_id));
+      return uniqueUserIds.size;
+    } catch (err) {
+      console.error('Failed to fetch unique visitors:', err);
+      return 0;
+    }
   }
   
-  getStoredAnalyticsData(): VisitorData[] {
-    const storedData = localStorage.getItem(this.storageKey);
-    return storedData ? JSON.parse(storedData) : [];
+  async getTotalPageViews(): Promise<number> {
+    try {
+      const { count, error } = await supabase
+        .from('analytics')
+        .select('*', { count: 'exact', head: true });
+      
+      if (error) {
+        console.error('Error fetching total page views:', error);
+        return 0;
+      }
+      
+      return count || 0;
+    } catch (err) {
+      console.error('Failed to fetch total page views:', err);
+      return 0;
+    }
   }
   
-  getUniqueVisitors(): number {
-    const data = this.getStoredAnalyticsData();
-    const uniqueUserIds = new Set(data.map(item => item.userId));
-    return uniqueUserIds.size;
+  async getVisitorsByDevice(): Promise<Record<string, number>> {
+    try {
+      const { data, error } = await supabase
+        .from('analytics')
+        .select('device_type');
+      
+      if (error) {
+        console.error('Error fetching visitors by device:', error);
+        return {};
+      }
+      
+      return data.reduce((acc: Record<string, number>, item) => {
+        acc[item.device_type] = (acc[item.device_type] || 0) + 1;
+        return acc;
+      }, {});
+    } catch (err) {
+      console.error('Failed to fetch visitors by device:', err);
+      return {};
+    }
   }
   
-  getTotalPageViews(): number {
-    return this.getStoredAnalyticsData().length;
+  async getVisitorsByBrowser(): Promise<Record<string, number>> {
+    try {
+      const { data, error } = await supabase
+        .from('analytics')
+        .select('browser');
+      
+      if (error) {
+        console.error('Error fetching visitors by browser:', error);
+        return {};
+      }
+      
+      return data.reduce((acc: Record<string, number>, item) => {
+        acc[item.browser] = (acc[item.browser] || 0) + 1;
+        return acc;
+      }, {});
+    } catch (err) {
+      console.error('Failed to fetch visitors by browser:', err);
+      return {};
+    }
   }
   
-  getVisitorsByDevice(): Record<string, number> {
-    const data = this.getStoredAnalyticsData();
-    return data.reduce((acc: Record<string, number>, item) => {
-      acc[item.deviceType] = (acc[item.deviceType] || 0) + 1;
-      return acc;
-    }, {});
+  async getVisitorsByReferrer(): Promise<Record<string, number>> {
+    try {
+      const { data, error } = await supabase
+        .from('analytics')
+        .select('referrer');
+      
+      if (error) {
+        console.error('Error fetching visitors by referrer:', error);
+        return {};
+      }
+      
+      return data.reduce((acc: Record<string, number>, item) => {
+        const referrer = item.referrer || 'direct';
+        acc[referrer] = (acc[referrer] || 0) + 1;
+        return acc;
+      }, {});
+    } catch (err) {
+      console.error('Failed to fetch visitors by referrer:', err);
+      return {};
+    }
   }
   
-  getVisitorsByBrowser(): Record<string, number> {
-    const data = this.getStoredAnalyticsData();
-    return data.reduce((acc: Record<string, number>, item) => {
-      acc[item.browser] = (acc[item.browser] || 0) + 1;
-      return acc;
-    }, {});
-  }
-  
-  getVisitorsByReferrer(): Record<string, number> {
-    const data = this.getStoredAnalyticsData();
-    return data.reduce((acc: Record<string, number>, item) => {
-      const referrer = item.referrer || 'direct';
-      acc[referrer] = (acc[referrer] || 0) + 1;
-      return acc;
-    }, {});
+  async getVisitorsByCountry(): Promise<Record<string, number>> {
+    try {
+      const { data, error } = await supabase
+        .from('analytics')
+        .select('country')
+        .not('country', 'is', null);
+      
+      if (error) {
+        console.error('Error fetching visitors by country:', error);
+        return {};
+      }
+      
+      return data.reduce((acc: Record<string, number>, item) => {
+        if (item.country) {
+          acc[item.country] = (acc[item.country] || 0) + 1;
+        }
+        return acc;
+      }, {});
+    } catch (err) {
+      console.error('Failed to fetch visitors by country:', err);
+      return {};
+    }
   }
 }
 

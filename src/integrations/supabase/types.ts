@@ -9,7 +9,57 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      analytics: {
+        Row: {
+          browser: string
+          city: string | null
+          country: string | null
+          device_type: string
+          id: string
+          ip_address: string | null
+          language: string | null
+          operating_system: string
+          path: string
+          referrer: string | null
+          screen_resolution: string | null
+          session_id: string
+          user_id: string | null
+          visit_time: string
+        }
+        Insert: {
+          browser: string
+          city?: string | null
+          country?: string | null
+          device_type: string
+          id?: string
+          ip_address?: string | null
+          language?: string | null
+          operating_system: string
+          path: string
+          referrer?: string | null
+          screen_resolution?: string | null
+          session_id: string
+          user_id?: string | null
+          visit_time?: string
+        }
+        Update: {
+          browser?: string
+          city?: string | null
+          country?: string | null
+          device_type?: string
+          id?: string
+          ip_address?: string | null
+          language?: string | null
+          operating_system?: string
+          path?: string
+          referrer?: string | null
+          screen_resolution?: string | null
+          session_id?: string
+          user_id?: string | null
+          visit_time?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
