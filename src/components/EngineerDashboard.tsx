@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, Briefcase, Clock, DollarSign, MapPin, Star, StarHalf, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, PlusIcon, Mail, Phone, Github, Code } from "lucide-react";
+import { Check, Briefcase, Clock, DollarSign, MapPin, Star, StarHalf, Calendar, ArrowUpDown, ExternalLink, ArrowUpRightIcon, BadgeCheck, PencilIcon, HomeIcon, Wifi, Laptop, Building, Car, PlusIcon, Mail, Phone, Github, Code, InfoIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -114,7 +114,7 @@ const EngineerDashboard = () => {
     { 
       id: 2, 
       company: "Pandai", 
-      logoUrl: "https://play-lh.googleusercontent.com/5MlUibAu2Bn-d8FzRXZGyiy1yOm8HZjbPA0owEwPDu2xVoDmczI_VfB40LI6i-8CTCY",
+      logoUrl: "https://play-lh.googleusercontent.com/5MlUibAu2Bn-d8FzRXZGyiyiy1yOm8HZjbPA0owEwPDu2xVoDmczI_VfB40LI6i-8CTCY",
       glassdoorUrl: "https://www.glassdoor.com/Overview/Working-at-Pandai-EI_IE3991548.htm",
       rating: 4.3,
       reviews: 25,
@@ -596,18 +596,47 @@ const EngineerDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-3 gap-2 text-center">
-                    <div>
-                      <p className="text-2xl font-bold text-gray-800">{summaryData.applications}</p>
-                      <p className="text-sm text-gray-600">Applied <span className="text-xs">(You're on a roll!)</span></p>
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-[#0EA5E9]">{summaryData.interviews}</p>
-                      <p className="text-sm text-gray-600">Interviews <span className="text-xs">(Time to shine!)</span></p>
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-[#F97316]">{summaryData.offers}</p>
-                      <p className="text-sm text-gray-600">Offers <span className="text-xs">(Paws up for success!)</span></p>
-                    </div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="cursor-help">
+                            <p className="text-2xl font-bold text-gray-800">{summaryData.applications}</p>
+                            <p className="text-sm text-gray-600">Applied <span className="text-xs">(You're on a roll!)</span></p>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Total job applications you've submitted</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="cursor-help">
+                            <p className="text-2xl font-bold text-[#0EA5E9]">{summaryData.interviews}</p>
+                            <p className="text-sm text-gray-600">Interviews <span className="text-xs">(Time to shine!)</span></p>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Upcoming and completed interviews</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="cursor-help">
+                            <p className="text-2xl font-bold text-[#F97316]">{summaryData.offers}</p>
+                            <p className="text-sm text-gray-600">Offers <span className="text-xs">(Paws up for success!)</span></p>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Job offers received - congrats!</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                 </CardContent>
               </Card>
@@ -618,14 +647,33 @@ const EngineerDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <div className="flex items-center">
-                      <Clock className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Avg Response: <span className="font-medium">{summaryData.avgResponseTime}</span> <span className="text-xs">(Faster than a cheetah!)</span></p>
-                    </div>
-                    <div className="flex items-center">
-                      <Calendar className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Next Interview: <span className="font-medium">Tomorrow, 2PM</span> <span className="text-xs">(Don't be late, kitten!)</span></p>
-                    </div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="flex items-center cursor-help">
+                            <Clock className="w-5 h-5 text-gray-500 mr-2" />
+                            <p className="text-sm">Avg Response: <span className="font-medium">{summaryData.avgResponseTime}</span> <span className="text-xs">(Faster than a cheetah!)</span></p>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Average time companies take to respond to your applications</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="flex items-center cursor-help">
+                            <Calendar className="w-5 h-5 text-gray-500 mr-2" />
+                            <p className="text-sm">Next Interview: <span className="font-medium">Tomorrow, 2PM</span> <span className="text-xs">(Don't be late, kitten!)</span></p>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Your upcoming interview - click to view calendar details</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                 </CardContent>
               </Card>
@@ -638,396 +686,25 @@ const EngineerDashboard = () => {
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Avg Offer: <span className="font-medium">{summaryData.averageSalary}</span> <span className="text-xs">(That's a roaring deal!)</span></p>
-                    </div>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                          <div className="flex items-center cursor-help">
+                            <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
+                            <p className="text-sm">Avg Offer: <span className="font-medium">{summaryData.averageSalary}</span> <span className="text-xs">(That's a roaring deal!)</span></p>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Average salary from all your active job applications</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium cursor-help">
                             Above Average
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>Your expected salary is above the market average!</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
-                        <p className="text-sm">Current Salary:</p>
-                      </div>
-                      {!isEditingCurrentSalary ? (
-                        <div className="flex items-center">
-                          <span className="font-medium mr-1">{currentSalary}</span>
-                          {isVerified && <BadgeCheck className="h-4 w-4 text-blue-500" />}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-6 w-6 ml-1"
-                            onClick={() => setIsEditingCurrentSalary(true)}
-                          >
-                            <PencilIcon className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <Input
-                            className="h-7 w-32 text-sm"
-                            value={tempCurrentSalary}
-                            onChange={(e) => setTempCurrentSalary(e.target.value)}
-                          />
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-7 px-2 py-1 text-xs"
-                            onClick={handleSaveCurrentSalary}
-                          >
-                            Save
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
-                        <p className="text-sm">Expected Salary:</p>
-                      </div>
-                      {!isEditingExpectedSalary ? (
-                        <div className="flex items-center">
-                          <span className="font-medium mr-1">{expectedSalary}</span> <span className="text-xs text-gray-500">(Aim high, tiger!)</span>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-6 w-6 ml-1"
-                            onClick={() => setIsEditingExpectedSalary(true)}
-                          >
-                            <PencilIcon className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <Input
-                            className="h-7 w-32 text-sm"
-                            value={tempExpectedSalary}
-                            onChange={(e) => setTempExpectedSalary(e.target.value)}
-                          />
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-7 px-2 py-1 text-xs"
-                            onClick={handleSaveExpectedSalary}
-                          >
-                            Save
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div className="pt-3 border-t border-gray-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center">
-                        <Github className="w-5 h-5 text-gray-800 mr-2" />
-                        <p className="text-sm">GitHub Profile:</p>
-                      </div>
-                      {!isEditingGithubUrl ? (
-                        <div className="flex items-center">
-                          <a 
-                            href={githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm font-medium text-blue-600 hover:underline flex items-center mr-1"
-                          >
-                            {githubUrl.replace('https://github.com/', '@')}
-                            <ExternalLink className="h-3 w-3 ml-1" />
-                          </a>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-6 w-6 ml-1"
-                            onClick={() => setIsEditingGithubUrl(true)}
-                          >
-                            <PencilIcon className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <Input
-                            className="h-7 w-48 text-sm"
-                            value={tempGithubUrl}
-                            onChange={(e) => setTempGithubUrl(e.target.value)}
-                            placeholder="https://github.com/username"
-                          />
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-7 px-2 py-1 text-xs"
-                            onClick={handleSaveGithubUrl}
-                          >
-                            Save
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      <div className="flex items-center mr-1">
-                        <Code className="w-4 h-4 text-gray-800 mr-1" />
-                        <span className="text-xs text-gray-600">Languages:</span>
-                      </div>
-                      {programmingLanguages.map((lang, index) => (
-                        <TooltipProvider key={index}>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <div 
-                                className="w-6 h-6 flex items-center justify-center rounded-full text-white text-xs font-bold"
-                                style={{ backgroundColor: lang.color }}
-                              >
-                                {lang.icon}
-                              </div>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>{lang.name}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium">Location</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="space-y-2">
-                    <div className="flex items-center">
-                      <HomeIcon className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Home Location:</p>
-                    </div>
-                    <Select value={homeLocation} onValueChange={handleLocationChange}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select location" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {malaysianLocations.map((location) => (
-                          <SelectItem key={location} value={location}>
-                            {location}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <p className="text-sm mb-2">Preferred Job Nature:</p>
-                    <ToggleGroup 
-                      type="single" 
-                      className="border rounded-md p-1"
-                      value={jobNaturePreference}
-                      orientation="vertical"
-                      onValueChange={(value) => {
-                        if (value) setJobNaturePreference(value);
-                      }}
-                    >
-                      <ToggleGroupItem value="remote" className="flex justify-start text-sm py-2" aria-label="Remote">
-                        <Wifi className="w-4 h-4 mr-2" />
-                        Remote
-                      </ToggleGroupItem>
-                      <ToggleGroupItem value="hybrid" className="flex justify-start text-sm py-2" aria-label="Hybrid">
-                        <Laptop className="w-4 h-4 mr-2" />
-                        Hybrid
-                      </ToggleGroupItem>
-                      <ToggleGroupItem value="onsite" className="flex justify-start text-sm py-2" aria-label="On-Premise">
-                        <Building className="w-4 h-4 mr-2" />
-                        On-site
-                      </ToggleGroupItem>
-                    </ToggleGroup>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <Card className="overflow-hidden">
-            <Tabs defaultValue="active" className="w-full" onValueChange={setActiveTab}>
-              <div className="flex justify-between items-center px-4 py-2 border-b">
-                <TabsList className="grid grid-cols-3 rounded-none">
-                  <TabsTrigger value="active" className="py-3">
-                    <Briefcase className="w-4 h-4 mr-2" />
-                    Active Jobs
-                  </TabsTrigger>
-                  <TabsTrigger value="suitable" className="py-3">
-                    <Star className="w-4 h-4 mr-2" />
-                    Suitable Jobs
-                  </TabsTrigger>
-                  <TabsTrigger value="all" className="py-3">
-                    <Check className="w-4 h-4 mr-2" />
-                    All Jobs
-                  </TabsTrigger>
-                </TabsList>
-                <Button 
-                  onClick={() => setIsAddJobDialogOpen(true)}
-                  className="flex items-center gap-1"
-                >
-                  <PlusIcon className="h-4 w-4" />
-                  Manually Track Job
-                </Button>
-              </div>
-                
-              <TabsContent value="active">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Glassdoor</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>{renderSalaryHeader()}</TableHead>
-                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
-                      <TableHead>Applied</TableHead>
-                      <TableHead>TA Contact</TableHead>
-                      <TableHead></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {getSortedJobs(activeJobsData).map((job) => (
-                      <TableRow key={job.id}>
-                        <TableCell>{renderCompanyCell(job)}</TableCell>
-                        <TableCell>{renderStarRating(job.rating)}</TableCell>
-                        <TableCell>{job.role}</TableCell>
-                        <TableCell>
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
-                            {job.status}
-                          </span>
-                        </TableCell>
-                        <TableCell>{getSalaryDisplay(job)}</TableCell>
-                        <TableCell>{renderTransportTime(job)}</TableCell>
-                        <TableCell>{job.applied}</TableCell>
-                        <TableCell>{renderTalentAcquisitionInfo(job)}</TableCell>
-                        <TableCell>
-                          <Button 
-                            variant="secondary" 
-                            size="sm" 
-                            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 text-white font-medium transition-all duration-300 hover:shadow-md hover:scale-105"
-                          >
-                            View Details <ArrowUpRightIcon className="ml-1 h-4 w-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TabsContent>
-                
-              <TabsContent value="suitable">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Glassdoor</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>Match</TableHead>
-                      <TableHead>{renderSalaryHeader()}</TableHead>
-                      <TableHead>Location</TableHead>
-                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
-                      <TableHead></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {getSortedJobs(suitableJobsData).map((job) => (
-                      <TableRow key={job.id}>
-                        <TableCell>{renderCompanyCell(job)}</TableCell>
-                        <TableCell>{renderStarRating(job.rating)}</TableCell>
-                        <TableCell>{job.role}</TableCell>
-                        <TableCell>
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            {job.match}
-                          </span>
-                        </TableCell>
-                        <TableCell>{getSalaryDisplay(job)}</TableCell>
-                        <TableCell>{job.location}</TableCell>
-                        <TableCell>{renderTransportTime(job)}</TableCell>
-                        <TableCell>
-                          {renderApplyButton(false)}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TabsContent>
-                
-              <TabsContent value="all">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Glassdoor</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>{renderSalaryHeader()}</TableHead>
-                      <TableHead>Location</TableHead>
-                      <TableHead>{renderCommuteTimeHeader()}</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>TA Contact</TableHead>
-                      <TableHead></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {getSortedJobs(allJobsData).map((job) => (
-                      <TableRow key={job.id}>
-                        <TableCell>{renderCompanyCell(job)}</TableCell>
-                        <TableCell>{renderStarRating(job.rating)}</TableCell>
-                        <TableCell>{job.role}</TableCell>
-                        <TableCell>{getSalaryDisplay(job)}</TableCell>
-                        <TableCell>{job.location}</TableCell>
-                        <TableCell>{renderTransportTime(job)}</TableCell>
-                        <TableCell>
-                          {job.status ? (
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
-                              {job.status}
-                            </span>
-                          ) : job.applied ? (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                              Applied
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                              Not Applied
-                            </span>
-                          )}
-                        </TableCell>
-                        <TableCell>{renderTalentAcquisitionInfo(job)}</TableCell>
-                        <TableCell>
-                          {renderApplyButton(job.applied)}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TabsContent>
-            </Tabs>
-          </Card>
-        </div>
-      </div>
-      
-      <AddJobDialog 
-        open={isAddJobDialogOpen} 
-        onOpenChange={setIsAddJobDialogOpen}
-        onAddJob={handleAddJob}
-      />
-    </section>
-  );
-};
-
-export default EngineerDashboard;
