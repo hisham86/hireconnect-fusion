@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
-import Dashboard from "./pages/Dashboard";
 import { useAnalytics } from "./hooks/useAnalytics";
 import AuthProvider from "./context/AuthContext";
 
@@ -26,7 +25,6 @@ const AppWithAnalytics = () => {
         <Route path="/" element={<Index />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
