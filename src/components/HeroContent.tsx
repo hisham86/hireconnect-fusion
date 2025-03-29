@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Code, Users } from 'lucide-react';
 import { userService } from '@/services/userService';
@@ -89,7 +88,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
   return (
     <div className="max-w-xl">
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        Unified talent platform for Engineers & Recruiters
+        CodingCats slashes job hunting from months down to days.
       </h1>
       <p className="text-lg md:text-xl mb-8 text-white">
         Streamline hiring with a single platform that connects engineers and talent acquisition teams, 
