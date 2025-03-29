@@ -14,6 +14,7 @@ import {
   GanttChart
 } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
+import { useSound } from '@/hooks/useSound';
 
 const Hero = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -22,6 +23,7 @@ const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [focusedProfile, setFocusedProfile] = useState<number | null>(null);
   const profilesRef = useRef<HTMLDivElement>(null);
+  const { playSound } = useSound();
 
   const openDialog = () => {
     setUserType(null);
@@ -63,6 +65,8 @@ const Hero = () => {
   }, [mousePosition, scrollY]);
 
   const handleProfileClick = (index: number) => {
+    // Play a cute sound when clicking on a profile
+    playSound('pop');
     setFocusedProfile(index === focusedProfile ? null : index);
   };
 
