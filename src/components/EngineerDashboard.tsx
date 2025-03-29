@@ -1,16 +1,12 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import AddJobDialog from "./AddJobDialog";
 import { useEngineerDashboard } from "@/hooks/useEngineerDashboard";
 import { useAuth } from "@/context/AuthContext";
-import DashboardHeader from "./dashboard/DashboardHeader";
 import DashboardLoadingState from "./dashboard/DashboardLoadingState";
-import ApplicationStatusCard from "./dashboard/cards/ApplicationStatusCard";
-import TimelineCard from "./dashboard/cards/TimelineCard";
-import SalaryCard from "./dashboard/cards/SalaryCard";
-import LocationCard from "./dashboard/cards/LocationCard";
-import JobsTabs from "./dashboard/jobs/JobsTabs";
+import EngineerDashboardLayout from "./dashboard/EngineerDashboardLayout";
+import DashboardCards from "./dashboard/DashboardCards";
+import JobsSection from "./dashboard/JobsSection";
 import { 
   createRenderStarRating, 
   createRenderCompanyCell,
@@ -106,74 +102,51 @@ const EngineerDashboard = () => {
   const getSalaryDisplay = createGetSalaryDisplay(salaryDisplayMode);
   const renderTransportTime = createRenderTransportTime();
   const getStatusColor = createGetStatusColor();
+  
+  // Check if any job has an interview scheduled
+  const hasInterviewScheduled = jobApplications.some(job => job.status?.includes("Interview"));
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <DashboardHeader onAddJobClick={() => setIsAddJobDialogOpen(true)} />
-        
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="space-y-6">
-              <ApplicationStatusCard 
-                applications={summaryData.applications} 
-                interviews={summaryData.interviews} 
-                offers={summaryData.offers} 
-              />
-              
-              <TimelineCard 
-                avgResponseTime={summaryData.avgResponseTime} 
-                hasInterviewScheduled={jobApplications.some(job => job.status?.includes("Interview"))} 
-              />
-            </div>
-            
-            <SalaryCard 
-              profile={profile}
-              programmingLanguages={programmingLanguages}
-              averageSalary={summaryData.averageSalary}
-              updateProfile={updateProfile}
-              addProgrammingLanguage={addProgrammingLanguage}
-              removeProgrammingLanguage={removeProgrammingLanguage}
-            />
-            
-            <LocationCard 
-              profile={profile}
-              malaysianLocations={malaysianLocations}
-              handleLocationChange={handleLocationChange}
-              handleJobNatureChange={handleJobNatureChange}
-            />
-          </div>
-          
-          <JobsTabs 
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            jobApplications={jobApplications}
-            suggestedJobs={suggestedJobs}
-            salaryDisplayMode={salaryDisplayMode}
-            sortColumn={sortColumn}
-            sortDirection={sortDirection}
-            toggleSalaryDisplay={toggleSalaryDisplay}
-            handleSort={handleSort}
-            getSortedJobs={getSortedJobs}
-            onAddJobClick={() => setIsAddJobDialogOpen(true)}
-            applySuggestedJob={applySuggestedJob}
-            renderSalaryHeader={renderSalaryHeader}
-            renderCommuteTimeHeader={renderCommuteTimeHeader}
-            getSalaryDisplay={getSalaryDisplay}
-            renderCompanyCell={renderCompanyCell}
-            renderStarRating={renderStarRating}
-            getStatusColor={getStatusColor}
-            renderTransportTime={renderTransportTime}
-          />
-        </div>
-      </div>
-      
-      <AddJobDialog 
-        open={isAddJobDialogOpen} 
-        onOpenChange={setIsAddJobDialogOpen}
-        onAddJob={handleAddJob}
+    <EngineerDashboardLayout
+      isAddJobDialogOpen={isAddJobDialogOpen}
+      setIsAddJobDialogOpen={setIsAddJobDialogOpen}
+      onAddJob={handleAddJob}
+    >
+      <DashboardCards 
+        profile={profile}
+        programmingLanguages={programmingLanguages}
+        summaryData={summaryData}
+        malaysianLocations={malaysianLocations}
+        updateProfile={updateProfile}
+        addProgrammingLanguage={addProgrammingLanguage}
+        removeProgrammingLanguage={removeProgrammingLanguage}
+        handleLocationChange={handleLocationChange}
+        handleJobNatureChange={handleJobNatureChange}
+        hasInterviewScheduled={hasInterviewScheduled}
       />
-    </section>
+      
+      <JobsSection 
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        jobApplications={jobApplications}
+        suggestedJobs={suggestedJobs}
+        salaryDisplayMode={salaryDisplayMode}
+        sortColumn={sortColumn}
+        sortDirection={sortDirection}
+        toggleSalaryDisplay={toggleSalaryDisplay}
+        handleSort={handleSort}
+        getSortedJobs={getSortedJobs}
+        onAddJobClick={() => setIsAddJobDialogOpen(true)}
+        applySuggestedJob={applySuggestedJob}
+        renderSalaryHeader={renderSalaryHeader}
+        renderCommuteTimeHeader={renderCommuteTimeHeader}
+        getSalaryDisplay={getSalaryDisplay}
+        renderCompanyCell={renderCompanyCell}
+        renderStarRating={renderStarRating}
+        getStatusColor={getStatusColor}
+        renderTransportTime={renderTransportTime}
+      />
+    </EngineerDashboardLayout>
   );
 };
 

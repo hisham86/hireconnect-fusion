@@ -11,16 +11,15 @@ export function useEngineerDashboard() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   
-  // Use all the individual hooks
+  // Use the individual hooks for different data domains
   const profileHook = useEngineerProfile();
   const jobApplicationsHook = useJobApplications();
   const suggestedJobsHook = useSuggestedJobs((newJob: JobApplication) => {
-    // When a suggested job is applied to, add it to job applications
     jobApplicationsHook.loadJobApplications();
   });
   const jobDisplayHook = useJobDisplay();
   
-  // Combine loading states
+  // Combine loading states from all hooks
   useEffect(() => {
     const allLoaded = 
       !profileHook.isLoading && 
@@ -39,7 +38,7 @@ export function useEngineerDashboard() {
     if (!user) return;
     
     try {
-      // Load all data in parallel
+      // Load all data in parallel for better performance
       await Promise.all([
         profileHook.loadProfileData(),
         jobApplicationsHook.loadJobApplications(),
@@ -50,6 +49,7 @@ export function useEngineerDashboard() {
     }
   };
   
+  // Return a combined API from all hooks
   return {
     // Loading state
     isLoading,
