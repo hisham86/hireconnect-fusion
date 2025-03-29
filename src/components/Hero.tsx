@@ -7,12 +7,12 @@ const Hero = () => {
   const [userType, setUserType] = useState<"engineer" | "recruiter" | null>(null);
 
   const openDialog = () => {
-    setUserType(null); // Default to null in hero section
+    setUserType(null);
     setDialogOpen(true);
   };
 
   return (
-    <div className="hero-gradient text-white overflow-hidden">
+    <div className="hero-gradient text-white relative overflow-hidden">
       <div className="container mx-auto px-4 py-16 md:py-28">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="max-w-xl">
@@ -23,7 +23,7 @@ const Hero = () => {
               Streamline hiring with a single platform that connects engineers and talent acquisition teams, 
               eliminating back-and-forth and accelerating the hiring process.
             </p>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 relative z-10">
               <button
                 onClick={openDialog}
                 className="bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center"
@@ -62,7 +62,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute -bottom-8 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
       <WaitlistDialog 
         open={dialogOpen} 
         onOpenChange={setDialogOpen}
