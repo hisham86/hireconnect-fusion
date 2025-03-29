@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import WaitlistDialog from '@/components/WaitlistDialog';
 import HeroContent from '@/components/HeroContent';
@@ -10,6 +9,7 @@ const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  // We keep this function for potential future use, but it's no longer triggered from the hero section
   const openDialog = () => {
     setUserType(null);
     setDialogOpen(true);

@@ -113,19 +113,9 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
           </div>
         </div>
         
-        <button
-          onClick={onOpenDialog}
-          className="bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center"
-        >
-          JOIN THE WAITLIST
-          <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </button>
-        
         <a 
           href="/auth" 
-          className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center mt-2"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center"
         >
           <Code className="mr-2 h-5 w-5" />
           EARLY ACCESS FOR DEVS
