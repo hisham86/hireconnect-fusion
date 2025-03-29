@@ -1,10 +1,10 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import ProfileCard from './ProfileCard';
 import { engineerProfiles } from '@/data/engineerProfiles';
 import { useSound } from '@/hooks/useSound';
 import { Wind } from 'lucide-react';
 import { Button } from './ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface FloatingProfilesProps {
   mousePosition: { x: number; y: number };
@@ -228,38 +228,20 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
       onMouseLeave={handleMouseUp}
     >
       {showHint && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 text-white px-4 py-2 rounded-full flex items-center gap-2 z-50 animate-pulse cursor-help">
-                <span>Click on the card to view</span>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Click any profile card to see more details about the engineer</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 text-white px-4 py-2 rounded-full flex items-center gap-2 z-50 animate-pulse">
+          <span>Click on the card to view</span>
+        </div>
       )}
       
       <div className="absolute bottom-4 right-4 z-50">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button 
-                onClick={toggleControls} 
-                variant={showControls ? "default" : "outline"}
-                className="flex items-center gap-2 text-foreground"
-              >
-                <Wind className="h-4 w-4" />
-                <span>Gravity {showControls ? 'Off' : 'On'}</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="left">
-              <p>Toggle physics mode to drag cards around!</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Button 
+          onClick={toggleControls} 
+          variant={showControls ? "default" : "outline"}
+          className="flex items-center gap-2 text-foreground"
+        >
+          <Wind className="h-4 w-4" />
+          <span>Gravity {showControls ? 'Off' : 'On'}</span>
+        </Button>
       </div>
       
       {engineerProfiles.map((profile, index) => (
