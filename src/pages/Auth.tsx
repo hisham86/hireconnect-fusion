@@ -38,7 +38,7 @@ const Auth = () => {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl text-center">
-            Welcome to CatoHub
+            Welcome to CodingCats
           </CardTitle>
           <CardDescription className="text-center">
             Sign in to access exclusive features

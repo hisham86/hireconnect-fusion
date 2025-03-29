@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
             <h3 className="text-xl font-bold mb-4">
-              Cato<span className="text-brand-primary">Hub</span>
+              Coding<span className="text-brand-primary">Cats</span>
             </h3>
             <p className="text-gray-400 mb-4">
               Bridging the gap between engineers and talent acquisition teams with a unified platform.
@@ -75,7 +75,7 @@ const Footer = () => {
         
         <div className="pt-8 border-t border-gray-800 text-sm text-gray-400">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; {new Date().getFullYear()} CatoHub. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} CodingCats. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
