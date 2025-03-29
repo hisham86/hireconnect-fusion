@@ -2,26 +2,49 @@
 import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { EngineerProfile } from '@/types/profile';
-import { MousePointer } from 'lucide-react';
+import { MousePointer, GripHorizontal } from 'lucide-react';
 
 interface ProfileCardProps {
   profile: EngineerProfile;
   isFocused: boolean;
   onClick: () => void;
   index: number;
+  onMouseDown?: (e: React.MouseEvent) => void;
+  style?: React.CSSProperties;
+  draggable?: boolean;
 }
 
-const ProfileCard: React.FC<ProfileCardProps> = ({ profile, isFocused, onClick, index }) => {
+const ProfileCard: React.FC<ProfileCardProps> = ({ 
+  profile, 
+  isFocused, 
+  onClick, 
+  index, 
+  onMouseDown,
+  style,
+  draggable = false
+}) => {
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (draggable && onMouseDown) {
+      e.stopPropagation();
+      onMouseDown(e);
+    }
+  };
+
   return (
     <div 
       onClick={onClick}
+      onMouseDown={handleMouseDown}
       className={`floating-profile absolute ${profile.position} ${profile.rotation} ${profile.specialClass} ${profile.floatClass} backdrop-blur-lg rounded-2xl p-6 shadow-xl border
         ${isFocused ? 'focused-profile z-50 scale-110' : ''} 
-        transition-all duration-300 cursor-pointer hover:shadow-2xl group`}
+        ${draggable ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'} 
+        transition-all duration-300 hover:shadow-2xl group`}
       style={{
         animationDelay: `${index * 0.2}s`,
         zIndex: isFocused ? 50 : 10 - index,
-        ['--rotation' as any]: profile.rotation
+        ['--rotation' as any]: profile.rotation,
+        ...style,
+        // Disable default float animation when in draggable mode
+        animation: draggable ? 'none' : undefined
       }}
     >
       {!isFocused && (
@@ -30,6 +53,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ profile, isFocused, onClick, 
           Click me
         </div>
       )}
+      
+      {draggable && (
+        <div className="absolute -top-3 -left-3 bg-brand-primary text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <GripHorizontal className="h-3 w-3" />
+        </div>
+      )}
+      
       <div className="absolute -top-6 -right-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium flex items-center gap-2">
         {profile.icon}
         Engineer Profile
