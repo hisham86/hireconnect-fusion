@@ -31,8 +31,15 @@ const Navbar = () => {
     <nav className="relative w-full bg-white shadow-sm backdrop-blur-sm z-50 py-4 px-4 md:px-8">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <a href="/" className="text-2xl font-bold">
-            <span style={{ color: '#A1DDED' }}>Coding</span><span style={{ color: '#FF6720' }}>Cats</span>
+          <a href="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/bed49855-0f34-4d44-bde1-a37e5655826d.png" 
+              alt="CodingCats Logo" 
+              className="h-10 md:h-12 mr-2" 
+            />
+            <span className="text-2xl font-bold hidden md:inline-block">
+              <span style={{ color: '#A1DDED' }}>Coding</span><span style={{ color: '#FF6720' }}>Cats</span>
+            </span>
           </a>
         </div>
 

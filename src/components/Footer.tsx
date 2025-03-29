@@ -1,3 +1,4 @@
+
 import { Facebook, Twitter, Linkedin, Instagram, Coffee, Github, Youtube, BarChart, Phone } from "lucide-react";
 
 const Footer = () => {
@@ -6,9 +7,16 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
-            <h3 className="text-xl font-bold mb-4">
-              <span style={{ color: '#A1DDED' }}>Coding</span><span style={{ color: '#FF6720' }}>Cats</span>
-            </h3>
+            <div className="flex items-center mb-4">
+              <img 
+                src="/lovable-uploads/bed49855-0f34-4d44-bde1-a37e5655826d.png" 
+                alt="CodingCats Logo" 
+                className="h-12 mr-2" 
+              />
+              <h3 className="text-xl font-bold">
+                <span style={{ color: '#A1DDED' }}>Coding</span><span style={{ color: '#FF6720' }}>Cats</span>
+              </h3>
+            </div>
             <p className="text-gray-400 mb-4">
               Bridging the gap between engineers and talent acquisition teams with a unified platform.
             </p>
