@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ProfileCard from './ProfileCard';
 import { engineerProfiles } from '@/data/engineerProfiles';
 import { useSound } from '@/hooks/useSound';
-import { MousePointer, Gravity } from 'lucide-react';
+import { MousePointer, Wind } from 'lucide-react';
 import { Button } from './ui/button';
 
 interface FloatingProfilesProps {
@@ -239,7 +239,7 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
           variant={showControls ? "default" : "outline"}
           className="flex items-center gap-2"
         >
-          <Gravity className="h-4 w-4" />
+          <Wind className="h-4 w-4" />
           Gravity {showControls ? 'Off' : 'On'}
         </Button>
       </div>
