@@ -47,7 +47,7 @@ const Features = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">One Platform, Two Perspectives</h2>
           <p className="text-lg text-gray-700">
-            HireConnectFusion bridges the gap between engineers and talent acquisition teams, 
+            CodingCats bridges the gap between engineers and talent acquisition teams, 
             providing tailored features for both sides of the hiring process.
           </p>
         </div>

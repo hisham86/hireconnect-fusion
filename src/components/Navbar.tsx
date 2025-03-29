@@ -32,7 +32,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="text-2xl font-bold text-brand-primary">
-            Cato<span className="text-brand-secondary">Hub</span>
+            Coding<span className="text-brand-secondary">Cats</span>
           </a>
         </div>
 

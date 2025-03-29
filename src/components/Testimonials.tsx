@@ -11,7 +11,7 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "HireConnectFusion has cut our hiring process time in half. We now have immediate access to the information we need without endless email chains.",
+    quote: "CodingCats has cut our hiring process time in half. We now have immediate access to the information we need without endless email chains.",
     author: "Sarah Johnson",
     title: "Head of Talent Acquisition at TechGrowth",
     type: "recruiter"
@@ -43,7 +43,7 @@ const Testimonials = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
           <p className="text-lg text-gray-700">
-            Hear from engineers and recruiters who have transformed their hiring process with HireConnectFusion.
+            Hear from engineers and recruiters who have transformed their hiring process with CodingCats.
           </p>
         </div>
 
