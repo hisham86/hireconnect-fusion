@@ -570,15 +570,20 @@ const EngineerDashboard = () => {
   const handleSaveGithubUrl = () => {
     setGithubUrl(tempGithubUrl);
     setIsEditingGithubUrl(false);
+    
+    toast({
+      title: "GitHub profile updated",
+      description: "Your purr-sonal code repository link has been saved!",
+    });
   };
 
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Engineer Dashboard</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Herd Your Job Search Like a Pro!</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Manage your entire job search journey in one place with real-time updates and personalized recommendations.
+            Manage your job hunt with a dashboard that's the cat's meow—real-time updates and purr-sonalized recommendations included!
           </p>
         </div>
         
@@ -593,15 +598,15 @@ const EngineerDashboard = () => {
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
                       <p className="text-2xl font-bold text-gray-800">{summaryData.applications}</p>
-                      <p className="text-sm text-gray-600">Applied</p>
+                      <p className="text-sm text-gray-600">Applied <span className="text-xs">(You're on a roll!)</span></p>
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-[#0EA5E9]">{summaryData.interviews}</p>
-                      <p className="text-sm text-gray-600">Interviews</p>
+                      <p className="text-sm text-gray-600">Interviews <span className="text-xs">(Time to shine!)</span></p>
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-[#F97316]">{summaryData.offers}</p>
-                      <p className="text-sm text-gray-600">Offers</p>
+                      <p className="text-sm text-gray-600">Offers <span className="text-xs">(Paws up for success!)</span></p>
                     </div>
                   </div>
                 </CardContent>
@@ -615,11 +620,11 @@ const EngineerDashboard = () => {
                   <div className="space-y-2">
                     <div className="flex items-center">
                       <Clock className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Avg Response: <span className="font-medium">{summaryData.avgResponseTime}</span></p>
+                      <p className="text-sm">Avg Response: <span className="font-medium">{summaryData.avgResponseTime}</span> <span className="text-xs">(Faster than a cheetah!)</span></p>
                     </div>
                     <div className="flex items-center">
                       <Calendar className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Next Interview: <span className="font-medium">Tomorrow, 2PM</span></p>
+                      <p className="text-sm">Next Interview: <span className="font-medium">Tomorrow, 2PM</span> <span className="text-xs">(Don't be late, kitten!)</span></p>
                     </div>
                   </div>
                 </CardContent>
@@ -635,7 +640,7 @@ const EngineerDashboard = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <DollarSign className="w-5 h-5 text-gray-500 mr-2" />
-                      <p className="text-sm">Avg Offer: <span className="font-medium">{summaryData.averageSalary}</span></p>
+                      <p className="text-sm">Avg Offer: <span className="font-medium">{summaryData.averageSalary}</span> <span className="text-xs">(That's a roaring deal!)</span></p>
                     </div>
                     <TooltipProvider>
                       <Tooltip>
@@ -696,7 +701,7 @@ const EngineerDashboard = () => {
                       </div>
                       {!isEditingExpectedSalary ? (
                         <div className="flex items-center">
-                          <span className="font-medium mr-1">{expectedSalary}</span>
+                          <span className="font-medium mr-1">{expectedSalary}</span> <span className="text-xs text-gray-500">(Aim high, tiger!)</span>
                           <Button
                             variant="ghost"
                             size="icon"
