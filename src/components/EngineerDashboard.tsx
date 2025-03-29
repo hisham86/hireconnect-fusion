@@ -233,7 +233,7 @@ const EngineerDashboard = () => {
   useEffect(() => {
     setAllJobsData([
       ...activeJobs.map(job => ({ ...job, applied: true })),
-      ...suitableJobs.map(job => ({ ...job, applied: false })),
+      ...suitableJobs.map(job => ({ ...job, applied: false })),\
       { 
         id: 7, 
         company: "CodeMasters", 
