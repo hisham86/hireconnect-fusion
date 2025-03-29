@@ -103,7 +103,7 @@
 
 @layer components {
   .hero-gradient {
-    @apply bg-gradient-to-br from-violet-500 to-indigo-700 dark:from-violet-800 dark:to-indigo-950;
+    @apply bg-gradient-to-br from-violet-600 to-indigo-800 dark:from-violet-800 dark:to-indigo-950;
   }
   
   .feature-card {

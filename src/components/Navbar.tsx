@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="relative w-full bg-white/80 backdrop-blur-sm z-50 py-4 px-4 md:px-8">
+    <nav className="relative w-full bg-white/95 shadow-sm backdrop-blur-sm z-50 py-4 px-4 md:px-8">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="text-2xl font-bold text-brand-primary">
@@ -17,16 +17,16 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          <a href="#features" className="text-gray-700 hover:text-brand-primary transition-colors">
+          <a href="#features" className="text-gray-800 hover:text-brand-primary transition-colors font-medium">
             Features
           </a>
-          <a href="#pricing" className="text-gray-700 hover:text-brand-primary transition-colors">
+          <a href="#pricing" className="text-gray-800 hover:text-brand-primary transition-colors font-medium">
             Pricing
           </a>
-          <a href="#testimonials" className="text-gray-700 hover:text-brand-primary transition-colors">
+          <a href="#testimonials" className="text-gray-800 hover:text-brand-primary transition-colors font-medium">
             Testimonials
           </a>
-          <Button variant="outline" className="ml-2">
+          <Button variant="outline" className="ml-2 border-gray-300">
             Log in
           </Button>
           <Button>Get Started</Button>
@@ -36,7 +36,7 @@ const Navbar = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-gray-700 focus:outline-none"
+            className="p-2 text-gray-800 focus:outline-none"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -50,25 +50,25 @@ const Navbar = () => {
             <a
               href="#features"
               onClick={() => setIsMenuOpen(false)}
-              className="text-gray-700 hover:text-brand-primary transition-colors"
+              className="text-gray-800 hover:text-brand-primary transition-colors font-medium"
             >
               Features
             </a>
             <a
               href="#pricing"
               onClick={() => setIsMenuOpen(false)}
-              className="text-gray-700 hover:text-brand-primary transition-colors"
+              className="text-gray-800 hover:text-brand-primary transition-colors font-medium"
             >
               Pricing
             </a>
             <a
               href="#testimonials"
               onClick={() => setIsMenuOpen(false)}
-              className="text-gray-700 hover:text-brand-primary transition-colors"
+              className="text-gray-800 hover:text-brand-primary transition-colors font-medium"
             >
               Testimonials
             </a>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full border-gray-300">
               Log in
             </Button>
             <Button className="w-full">Get Started</Button>

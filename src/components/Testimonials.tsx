@@ -42,7 +42,7 @@ const Testimonials = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-700">
             Hear from engineers and recruiters who have transformed their hiring process with HireConnectFusion.
           </p>
         </div>
@@ -51,22 +51,22 @@ const Testimonials = () => {
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={index} className="md:basis-1/1">
-                <Card className="border-0 shadow-lg">
+                <Card className="border shadow-lg">
                   <CardContent className="p-8">
                     <div className="mb-6">
-                      <Quote className="h-8 w-8 text-brand-primary opacity-40" />
+                      <Quote className="h-8 w-8 text-brand-primary opacity-60" />
                     </div>
-                    <p className="text-lg mb-6 text-gray-700">{testimonial.quote}</p>
+                    <p className="text-lg mb-6 text-gray-800">{testimonial.quote}</p>
                     <div className="flex items-center">
                       <div className="mr-4">
-                        <div className="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary font-bold">
+                        <div className="w-12 h-12 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">
                           {testimonial.author.charAt(0)}
                         </div>
                       </div>
                       <div>
                         <p className="font-semibold">{testimonial.author}</p>
-                        <p className="text-sm text-gray-500">{testimonial.title}</p>
-                        <span className="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-brand-light text-brand-primary">
+                        <p className="text-sm text-gray-600">{testimonial.title}</p>
+                        <span className="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-brand-light text-brand-primary font-medium">
                           {testimonial.type === "engineer" ? "Engineer" : "Recruiter"}
                         </span>
                       </div>

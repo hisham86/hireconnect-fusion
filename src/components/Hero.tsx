@@ -157,7 +157,7 @@ const Hero = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               Unified talent platform for Engineers & Recruiters
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-white/90">
+            <p className="text-lg md:text-xl mb-8 text-white">
               Streamline hiring with a single platform that connects engineers and talent acquisition teams, 
               eliminating back-and-forth and accelerating the hiring process.
             </p>
@@ -193,26 +193,26 @@ const Hero = () => {
                 </div>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <p className="text-sm text-white/60">Current Role</p>
+                    <p className="text-sm text-white/70 font-medium">Current Role</p>
                     <p className="font-medium">{profile.role}</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-sm text-white/60">Salary Expectation</p>
+                    <p className="text-sm text-white/70 font-medium">Salary Expectation</p>
                     <p className="font-medium">{profile.salary}</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-sm text-white/60">Notice Period</p>
+                    <p className="text-sm text-white/70 font-medium">Notice Period</p>
                     <p className="font-medium">{profile.notice}</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-sm text-white/60">Preferred Location</p>
+                    <p className="text-sm text-white/70 font-medium">Preferred Location</p>
                     <p className="font-medium">{profile.location}</p>
                   </div>
                   <div className="pt-2">
-                    <p className="text-sm text-white/60 mb-2">Skills</p>
+                    <p className="text-sm text-white/70 font-medium mb-2">Skills</p>
                     <div className="flex flex-wrap gap-2">
                       {profile.languages.map((lang, i) => (
-                        <Badge key={i} className="bg-white/15 hover:bg-white/20 text-white flex items-center gap-1.5">
+                        <Badge key={i} className="bg-white/20 hover:bg-white/30 text-white flex items-center gap-1.5 border-white/10">
                           {i < profile.languageIcons.length && profile.languageIcons[i]}
                           {lang}
                         </Badge>

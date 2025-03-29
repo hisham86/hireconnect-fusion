@@ -46,7 +46,7 @@ const HowItWorks = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-700">
             HireConnectFusion simplifies the hiring process for both engineers and recruiters.
           </p>
         </div>
@@ -59,7 +59,7 @@ const HowItWorks = () => {
               </span>
             </div>
             <div className="space-y-12 relative">
-              <div className="absolute left-7 top-8 bottom-0 w-0.5 bg-gray-200 -z-10"></div>
+              <div className="absolute left-7 top-8 bottom-0 w-0.5 bg-gray-300 -z-10"></div>
               {steps.filter(step => step.for === "Engineers").map((step, index) => (
                 <div key={index} className="relative">
                   <div className="flex">
@@ -70,12 +70,12 @@ const HowItWorks = () => {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                      <p className="text-gray-600">{step.description}</p>
+                      <p className="text-gray-700">{step.description}</p>
                     </div>
                   </div>
                   {index < 2 && (
                     <div className="absolute left-7 top-14 flex justify-center">
-                      <ArrowRight className="text-gray-300 h-6 w-6 my-4 rotate-90" />
+                      <ArrowRight className="text-gray-400 h-6 w-6 my-4 rotate-90" />
                     </div>
                   )}
                 </div>
@@ -90,7 +90,7 @@ const HowItWorks = () => {
               </span>
             </div>
             <div className="space-y-12 relative">
-              <div className="absolute left-7 top-8 bottom-0 w-0.5 bg-gray-200 -z-10"></div>
+              <div className="absolute left-7 top-8 bottom-0 w-0.5 bg-gray-300 -z-10"></div>
               {steps.filter(step => step.for === "Recruiters").map((step, index) => (
                 <div key={index} className="relative">
                   <div className="flex">
@@ -101,12 +101,12 @@ const HowItWorks = () => {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                      <p className="text-gray-600">{step.description}</p>
+                      <p className="text-gray-700">{step.description}</p>
                     </div>
                   </div>
                   {index < 2 && (
                     <div className="absolute left-7 top-14 flex justify-center">
-                      <ArrowRight className="text-gray-300 h-6 w-6 my-4 rotate-90" />
+                      <ArrowRight className="text-gray-400 h-6 w-6 my-4 rotate-90" />
                     </div>
                   )}
                 </div>

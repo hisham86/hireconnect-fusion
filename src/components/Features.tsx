@@ -46,7 +46,7 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">One Platform, Two Perspectives</h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-700">
             HireConnectFusion bridges the gap between engineers and talent acquisition teams, 
             providing tailored features for both sides of the hiring process.
           </p>
@@ -59,7 +59,7 @@ const Features = () => {
                 For Engineers
               </span>
               <h3 className="text-2xl font-bold mb-2">Take control of your job search</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 Streamline your job hunt with tools designed specifically for engineering professionals.
               </p>
             </div>
@@ -74,7 +74,7 @@ const Features = () => {
                       </div>
                       <div>
                         <h4 className="text-xl font-semibold mb-2">{feature.title}</h4>
-                        <p className="text-gray-600">{feature.description}</p>
+                        <p className="text-gray-700">{feature.description}</p>
                       </div>
                     </div>
                   </div>
@@ -88,7 +88,7 @@ const Features = () => {
                 For Recruiters
               </span>
               <h3 className="text-2xl font-bold mb-2">Simplify your talent acquisition</h3>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 Access the information you need without the usual back-and-forth communication.
               </p>
             </div>
@@ -103,7 +103,7 @@ const Features = () => {
                       </div>
                       <div>
                         <h4 className="text-xl font-semibold mb-2">{feature.title}</h4>
-                        <p className="text-gray-600">{feature.description}</p>
+                        <p className="text-gray-700">{feature.description}</p>
                       </div>
                     </div>
                   </div>
