@@ -15,6 +15,7 @@ const Hero = () => {
   const [userType, setUserType] = useState<"engineer" | "recruiter" | null>(null);
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [focusedProfile, setFocusedProfile] = useState<number | null>(null);
   const profilesRef = useRef<HTMLDivElement>(null);
 
   const openDialog = () => {
@@ -55,6 +56,10 @@ const Hero = () => {
       htmlProfile.style.transform = `translate(${offsetX}px, ${offsetY - scrollOffset}px) rotate(${offsetX * 0.2}deg)`;
     });
   }, [mousePosition, scrollY]);
+
+  const handleProfileClick = (index: number) => {
+    setFocusedProfile(index === focusedProfile ? null : index);
+  };
 
   const engineerProfiles = [
     {
@@ -137,10 +142,13 @@ const Hero = () => {
             {engineerProfiles.map((profile, index) => (
               <div 
                 key={index}
-                className={`floating-profile absolute ${profile.position} ${profile.rotation} ${profile.specialClass} backdrop-blur-lg rounded-2xl p-6 shadow-xl border animate-float-${index + 1} transition-transform duration-300`}
+                onClick={() => handleProfileClick(index)}
+                className={`floating-profile absolute ${profile.position} ${profile.rotation} ${profile.specialClass} backdrop-blur-lg rounded-2xl p-6 shadow-xl border
+                  ${focusedProfile === index ? 'focused-profile z-50 scale-110' : ''} 
+                  transition-all duration-300 cursor-pointer hover:shadow-2xl`}
                 style={{
                   animationDelay: `${index * 0.2}s`,
-                  zIndex: 10 - index
+                  zIndex: focusedProfile === index ? 50 : 10 - index
                 }}
               >
                 <div className="absolute -top-6 -right-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium flex items-center gap-2">

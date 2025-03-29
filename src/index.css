@@ -117,6 +117,18 @@
   .interactive-dots {
     @apply absolute inset-0 z-0 overflow-hidden pointer-events-none;
   }
+  
+  .focused-profile {
+    @apply shadow-2xl border-brand-primary;
+    animation: card-focus 0.5s ease-out forwards;
+  }
+}
+
+@keyframes card-focus {
+  0% { transform: scale(1) rotate(var(--rotation, 0deg)); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+  50% { transform: scale(1.15) rotate(var(--rotation, 0deg)); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+  75% { transform: scale(1.08) rotate(var(--rotation, 0deg)); }
+  100% { transform: scale(1.1) rotate(var(--rotation, 0deg)); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
 }
 
 @keyframes float-1 {
@@ -162,4 +174,16 @@
 
 .animate-float-5 {
   animation: float-5 9s ease-in-out infinite;
+}
+
+.floating-profile {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+}
+
+.floating-profile:hover {
+  transform: translateY(-5px) scale(1.03);
+}
+
+.floating-profile.focused-profile:hover {
+  transform: translateY(-5px) scale(1.12);
 }
