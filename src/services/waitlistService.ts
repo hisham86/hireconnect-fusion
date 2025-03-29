@@ -35,7 +35,7 @@ export const waitlistService = {
         id: data.id,
         name: data.name,
         email: data.email,
-        userType: data.user_type,
+        userType: data.user_type as "engineer" | "recruiter" | null,
         role: data.role,
         experience: data.experience,
         created_at: data.created_at
@@ -62,7 +62,7 @@ export const waitlistService = {
         id: item.id,
         name: item.name,
         email: item.email,
-        userType: item.user_type,
+        userType: item.user_type as "engineer" | "recruiter" | null,
         role: item.role,
         experience: item.experience,
         created_at: item.created_at
