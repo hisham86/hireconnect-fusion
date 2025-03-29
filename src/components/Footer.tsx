@@ -18,7 +18,7 @@ const Footer = () => {
               Bridging the Gap Between Engineers and Talent Teams with a Purr-fect Platform!
             </p>
             <div className="flex space-x-4">
-              <a href="https://career-spotlight-portfolio.lovable.app/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Portfolio Website">
+              <a href="https://github.com/hishamp3/codingcats" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="GitHub">
                 <Github size={20} />
               </a>
               <a href="https://x.com/Solo_Level_27" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Twitter">

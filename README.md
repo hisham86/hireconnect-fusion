@@ -14,6 +14,8 @@ This platform connects talented engineers with recruiters, eliminating the back-
 - **Modern UI/UX**: Responsive design with smooth animations that will make you purr with satisfaction
 - **Analytics Dashboard**: Track engagement metrics and hiring pipeline faster than a cat chasing a laser pointer
 - **Unified Communication**: Direct messaging between engineers and recruiters that's the cat's meow!
+- **Intelligent Job Matching**: Our AI-powered algorithm connects engineers with their purr-fect job opportunities
+- **Real-time Status Updates**: Track your application journey from submission to offer
 
 ## Tech Stack
 
@@ -26,6 +28,7 @@ This platform connects talented engineers with recruiters, eliminating the back-
 - [React Query](https://tanstack.com/query/latest) - Data fetching and state management (as reliable as a cat's landing reflexes)
 - [Sonner](https://sonner.emilkowal.ski/) - Toast notifications (pop up like cats in cardboard boxes)
 - [Recharts](https://recharts.org/) - Data visualization (prettier than a Persian's coat)
+- [Supabase](https://supabase.com/) - Backend as a service (the silent hunter for all your data needs)
 
 ## Getting Started
 
@@ -38,7 +41,7 @@ This platform connects talented engineers with recruiters, eliminating the back-
 
 ```bash
 # Clone the repository (like a cat claiming a cardboard box)
-git clone https://github.com/yourusername/codingcats.git
+git clone https://github.com/hishamp3/codingcats.git
 
 # Navigate to project directory (prowl into the folder)
 cd codingcats
@@ -61,6 +64,7 @@ The application will be available at `http://localhost:8080` - pounce on it!
 ```
 src/
 ├── components/     # UI components (like cat toys, but for developers)
+├── context/        # React context providers (the secret hiding places)
 ├── data/           # Mock data and constants (the secret stash)
 ├── hooks/          # Custom React hooks (as clever as cats figuring out treat jars)
 ├── lib/            # Utility functions (cat-like precision tools)
@@ -95,5 +99,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Website: [codingcats.com](https://codingcats.com)
 - Email: contact@codingcats.com
-- Twitter: [@CodingCats](https://twitter.com/CodingCats)
-- GitHub: [yourusername/codingcats](https://github.com/yourusername/codingcats)
+- Twitter: [@Solo_Level_27](https://twitter.com/Solo_Level_27)
+- GitHub: [hishamp3/codingcats](https://github.com/hishamp3/codingcats)
+- LinkedIn: [hisham86](https://www.linkedin.com/in/hisham86)
+
+## Acknowledgements
+
+- Special thanks to all the developers who contributed to this project
+- Inspired by the struggle of engineers and recruiters trying to connect in the tech industry
+- And of course, thanks to all the cats who inspired our playful design 🐱
