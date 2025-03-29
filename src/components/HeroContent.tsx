@@ -29,7 +29,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
         
         <a 
           href="/auth" 
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center mt-2"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center mt-2"
         >
           <Code className="mr-2 h-5 w-5" />
           EARLY ACCESS FOR DEVS
