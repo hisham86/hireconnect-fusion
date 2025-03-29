@@ -1,10 +1,13 @@
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import WaitlistDialog from '@/components/WaitlistDialog';
+import { Canvas } from '@react-three/fiber';
+import RobotModel from '@/components/RobotModel';
 
 const Hero = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [userType, setUserType] = useState<"engineer" | "recruiter" | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const openDialog = () => {
     setUserType(null); // Default to null in hero section
@@ -35,31 +38,19 @@ const Hero = () => {
               </button>
             </div>
           </div>
-          <div className="relative animate-float hidden md:block">
-            <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20">
-              <div className="absolute -top-6 -right-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium">
-                Engineer Profile
-              </div>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <p className="text-sm text-white/60">Current Role</p>
-                  <p className="font-medium">Senior Frontend Engineer</p>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-sm text-white/60">Salary Expectation</p>
-                  <p className="font-medium">MYR 10,000 - 12,500 /month</p>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-sm text-white/60">Notice Period</p>
-                  <p className="font-medium">30 days</p>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-sm text-white/60">Preferred Location</p>
-                  <p className="font-medium">Kuala Lumpur, Malaysia Timezone</p>
-                </div>
-              </div>
-            </div>
-            <div className="absolute top-1/2 -right-24 transform -translate-y-1/2 bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20 w-80 animate-float" style={{ animationDelay: "1s" }}>
+          
+          <div className="h-96 relative hidden md:block">
+            <Canvas 
+              className="absolute inset-0 z-10"
+              camera={{ position: [0, 0, 5], fov: 50 }}
+              ref={canvasRef}
+            >
+              <ambientLight intensity={0.5} />
+              <directionalLight position={[10, 10, 5]} intensity={1} />
+              <RobotModel />
+            </Canvas>
+            
+            <div className="absolute bottom-0 right-0 bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20 w-80 z-20 animate-float" style={{ animationDelay: "1s" }}>
               <div className="absolute -top-6 -left-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium">
                 Recruiter View
               </div>
