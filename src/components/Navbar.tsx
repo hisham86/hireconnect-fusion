@@ -33,13 +33,10 @@ const Navbar = () => {
         <div className="flex items-center">
           <a href="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/bed49855-0f34-4d44-bde1-a37e5655826d.png" 
+              src="/lovable-uploads/5a805dc9-0c39-4d9c-a444-578cb8bdd9d2.png" 
               alt="CodingCats Logo" 
-              className="h-10 md:h-12 mr-2" 
+              className="h-12 md:h-16 mr-2" 
             />
-            <span className="text-2xl font-bold hidden md:inline-block">
-              <span style={{ color: '#A1DDED' }}>Coding</span><span style={{ color: '#FF6720' }}>Cats</span>
-            </span>
           </a>
         </div>
 
