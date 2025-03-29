@@ -30,7 +30,7 @@ import { useSound } from "@/hooks/useSound";
 export function useEngineerDashboard() {
   const { user } = useAuth();
   const { toast } = useToast();
-  const { playSuccess, playError } = useSound();
+  const { playSuccess, playError, playSound } = useSound();
   
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState<EngineerProfile | null>(null);

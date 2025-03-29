@@ -31,5 +31,17 @@ export const useSound = () => {
     }
   };
 
-  return { playSound };
+  // Add convenience methods for specific sound types
+  const playSuccess = () => playSound('success');
+  const playError = () => playSound('error');
+  const playClick = () => playSound('click');
+  const playPop = () => playSound('pop');
+
+  return { 
+    playSound,
+    playSuccess,
+    playError,
+    playClick,
+    playPop
+  };
 };
