@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -56,8 +57,11 @@ const WaitlistForm = ({ onSuccess, userType }: WaitlistFormProps) => {
     try {
       // Submit waitlist entry to Supabase
       const result = await waitlistService.addEntry({
-        ...data,
+        name: data.name,
+        email: data.email,
         userType,
+        role: data.role,
+        experience: data.experience
       });
       
       if (result) {
