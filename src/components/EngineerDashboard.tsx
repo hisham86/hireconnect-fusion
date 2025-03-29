@@ -233,7 +233,7 @@ const EngineerDashboard = () => {
   useEffect(() => {
     setAllJobsData([
       ...activeJobs.map(job => ({ ...job, applied: true })),
-      ...suitableJobs.map(job => ({ ...job, applied: false })),\
+      ...suitableJobs.map(job => ({ ...job, applied: false })),
       { 
         id: 7, 
         company: "CodeMasters", 
@@ -708,3 +708,19 @@ const EngineerDashboard = () => {
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
+                          <p>Your salary is above average compared to other job seekers</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default EngineerDashboard;
