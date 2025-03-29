@@ -43,7 +43,7 @@ const formSchema = z.object({
   sourcePlatform: z.string().min(1, "Source platform is required"),
   applicationStatus: z.string().default("1. Application Submitted"),
   taName: z.string().optional(),
-  taEmail: z.string().email().optional(),
+  taEmail: z.string().email().optional().or(z.literal("")),
   taPhone: z.string().optional(),
   notes: z.string().optional(),
 });
@@ -79,34 +79,33 @@ const AddJobDialog = ({ open, onOpenChange, onAddJob }: AddJobDialogProps) => {
   const onSubmit = (data: FormValues) => {
     // Create a new job object based on form data
     const newJob = {
-      id: Date.now(), // Use timestamp as temporary ID
       company: data.company,
       role: data.role,
       location: data.location,
       annualSalary: data.annualSalary || "Not specified",
       monthlySalary: data.monthlySalary || "Not specified",
       status: data.applicationStatus,
-      applied: "Just now",
+      applied_at: new Date().toISOString(),
       logoUrl: "https://via.placeholder.com/150", // Placeholder logo
-      glassdoorUrl: "#",
+      glassdoorUrl: "",
       rating: 0,
       reviews: 0,
-      founded: "N/A",
+      founded: 0,
       employees: "N/A",
-      description: "Manually added job application",
+      description: data.notes || "Manually added job application",
       transportTime: {
         car: "N/A",
+        public: "N/A"
       },
       commuteMinutes: data.location.toLowerCase().includes("remote") ? 0 : 30, // Default value
       talentAcquisition: {
         name: data.taName || "",
         email: data.taEmail || "",
         phone: data.taPhone || "",
-        invited: data.taEmail ? false : null,
+        invited: false,
       },
       sourcePlatform: data.sourcePlatform,
-      notes: data.notes,
-      manuallyAdded: true,
+      manually_added: true,
     };
 
     onAddJob(newJob);
@@ -122,8 +121,8 @@ const AddJobDialog = ({ open, onOpenChange, onAddJob }: AddJobDialogProps) => {
       // In a real app, this would be an API call to send the email
       console.log(`Invitation email would be sent to ${data.taEmail}`);
       toast({
-        title: "Invitation sent",
-        description: `An invitation has been sent to ${data.taEmail}`,
+        title: "Invitation prepared",
+        description: `An invitation will be sent to ${data.taEmail}`,
       });
     }
     
