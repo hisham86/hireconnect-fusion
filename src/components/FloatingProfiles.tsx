@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import ProfileCard from './ProfileCard';
 import { engineerProfiles } from '@/data/engineerProfiles';
@@ -229,7 +230,7 @@ const FloatingProfiles: React.FC<FloatingProfilesProps> = ({ mousePosition, scro
       {showHint && (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 text-white px-4 py-2 rounded-full flex items-center gap-2 z-50 animate-pulse">
           <MousePointer className="h-4 w-4" />
-          <span>Click the profiles to expand</span>
+          <span>Click the card to view</span>
         </div>
       )}
       
