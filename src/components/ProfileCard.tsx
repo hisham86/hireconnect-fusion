@@ -2,6 +2,7 @@
 import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { EngineerProfile } from '@/types/profile';
+import { MousePointer } from 'lucide-react';
 
 interface ProfileCardProps {
   profile: EngineerProfile;
@@ -16,13 +17,19 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ profile, isFocused, onClick, 
       onClick={onClick}
       className={`floating-profile absolute ${profile.position} ${profile.rotation} ${profile.specialClass} ${profile.floatClass} backdrop-blur-lg rounded-2xl p-6 shadow-xl border
         ${isFocused ? 'focused-profile z-50 scale-110' : ''} 
-        transition-all duration-300 cursor-pointer hover:shadow-2xl`}
+        transition-all duration-300 cursor-pointer hover:shadow-2xl group`}
       style={{
         animationDelay: `${index * 0.2}s`,
         zIndex: isFocused ? 50 : 10 - index,
         ['--rotation' as any]: profile.rotation
       }}
     >
+      {!isFocused && (
+        <div className="absolute -top-3 -right-3 bg-brand-primary text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 text-xs">
+          <MousePointer className="h-3 w-3" />
+          Click me
+        </div>
+      )}
       <div className="absolute -top-6 -right-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium flex items-center gap-2">
         {profile.icon}
         Engineer Profile
