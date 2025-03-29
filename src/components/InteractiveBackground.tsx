@@ -4,19 +4,196 @@ import { useRef, useEffect } from 'react';
 const InteractiveBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef<number>(0);
+  const gridRef = useRef<Grid>({ lines: [], offset: 0 });
+  const circlesRef = useRef<Circle[]>([]);
+  const timeRef = useRef<number>(0);
 
-  interface Particle {
+  interface Grid {
+    lines: { x1: number, y1: number, x2: number, y2: number }[];
+    offset: number;
+  }
+
+  interface Circle {
     x: number;
     y: number;
-    size: number;
-    baseX: number;
-    baseY: number;
-    density: number;
+    radius: number;
     color: string;
+    speed: number;
+    direction: number;
   }
+
+  const generateGrid = (width: number, height: number) => {
+    const grid: Grid = { lines: [], offset: 0 };
+    const spacing = 80;
+    const horizon = height * 0.6;
+    
+    // Horizontal lines (perspective)
+    for (let y = horizon; y <= height + spacing; y += spacing) {
+      grid.lines.push({
+        x1: 0,
+        y1: y,
+        x2: width,
+        y2: y
+      });
+    }
+    
+    // Vertical lines (perspective)
+    const verticalCount = Math.ceil(width / spacing) + 1;
+    for (let i = 0; i < verticalCount; i++) {
+      const x = i * spacing;
+      grid.lines.push({
+        x1: x,
+        y1: horizon,
+        x2: x,
+        y2: height
+      });
+    }
+
+    return grid;
+  };
+
+  const generateCircles = (width: number, height: number) => {
+    const circles: Circle[] = [];
+    const count = Math.min(15, Math.floor((width * height) / 25000));
+    
+    for (let i = 0; i < count; i++) {
+      const radius = Math.random() * 50 + 20;
+      circles.push({
+        x: Math.random() * width,
+        y: Math.random() * (height * 0.5),
+        radius,
+        color: getVaporwaveColor(Math.random()),
+        speed: Math.random() * 0.2 + 0.1,
+        direction: Math.random() > 0.5 ? 1 : -1
+      });
+    }
+    
+    return circles;
+  };
+
+  const getVaporwaveColor = (value: number) => {
+    // Vaporwave palette: neon pinks, purples, cyans
+    const colors = [
+      'rgba(255, 107, 237, 0.3)',
+      'rgba(127, 0, 255, 0.3)',
+      'rgba(0, 255, 255, 0.3)',
+      'rgba(255, 84, 141, 0.3)',
+      'rgba(115, 221, 255, 0.3)',
+      'rgba(184, 92, 255, 0.3)'
+    ];
+    
+    return colors[Math.floor(value * colors.length)];
+  };
+
+  const drawGrid = (ctx: CanvasRenderingContext2D, grid: Grid, width: number, height: number) => {
+    const horizon = height * 0.6;
+    
+    // Draw sun/moon
+    const gradientRadius = width * 0.15;
+    const sunGradient = ctx.createRadialGradient(
+      width / 2, horizon - gradientRadius / 2, 0,
+      width / 2, horizon - gradientRadius / 2, gradientRadius
+    );
+    
+    sunGradient.addColorStop(0, 'rgba(255, 120, 216, 1)');
+    sunGradient.addColorStop(0.5, 'rgba(255, 84, 141, 0.8)');
+    sunGradient.addColorStop(1, 'rgba(255, 84, 141, 0)');
+    
+    ctx.fillStyle = sunGradient;
+    ctx.beginPath();
+    ctx.arc(width / 2, horizon - gradientRadius / 2, gradientRadius, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Draw gradient sky
+    const skyGradient = ctx.createLinearGradient(0, 0, 0, horizon);
+    skyGradient.addColorStop(0, 'rgba(23, 11, 75, 0.8)');
+    skyGradient.addColorStop(1, 'rgba(116, 42, 150, 0.7)');
+    
+    ctx.fillStyle = skyGradient;
+    ctx.fillRect(0, 0, width, horizon);
+    
+    // Draw ground gradient
+    const groundGradient = ctx.createLinearGradient(0, horizon, 0, height);
+    groundGradient.addColorStop(0, 'rgba(115, 221, 255, 0.7)');
+    groundGradient.addColorStop(1, 'rgba(195, 66, 221, 0.8)');
+    
+    ctx.fillStyle = groundGradient;
+    ctx.fillRect(0, horizon, width, height - horizon);
+    
+    // Draw grid lines with perspective effect
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.lineWidth = 1;
+    
+    grid.lines.forEach(line => {
+      ctx.beginPath();
+      ctx.moveTo(line.x1, line.y1);
+      ctx.lineTo(line.x2, line.y2);
+      ctx.stroke();
+    });
+  };
+
+  const drawCircles = (ctx: CanvasRenderingContext2D, circles: Circle[]) => {
+    circles.forEach(circle => {
+      ctx.fillStyle = circle.color;
+      ctx.beginPath();
+      ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Add glow effect
+      const glowSize = circle.radius * 1.3;
+      const glow = ctx.createRadialGradient(
+        circle.x, circle.y, circle.radius * 0.5,
+        circle.x, circle.y, glowSize
+      );
+      
+      const color = circle.color.replace(/[\d.]+\)$/, '0.2)');
+      glow.addColorStop(0, color);
+      glow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(circle.x, circle.y, glowSize, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  };
+
+  const updateCircles = (circles: Circle[], width: number, deltaTime: number) => {
+    circles.forEach(circle => {
+      circle.x += circle.speed * circle.direction * deltaTime;
+      
+      // Reset position when off screen
+      if (circle.x > width + circle.radius) {
+        circle.x = -circle.radius;
+      } else if (circle.x < -circle.radius) {
+        circle.x = width + circle.radius;
+      }
+    });
+  };
+
+  const animate = (timestamp: number) => {
+    if (!contextRef.current || !canvasRef.current) return;
+    
+    const canvas = canvasRef.current;
+    const ctx = contextRef.current;
+    const deltaTime = timestamp - (timeRef.current || timestamp);
+    timeRef.current = timestamp;
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Update grid offset for perspective movement
+    gridRef.current.offset = (gridRef.current.offset + 0.5) % 80;
+    
+    // Draw background elements
+    drawGrid(ctx, gridRef.current, canvas.width, canvas.height);
+    
+    // Update and draw circles
+    updateCircles(circlesRef.current, canvas.width, deltaTime / 16);
+    drawCircles(ctx, circlesRef.current);
+    
+    animationFrameRef.current = requestAnimationFrame(animate);
+  };
 
   const init = () => {
     if (!canvasRef.current) return;
@@ -28,128 +205,30 @@ const InteractiveBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     contextRef.current = ctx;
-
-    const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
     
-    const particles: Particle[] = [];
-    for (let i = 0; i < particleCount; i++) {
-      const size = Math.random() * 3 + 1;
-      const x = Math.random() * (canvas.width - size * 2) + size;
-      const y = Math.random() * (canvas.height - size * 2) + size;
-      const density = Math.random() * 30 + 5;
-      const opacity = Math.random() * 0.5 + 0.2;
-      const hue = Math.random() * 60 + 220; // Blue to purple range
-      
-      particles.push({
-        x,
-        y,
-        size,
-        baseX: x,
-        baseY: y,
-        density,
-        color: `hsla(${hue}, 80%, 60%, ${opacity})`,
-      });
-    }
+    gridRef.current = generateGrid(canvas.width, canvas.height);
+    circlesRef.current = generateCircles(canvas.width, canvas.height);
     
-    particlesRef.current = particles;
-    animate();
-  };
-
-  const animate = () => {
-    if (!contextRef.current || !canvasRef.current) return;
-    
-    const ctx = contextRef.current;
-    const canvas = canvasRef.current;
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    particlesRef.current.forEach((particle) => {
-      // Calculate distance between mouse and particle
-      const dx = mouseRef.current.x - particle.x;
-      const dy = mouseRef.current.y - particle.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      
-      const forceDirectionX = dx / distance;
-      const forceDirectionY = dy / distance;
-      
-      // Max distance past which the particle is not affected by mouse
-      const maxDistance = 150;
-      const force = (maxDistance - distance) / maxDistance;
-      
-      // If we're close enough, move the particle
-      if (distance < maxDistance) {
-        particle.x -= forceDirectionX * force * particle.density;
-        particle.y -= forceDirectionY * force * particle.density;
-      }
-      
-      // Move particles back to their original position
-      const dx2 = particle.baseX - particle.x;
-      const dy2 = particle.baseY - particle.y;
-      const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-      
-      const returnSpeed = distance2 * 0.01;
-      
-      if (distance2 > 0.5) {
-        particle.x += (dx2 / distance2) * returnSpeed;
-        particle.y += (dy2 / distance2) * returnSpeed;
-      }
-      
-      // Draw the particle
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = particle.color;
-      ctx.fill();
-      
-      // Connect particles with lines if they're close
-      connectParticles(particle);
-    });
-
     animationFrameRef.current = requestAnimationFrame(animate);
-  };
-
-  const connectParticles = (p1: Particle) => {
-    if (!contextRef.current) return;
-    
-    const ctx = contextRef.current;
-    
-    particlesRef.current.forEach((p2) => {
-      const dx = p1.x - p2.x;
-      const dy = p1.y - p2.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      
-      if (distance < 120) {
-        // Draw line between particles
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(120, 90, 255, ${0.2 - distance / 1000})`;
-        ctx.lineWidth = 0.3;
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.stroke();
-      }
-    });
   };
 
   useEffect(() => {
     init();
-
+    
     const handleResize = () => {
       if (!canvasRef.current) return;
       
       canvasRef.current.width = window.innerWidth;
       canvasRef.current.height = window.innerHeight;
-      init();
+      
+      gridRef.current = generateGrid(canvasRef.current.width, canvasRef.current.height);
+      circlesRef.current = generateCircles(canvasRef.current.width, canvasRef.current.height);
     };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-
+    
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
     
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameRef.current);
     };
   }, []);
