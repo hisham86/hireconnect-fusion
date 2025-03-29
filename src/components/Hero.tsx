@@ -68,9 +68,10 @@ const Hero = () => {
       notice: "30 days",
       location: "Kuala Lumpur, Malaysia Timezone",
       icon: <Code className="h-5 w-5 text-brand-primary" />,
-      position: "top-16 -right-4 md:top-10 md:-right-6",
+      position: "top-10 -right-4 md:top-16 md:right-24",
       rotation: "rotate-2",
-      specialClass: "bg-white/10 dark:bg-white/5 border-white/20"
+      specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
+      floatClass: "animate-float-1"
     },
     {
       role: "Backend Developer",
@@ -78,9 +79,10 @@ const Hero = () => {
       notice: "45 days",
       location: "Remote (US Eastern Timezone)",
       icon: <ServerCog className="h-5 w-5 text-green-500" />,
-      position: "-top-16 right-20 md:-top-8 md:right-32",
+      position: "-top-10 right-20 md:top-8 md:right-12",
       rotation: "-rotate-3",
-      specialClass: "bg-white/10 dark:bg-white/5 border-white/20"
+      specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
+      floatClass: "animate-float-2"
     },
     {
       role: "Full Stack Engineer",
@@ -88,9 +90,10 @@ const Hero = () => {
       notice: "60 days",
       location: "Berlin, Germany",
       icon: <Layers className="h-5 w-5 text-blue-500" />,
-      position: "top-40 -right-8 md:top-32 md:-right-12",
+      position: "top-24 -right-8 md:top-40 md:right-36",
       rotation: "rotate-6",
-      specialClass: "bg-white/10 dark:bg-white/5 border-white/20"
+      specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
+      floatClass: "animate-float-3"
     },
     {
       role: "Mobile Developer",
@@ -98,9 +101,10 @@ const Hero = () => {
       notice: "30 days",
       location: "Singapore",
       icon: <Smartphone className="h-5 w-5 text-purple-500" />,
-      position: "top-80 right-4 md:top-60 md:right-8",
+      position: "top-48 right-4 md:top-20 md:right-2",
       rotation: "-rotate-2",
-      specialClass: "bg-white/10 dark:bg-white/5 border-white/20"
+      specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
+      floatClass: "animate-float-4"
     },
     {
       role: "Database Specialist",
@@ -108,9 +112,10 @@ const Hero = () => {
       notice: "45 days",
       location: "Toronto, Canada",
       icon: <Database className="h-5 w-5 text-amber-500" />,
-      position: "top-4 -right-20 md:top-2 md:-right-32",
+      position: "top-4 -right-14 md:top-52 md:right-28",
       rotation: "rotate-12",
-      specialClass: "bg-white/10 dark:bg-white/5 border-white/20"
+      specialClass: "bg-white/10 dark:bg-white/5 border-white/20",
+      floatClass: "animate-float-5"
     }
   ];
 
@@ -138,17 +143,18 @@ const Hero = () => {
               </button>
             </div>
           </div>
-          <div className="relative hidden md:block" ref={profilesRef}>
+          <div className="relative hidden md:block h-[500px]" ref={profilesRef}>
             {engineerProfiles.map((profile, index) => (
               <div 
                 key={index}
                 onClick={() => handleProfileClick(index)}
-                className={`floating-profile absolute ${profile.position} ${profile.rotation} ${profile.specialClass} backdrop-blur-lg rounded-2xl p-6 shadow-xl border
+                className={`floating-profile absolute ${profile.position} ${profile.rotation} ${profile.specialClass} ${profile.floatClass} backdrop-blur-lg rounded-2xl p-6 shadow-xl border
                   ${focusedProfile === index ? 'focused-profile z-50 scale-110' : ''} 
                   transition-all duration-300 cursor-pointer hover:shadow-2xl`}
                 style={{
                   animationDelay: `${index * 0.2}s`,
-                  zIndex: focusedProfile === index ? 50 : 10 - index
+                  zIndex: focusedProfile === index ? 50 : 10 - index,
+                  ['--rotation' as any]: profile.rotation
                 }}
               >
                 <div className="absolute -top-6 -right-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium flex items-center gap-2">
