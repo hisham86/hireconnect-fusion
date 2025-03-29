@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useEngineerDashboard } from "@/hooks/useEngineerDashboard";
 import { useAuth } from "@/context/AuthContext";
@@ -52,8 +52,16 @@ const EngineerDashboard = () => {
     applySuggestedJob,
     toggleSalaryDisplay,
     handleSort,
-    getSortedJobs
+    getSortedJobs,
+    loadUserData
   } = useEngineerDashboard();
+
+  // Load data when component mounts
+  useEffect(() => {
+    if (user) {
+      loadUserData();
+    }
+  }, [user, loadUserData]);
 
   const handleLocationChange = async (value: string) => {
     if (!profile) return;
