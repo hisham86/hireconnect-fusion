@@ -50,7 +50,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       {!isFocused && (
         <div className="absolute -top-3 -right-3 bg-brand-primary text-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 text-xs">
           <MousePointer className="h-3 w-3" />
-          Click me
+          Click to view
         </div>
       )}
       
