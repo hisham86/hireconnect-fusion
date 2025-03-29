@@ -1,7 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Code, Users } from 'lucide-react';
 import { userService } from '@/services/userService';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface HeroContentProps {
   onOpenDialog: () => void;
@@ -10,8 +11,39 @@ interface HeroContentProps {
 const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [isInView, setIsInView] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const counterRef = useRef<HTMLDivElement>(null);
+  
+  // Set up intersection observer to detect when counter is in view
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Only set isInView to true if it wasn't already true
+        if (entry.isIntersecting && !isInView) {
+          setIsInView(true);
+        }
+      },
+      {
+        threshold: 0.1, // Trigger when at least 10% of the element is visible
+      }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => {
+      if (counterRef.current) {
+        observer.unobserve(counterRef.current);
+      }
+    };
+  }, [isInView]);
+
+  // Fetch user count and start animation when in view
+  useEffect(() => {
+    if (!isInView) return; // Only run when in view
+    
     const fetchUserCount = async () => {
       setIsLoading(true);
       try {
@@ -24,6 +56,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
         // Start from a smaller number to animate
         const startCount = Math.max(1, displayCount - 40);
         setCount(startCount);
+        setIsAnimating(true);
         
         // Animate the counter
         const timer = setTimeout(() => {
@@ -35,6 +68,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
             if (current >= displayCount) {
               clearInterval(interval);
               setIsLoading(false);
+              setIsAnimating(false);
             }
           }, 30);
           
@@ -50,7 +84,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
     };
     
     fetchUserCount();
-  }, []);
+  }, [isInView]);
 
   return (
     <div className="max-w-xl">
@@ -62,15 +96,19 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
         eliminating back-and-forth and accelerating the hiring process.
       </p>
       <div className="flex flex-col gap-2 relative z-10">
-        <div className="bg-black/30 backdrop-blur-md p-3 rounded-lg flex items-center mb-4 border border-purple-400/30 shadow-lg">
+        <div 
+          ref={counterRef}
+          className="bg-black/30 backdrop-blur-md p-3 rounded-lg flex items-center mb-4 border border-purple-400/30 shadow-lg overflow-hidden"
+        >
           <Users className="text-purple-300 mr-3 h-5 w-5" />
           <div className="flex items-center">
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
-              {isLoading ? 
-                <span className="inline-block w-12 h-6 bg-purple-300/20 rounded animate-pulse"></span> : 
-                count.toLocaleString()
-              }
-            </span>
+            {isLoading ? (
+              <Skeleton className="w-16 h-8 bg-purple-300/20" />
+            ) : (
+              <span className={`text-2xl font-bold bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent ${isAnimating ? 'counter-animation' : ''}`}>
+                {count.toLocaleString()}
+              </span>
+            )}
             <span className="ml-2 text-purple-200 text-sm">developers have joined our platform</span>
           </div>
         </div>

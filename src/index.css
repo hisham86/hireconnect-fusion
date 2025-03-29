@@ -122,6 +122,25 @@
     @apply shadow-2xl border-brand-primary;
     animation: card-focus 0.5s ease-out forwards;
   }
+  
+  .counter-animation {
+    animation: number-update 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+}
+
+@keyframes number-update {
+  0% {
+    transform: scale(1.2);
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+  }
+  50% {
+    transform: scale(1.4);
+    text-shadow: 0 0 12px rgba(168, 85, 247, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 0px rgba(168, 85, 247, 0);
+  }
 }
 
 @keyframes card-focus {
