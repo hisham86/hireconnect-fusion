@@ -102,22 +102,22 @@ class AnalyticsService {
   
   async trackPageView(path: string): Promise<void> {
     const sessionId = this.initSession();
-    const visitorData: VisitorData = {
-      sessionId,
-      userId: this.getUserId(),
-      visitTime: new Date().toISOString(),
+    const analyticsData = {
+      session_id: sessionId,
+      user_id: this.getUserId(),
+      visit_time: new Date().toISOString(),
       referrer: document.referrer || 'direct',
-      deviceType: this.getDeviceType(),
+      device_type: this.getDeviceType(),
       browser: this.getBrowser(),
-      operatingSystem: this.getOperatingSystem(),
-      screenResolution: this.getScreenResolution(),
+      operating_system: this.getOperatingSystem(),
+      screen_resolution: this.getScreenResolution(),
       language: navigator.language,
       path: path
     };
     
     // Store analytics data in Supabase
     try {
-      const { error } = await supabase.from('analytics').insert(visitorData);
+      const { error } = await supabase.from('analytics').insert(analyticsData);
       
       if (error) {
         console.error('Error storing analytics data:', error);
@@ -132,7 +132,7 @@ class AnalyticsService {
       const { data, error } = await supabase
         .from('analytics')
         .select('user_id')
-        .is('user_id', 'not.null');
+        .not('user_id', 'is', null);
       
       if (error) {
         console.error('Error fetching unique visitors:', error);

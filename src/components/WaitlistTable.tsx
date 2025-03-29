@@ -9,28 +9,36 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { waitlistService } from "@/services/waitlistService";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface WaitlistEntry {
+  id?: string;
   name: string;
   email: string;
   userType: "engineer" | "recruiter" | null;
   role?: string;
   experience?: string;
-  timestamp: string;
+  created_at?: string;
 }
 
 const WaitlistTable = () => {
   const [waitlistEntries, setWaitlistEntries] = useState<WaitlistEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storageKey = "catohub_waitlist";
-    const storedData = localStorage.getItem(storageKey);
-    if (storedData) {
-      setWaitlistEntries(JSON.parse(storedData));
-    }
+    const fetchEntries = async () => {
+      setIsLoading(true);
+      const entries = await waitlistService.getAllEntries();
+      setWaitlistEntries(entries);
+      setIsLoading(false);
+    };
+
+    fetchEntries();
   }, []);
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "";
     const date = new Date(dateString);
     return date.toLocaleString();
   };
@@ -46,6 +54,29 @@ const WaitlistTable = () => {
   const getGeneralCount = () => {
     return waitlistEntries.filter(entry => entry.userType === null).length;
   };
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Waitlist Entries</CardTitle>
+          <div className="flex flex-wrap gap-4 mt-2">
+            <Skeleton className="h-6 w-28" />
+            <Skeleton className="h-6 w-28" />
+            <Skeleton className="h-6 w-28" />
+            <Skeleton className="h-6 w-28" />
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Skeleton key={i} className="h-12 w-full" />
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -83,8 +114,8 @@ const WaitlistTable = () => {
               </TableHeader>
               <TableBody>
                 {waitlistEntries.map((entry, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{formatDate(entry.timestamp)}</TableCell>
+                  <TableRow key={entry.id || index}>
+                    <TableCell>{formatDate(entry.created_at)}</TableCell>
                     <TableCell>{entry.name}</TableCell>
                     <TableCell>{entry.email}</TableCell>
                     <TableCell>

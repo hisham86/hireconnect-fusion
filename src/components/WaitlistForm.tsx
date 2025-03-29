@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -22,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { waitlistService } from "@/services/waitlistService";
 
 const waitlistSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -54,33 +54,26 @@ const WaitlistForm = ({ onSuccess, userType }: WaitlistFormProps) => {
     setIsSubmitting(true);
     
     try {
-      // Create a waitlist entry with the form data
-      const waitlistEntry = {
+      // Submit waitlist entry to Supabase
+      const result = await waitlistService.addEntry({
         ...data,
         userType,
-        timestamp: new Date().toISOString(),
-      };
-      
-      // Store the waitlist entry in localStorage
-      const storageKey = "catohub_waitlist";
-      const existingData = localStorage.getItem(storageKey);
-      const waitlistData = existingData ? JSON.parse(existingData) : [];
-      waitlistData.push(waitlistEntry);
-      localStorage.setItem(storageKey, JSON.stringify(waitlistData));
-      
-      console.log("Submitting to waitlist:", waitlistEntry);
-      
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      toast.success("You've been added to the waitlist!", {
-        description: "We'll notify you when we launch.",
       });
       
-      form.reset();
-      
-      if (onSuccess) {
-        onSuccess();
+      if (result) {
+        toast.success("You've been added to the waitlist!", {
+          description: "We'll notify you when we launch.",
+        });
+        
+        form.reset();
+        
+        if (onSuccess) {
+          onSuccess();
+        }
+      } else {
+        toast.error("Failed to join the waitlist", {
+          description: "Please try again later.",
+        });
       }
     } catch (error) {
       console.error("Error submitting to waitlist:", error);
