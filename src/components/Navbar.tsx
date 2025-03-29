@@ -35,7 +35,7 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/5a805dc9-0c39-4d9c-a444-578cb8bdd9d2.png" 
               alt="CodingCats Logo" 
-              className="h-12 md:h-16 mr-2" 
+              className="h-16 md:h-20 mr-2" 
             />
           </a>
         </div>
