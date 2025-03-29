@@ -15,8 +15,8 @@ import { EngineerProfile } from '@/types/profile';
 export const engineerProfiles: EngineerProfile[] = [
   {
     role: "Senior Frontend Engineer",
-    salary: "MYR 10,000 - 12,500 /month",
-    notice: "30 days",
+    salary: "MYR 10,000 - 12,500 /month (That's a lot of catnip!)",
+    notice: "30 days (Faster than a catnap!)",
     location: "Kuala Lumpur, Malaysia Timezone",
     icon: <Code className="h-5 w-5 text-brand-primary" />,
     position: "top-10 -right-4 md:top-16 md:right-24",
@@ -31,7 +31,7 @@ export const engineerProfiles: EngineerProfile[] = [
   },
   {
     role: "Backend Developer",
-    salary: "USD 8,000 - 9,500 /month",
+    salary: "USD 8,000 - 9,500 /month (Paws-itively lucrative!)",
     notice: "45 days",
     location: "Remote (US Eastern Timezone)",
     icon: <ServerCog className="h-5 w-5 text-green-500" />,

@@ -11,25 +11,25 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "CodingCats has cut our hiring process time in half. We now have immediate access to the information we need without endless email chains.",
+    quote: "CodingCats has clawed our hiring time in half! No more endless email chains—just the info we need, pronto.",
     author: "Sarah Johnson",
     title: "Head of Talent Acquisition at TechGrowth",
     type: "recruiter"
   },
   {
-    quote: "As an engineer, I love how I can maintain one profile with all my details and share it selectively with companies I'm interested in.",
+    quote: "As an engineer, I'm feline fine with one profile for all my details—I share it only with companies I'm paws-itively interested in!",
     author: "Michael Chen",
     title: "Senior Software Engineer",
     type: "engineer"
   },
   {
-    quote: "The transparency this platform provides has made salary discussions much more straightforward. It's a game-changer for both sides.",
+    quote: "The transparency on this platform makes salary talks a catwalk. It's a game-changer for both sides!",
     author: "Jessica Williams",
     title: "Engineering Manager at CloudScale",
     type: "engineer"
   },
   {
-    quote: "We've increased our engineering hire success rate by 40% since using this platform. The pre-qualification information is invaluable.",
+    quote: "We've boosted our engineering hire success rate by 40% since joining this litter. The pre-qualification info is the cat's meow!",
     author: "Robert Martinez",
     title: "Technical Recruiter at InnovateTech",
     type: "recruiter"
@@ -43,7 +43,7 @@ const Testimonials = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
           <p className="text-lg text-gray-700">
-            Hear from engineers and recruiters who have transformed their hiring process with CodingCats.
+            Hear from the cats and recruiters who've scratched the surface of hiring with CodingCats!
           </p>
         </div>
 

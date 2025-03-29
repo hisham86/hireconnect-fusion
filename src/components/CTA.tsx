@@ -18,10 +18,10 @@ const CTA = () => {
       <div className="container mx-auto px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to transform your hiring process?
+            Ready to Pounce on a Better Hiring Process?
           </h2>
           <p className="text-xl mb-8 text-white/90">
-            Join thousands of engineers and companies already streamlining their recruitment experience.
+            Join thousands of engineers and companies already feline the benefits of CodingCats!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button 

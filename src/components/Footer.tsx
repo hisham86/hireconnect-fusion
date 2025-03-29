@@ -15,7 +15,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-gray-400 mb-4">
-              Bridging the gap between engineers and talent acquisition teams with a unified platform.
+              Bridging the Gap Between Engineers and Talent Teams with a Purr-fect Platform!
             </p>
             <div className="flex space-x-4">
               <a href="https://career-spotlight-portfolio.lovable.app/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors" aria-label="Portfolio Website">

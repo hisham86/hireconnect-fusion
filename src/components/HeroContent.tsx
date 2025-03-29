@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Code, Users } from 'lucide-react';
 import { userService } from '@/services/userService';
@@ -88,11 +89,11 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
   return (
     <div className="max-w-xl">
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        CodingCats slashes job hunting from months down to days.
+        CodingCats: Where Job Hunting Doesn't Make You Hiss!
       </h1>
       <p className="text-lg md:text-xl mb-8 text-white">
-        Streamline hiring with a single platform that connects engineers and talent acquisition teams, 
-        eliminating back-and-forth and accelerating the hiring process.
+        We pounce on the hiring process, connecting engineers and talent teams faster than a cat chasing a laser pointer. 
+        Say goodbye to endless back-and-forth—our platform makes hiring a whisker-quick breeze!
       </p>
       <div className="flex flex-col gap-2 relative z-10">
         <div 
@@ -108,7 +109,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
                 {count.toLocaleString()}
               </span>
             )}
-            <span className="ml-2 text-purple-200 text-sm">developers have joined our platform</span>
+            <span className="ml-2 text-purple-200 text-sm">Purr-fect Developers Have Joined Our Litter!</span>
           </div>
         </div>
         

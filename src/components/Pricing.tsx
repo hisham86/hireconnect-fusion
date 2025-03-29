@@ -66,9 +66,9 @@ const Pricing = () => {
     <section id="pricing" className="section-padding bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Transparent Pricing</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Transparent Pricing: No Cat-and-Mouse Games Here!</h2>
           <p className="text-lg text-gray-600">
-            Choose the plan that works best for your needs, with no hidden fees or complicated pricing structures.
+            Pick a plan that fits your needs—no hidden fees, just purr-fect pricing!
           </p>
         </div>
 

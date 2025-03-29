@@ -5,37 +5,37 @@ const steps = [
   {
     number: "01",
     title: "Create Your Profile",
-    description: "Engineers set up comprehensive profiles with skills, experience, salary expectations, and notice periods.",
+    description: "Set up a profile with all your skills, experience, and salary expectations—your ticket to the job jungle!",
     for: "Engineers"
   },
   {
     number: "02",
     title: "Search for Opportunities",
-    description: "Browse jobs or allow recruiters to discover your profile based on your privacy settings.",
+    description: "Browse jobs or let recruiters sniff out your profile (don't worry, you control the leash).",
     for: "Engineers"
   },
   {
     number: "03",
     title: "Connect with Companies",
-    description: "When there's mutual interest, share detailed information automatically without repetitive emails.",
+    description: "When the vibe is right, share your details automatically—no more repetitive emails!",
     for: "Engineers"
   },
   {
     number: "01",
     title: "Set up Team Account",
-    description: "Create your company profile and add team members to your recruiting dashboard.",
+    description: "Create your company profile and rally your pack to the recruiting dashboard.",
     for: "Recruiters"
   },
   {
     number: "02",
     title: "Find Qualified Candidates",
-    description: "Search our database of engineers using detailed filters for skills, experience, and more.",
+    description: "Search our database with filters sharper than a cat's claws—skills, experience, and more!",
     for: "Recruiters"
   },
   {
     number: "03",
     title: "Access Complete Information",
-    description: "View comprehensive candidate profiles with all the details you need to make informed decisions.",
+    description: "Get the full scoop on candidates, so you can make decisions faster than a dog chasing its tail.",
     for: "Recruiters"
   }
 ];
@@ -47,7 +47,7 @@ const HowItWorks = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
           <p className="text-lg text-gray-700">
-            CodingCats simplifies the hiring process for both engineers and recruiters.
+            CodingCats makes hiring as easy as herding cats (but way more fun)!
           </p>
         </div>
 
