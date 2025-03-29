@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import WaitlistDialog from '@/components/WaitlistDialog';
+import RobotScene from '@/components/RobotScene';
 
 const Hero = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -35,7 +36,13 @@ const Hero = () => {
               </button>
             </div>
           </div>
-          <div className="relative animate-float hidden md:block">
+          <div className="relative md:flex space-y-6">
+            {/* Interactive Robot */}
+            <div className="hidden md:block w-full h-72">
+              <RobotScene />
+            </div>
+            
+            {/* Engineer Profile Card */}
             <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/20">
               <div className="absolute -top-6 -right-6 bg-brand-light text-brand-primary rounded-full px-4 py-2 font-medium">
                 Engineer Profile
