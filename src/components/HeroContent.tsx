@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Code } from 'lucide-react';
 
 interface HeroContentProps {
   onOpenDialog: () => void;
@@ -25,6 +26,14 @@ const HeroContent: React.FC<HeroContentProps> = ({ onOpenDialog }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
         </button>
+        
+        <a 
+          href="/auth" 
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-md transition inline-flex items-center justify-center mt-2"
+        >
+          <Code className="mr-2 h-5 w-5" />
+          EARLY ACCESS FOR DEVS
+        </a>
       </div>
     </div>
   );
