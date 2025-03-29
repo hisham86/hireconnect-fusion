@@ -28,9 +28,11 @@ const CTA = () => {
               size="lg" 
               variant="secondary" 
               className="bg-[#F97316] text-white hover:bg-[#F97316]/90 font-medium"
-              onClick={() => openDialog("engineer")}
+              asChild
             >
-              <Code className="mr-2 h-5 w-5" /> I am Engineer
+              <a href="/auth">
+                <Code className="mr-2 h-5 w-5" /> I am Engineer
+              </a>
             </Button>
             <Button 
               size="lg" 
