@@ -1,7 +1,7 @@
 
 # CodingCats 😺
 
-CodingCats is a purr-fect platform designed to bridge the gap between engineers and talent acquisition teams, slashing job hunting time from months down to days!
+[CodingCats.com](https://codingcats.com) is a purr-fect platform designed to bridge the gap between engineers and talent acquisition teams, slashing job hunting time from months down to days!
 
 ## Overview
 
